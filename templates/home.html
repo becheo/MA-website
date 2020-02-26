@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1>Web-basierter Versuch</h1>
+    <p class="lead">Willkommen zum Web-basierten Versuch des Fachgebiets MDT der TU-Berlin. Dieser Versuch wird
+        gegenwärtig in der
+        Lehrveranstaltung "Modellierung und Simulation mechatronischer Systeme" verwendet
+    </p>
+    <img src="{{url_for('static', filename='MDT_logo.jpg')}}" alt="TU_logo" height="100" />
+    {% if session.logged_in == NULL %}
+    <a href="/register" class="btn btn-primary btn-lg">Register</a>
+    <a href="/login" class="btn-success btn-lg">Login</a>
+    {% endif %}
+</div>
+{% endblock %}
