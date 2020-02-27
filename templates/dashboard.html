@@ -32,7 +32,7 @@
                     height="100" /></a>
         </td> -->
         <td><button id="myBtn">Vergrößern</button><img id="img_Spannungsvorgabe"
-                src="{{url_for('static', filename='plots/{{Spannungsverlauf}}')}}" alt="Spannungsverlauf"
+                src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}" alt="Spannungsverlauf"
                 height="100" />
             <!-- The Modal -->
             <div id="myModal" class="w3_modal">
@@ -48,7 +48,9 @@
         </td>
         <td></td>
         <td></td>
-        <td><a href="edit_article/{{files.id}}" class="btn btn-default pull-right">Edit</a></td>
+        <td>
+            <!-- <a href="edit_article/{{files.id}}" class="btn btn-default pull-right">Edit</a> -->
+        </td>
         <td>
             <form action="{{url_for('delete_article', id=file.id)}}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
