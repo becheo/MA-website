@@ -229,3 +229,4 @@
 [Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\werkzeug\\routing.py", line 2020, in build\r, referer: http://localhost/
 [Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     raise BuildError(endpoint, values, method, self)\r, referer: http://localhost/
 [Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857] werkzeug.routing.BuildError: Could not build url for endpoint 'video_feed'. Did you mean 'index' instead?\r, referer: http://localhost/
+

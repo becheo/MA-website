@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 import os
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
+
 # TODO funktionen in externe datei schreiben und importieren (code uebersichtlicher machen)
 
 app = Flask(__name__)
