@@ -13,6 +13,8 @@ import os
 
 app = Flask(__name__)
 
+app.secret_key = b'secret123'
+
 # Config MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -398,7 +400,6 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    # app.secret_key = 'secret123'
     app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung

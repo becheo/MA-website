@@ -230,3 +230,24 @@
 [Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     raise BuildError(endpoint, values, method, self)\r, referer: http://localhost/
 [Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857] werkzeug.routing.BuildError: Could not build url for endpoint 'video_feed'. Did you mean 'index' instead?\r, referer: http://localhost/
 
+[Tue Mar 10 18:52:20.106418 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748] [2020-03-10 18:52:20,100] ERROR in app: Exception on /login [POST]\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.106418 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748] Traceback (most recent call last):\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 2446, in wsgi_app\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     response = self.full_dispatch_request()\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1951, in full_dispatch_request\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     rv = self.handle_user_exception(e)\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1820, in handle_user_exception\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\_compat.py", line 39, in reraise\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     raise value\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1949, in full_dispatch_request\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     rv = self.dispatch_request()\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1935, in dispatch_request\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     return self.view_functions[rule.endpoint](**req.view_args)\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app.py", line 144, in login\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     session['logged_in'] = True\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\werkzeug\\local.py", line 351, in __setitem__\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     self._get_current_object()[key] = value\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\sessions.py", line 102, in _fail\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     raise RuntimeError(\r, referer: http://localhost/login
+[Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748] RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.\r, referer: http://localhost/login
