@@ -1,0 +1,5 @@
+[Tue Mar 10 18:35:15.605107 2020] [wsgi:error] [pid 3096:tid 1328] [client ::1:61475] Target WSGI script not found or unable to stat: C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi
+[Tue Mar 10 18:35:21.452257 2020] [wsgi:error] [pid 3096:tid 1328] [client ::1:61476] Target WSGI script not found or unable to stat: C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi
+[Tue Mar 10 18:36:20.018612 2020] [wsgi:error] [pid 11020:tid 1368] [client ::1:61489] Target WSGI script not found or unable to stat: C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi
+[Tue Mar 10 18:36:21.505113 2020] [wsgi:error] [pid 11020:tid 1368] [client ::1:61489] Target WSGI script not found or unable to stat: C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi
+[Tue Mar 10 18:36:39.674072 2020] [wsgi:error] [pid 11020:tid 1368] [client ::1:61492] Target WSGI script not found or unable to stat: C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi
