@@ -1,0 +1,231 @@
+[Mon Mar 09 17:11:44.027308 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] mod_wsgi (pid=17536): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Mon Mar 09 17:11:44.027308 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] mod_wsgi (pid=17536): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Mon Mar 09 17:11:44.041298 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] Traceback (most recent call last):\r
+[Mon Mar 09 17:11:44.041298 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\__init__.py", line 24, in <module>\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     from . import multiarray\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\multiarray.py", line 14, in <module>\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     from . import overrides\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\overrides.py", line 7, in <module>\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     from numpy.core._multiarray_umath import (\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] ImportError: DLL load failed while importing _multiarray_umath: Das angegebene Modul wurde nicht gefunden.\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] During handling of the above exception, another exception occurred:\r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.042299 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] Traceback (most recent call last):\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     from app import app as application\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app.py", line 9, in <module>\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     import matplotlib.pyplot as plt\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\matplotlib\\__init__.py", line 138, in <module>\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     from . import cbook, rcsetup\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\matplotlib\\cbook\\__init__.py", line 31, in <module>\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     import numpy as np\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\__init__.py", line 142, in <module>\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     from . import core\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\__init__.py", line 54, in <module>\r
+[Mon Mar 09 17:11:44.043297 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]     raise ImportError(msg)\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] ImportError: \r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] Importing the numpy c-extensions failed.\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] - Try uninstalling and reinstalling numpy.\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] - If you have already done that, then:\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   1. Check that you expected to use Python3.8 from "C:\\Apache24\\bin\\httpd.exe",\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      and that you have no directories in your PATH or PYTHONPATH that can\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      interfere with the Python and numpy version "1.18.1" you're trying to use.\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   2. If (1) looks fine, you can open a new issue at\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      https://github.com/numpy/numpy/issues.  Please include details on:\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      - how you installed Python\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      - how you installed numpy\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      - your operating system\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      - whether or not you have multiple versions of Python installed\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]      - if you built from source, your compiler versions and ideally a build log\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] - If you're working with a numpy git repository, try `git clean -xdf`\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524]   (removes all files not under version control) and rebuild numpy.\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] Note: this error has many possible causes, so please don't comment on\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] an existing issue about this - open a new one instead.\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] Original error was: DLL load failed while importing _multiarray_umath: Das angegebene Modul wurde nicht gefunden.\r
+[Mon Mar 09 17:11:44.044302 2020] [wsgi:error] [pid 17536:tid 1336] [client ::1:51524] \r
+[Mon Mar 09 17:18:50.663824 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] mod_wsgi (pid=7616): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Mon Mar 09 17:18:50.663824 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] mod_wsgi (pid=7616): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] Traceback (most recent call last):\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\__init__.py", line 24, in <module>\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     from . import multiarray\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\multiarray.py", line 14, in <module>\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     from . import overrides\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\overrides.py", line 7, in <module>\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     from numpy.core._multiarray_umath import (\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] ImportError: DLL load failed while importing _multiarray_umath: Das angegebene Modul wurde nicht gefunden.\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] During handling of the above exception, another exception occurred:\r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.672814 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] Traceback (most recent call last):\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     from app import app as application\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app.py", line 9, in <module>\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     import matplotlib.pyplot as plt\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\matplotlib\\__init__.py", line 138, in <module>\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     from . import cbook, rcsetup\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\matplotlib\\cbook\\__init__.py", line 31, in <module>\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     import numpy as np\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\__init__.py", line 142, in <module>\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     from . import core\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\numpy\\core\\__init__.py", line 54, in <module>\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]     raise ImportError(msg)\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] ImportError: \r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] Importing the numpy c-extensions failed.\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] - Try uninstalling and reinstalling numpy.\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] - If you have already done that, then:\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   1. Check that you expected to use Python3.8 from "C:\\Apache24\\bin\\httpd.exe",\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      and that you have no directories in your PATH or PYTHONPATH that can\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      interfere with the Python and numpy version "1.18.1" you're trying to use.\r
+[Mon Mar 09 17:18:50.673812 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   2. If (1) looks fine, you can open a new issue at\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      https://github.com/numpy/numpy/issues.  Please include details on:\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      - how you installed Python\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      - how you installed numpy\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      - your operating system\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      - whether or not you have multiple versions of Python installed\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]      - if you built from source, your compiler versions and ideally a build log\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] - If you're working with a numpy git repository, try `git clean -xdf`\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567]   (removes all files not under version control) and rebuild numpy.\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] Note: this error has many possible causes, so please don't comment on\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] an existing issue about this - open a new one instead.\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] Original error was: DLL load failed while importing _multiarray_umath: Das angegebene Modul wurde nicht gefunden.\r
+[Mon Mar 09 17:18:50.674813 2020] [wsgi:error] [pid 7616:tid 1372] [client ::1:51567] \r
+[Tue Mar 10 16:21:58.461350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639] [2020-03-10 16:21:58,443] ERROR in app: Exception on /webcam [GET]\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.461350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639] Traceback (most recent call last):\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.461350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 2446, in wsgi_app\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.461350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     response = self.full_dispatch_request()\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.461350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1951, in full_dispatch_request\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     rv = self.handle_user_exception(e)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1820, in handle_user_exception\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\_compat.py", line 39, in reraise\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     raise value\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1949, in full_dispatch_request\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     rv = self.dispatch_request()\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1935, in dispatch_request\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return self.view_functions[rule.endpoint](**req.view_args)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app_wsgi.py", line 61, in webcam\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return render_template('webcam.html')\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\templating.py", line 137, in render_template\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return _render(\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.462350 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\templating.py", line 120, in _render\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     rv = template.render(context)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\asyncsupport.py", line 76, in render\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return original_render(self, *args, **kwargs)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\environment.py", line 1008, in render\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return self.environment.handle_exception(exc_info, True)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\environment.py", line 780, in handle_exception\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\_compat.py", line 37, in reraise\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     raise value.with_traceback(tb)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\webcam.html", line 2, in <module>\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     {% extends 'layout.html' %}\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\environment.py", line 1005, in render\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return concat(self.root_render_func(self.new_context(vars)))\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\webcam.html", line 16, in root\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     </video>\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.463349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\layout.html", line 19, in root\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     padding-top: 100px;\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\webcam.html", line 25, in block_body\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     // Variable, initialisiert zum html video element\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\runtime.py", line 262, in call\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return __obj(*args, **kwargs)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\helpers.py", line 370, in url_for\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     return appctx.app.handle_url_build_error(error, endpoint, values)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 2215, in handle_url_build_error\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\_compat.py", line 39, in reraise\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     raise value\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\helpers.py", line 357, in url_for\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     rv = url_adapter.build(\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\werkzeug\\routing.py", line 2020, in build\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639]     raise BuildError(endpoint, values, method, self)\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:21:58.464349 2020] [wsgi:error] [pid 1676:tid 1344] [client ::1:61639] werkzeug.routing.BuildError: Could not build url for endpoint 'video_feed'. Did you mean 'index' instead?\r, referer: http://localhost/nutzung-pruefstand
+[Tue Mar 10 16:31:02.230920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054] mod_wsgi (pid=12428): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Tue Mar 10 16:31:02.230920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054] mod_wsgi (pid=12428): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Tue Mar 10 16:31:02.236921 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054] Traceback (most recent call last):\r
+[Tue Mar 10 16:31:02.237920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Tue Mar 10 16:31:02.237920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054]     from app_wsgi import app as application\r
+[Tue Mar 10 16:31:02.237920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app_wsgi.py", line 9, in <module>\r
+[Tue Mar 10 16:31:02.237920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054]     import matplotlib.pyplot as plt\r
+[Tue Mar 10 16:31:02.237920 2020] [wsgi:error] [pid 12428:tid 1376] [client ::1:60054] ModuleNotFoundError: No module named 'matplotlib'\r
+[Tue Mar 10 16:31:06.446443 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059] mod_wsgi (pid=12428): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Tue Mar 10 16:31:06.446443 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059] mod_wsgi (pid=12428): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Tue Mar 10 16:31:06.447440 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059] Traceback (most recent call last):\r
+[Tue Mar 10 16:31:06.447440 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Tue Mar 10 16:31:06.447440 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059]     from app_wsgi import app as application\r
+[Tue Mar 10 16:31:06.447440 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app_wsgi.py", line 9, in <module>\r
+[Tue Mar 10 16:31:06.447440 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059]     import matplotlib.pyplot as plt\r
+[Tue Mar 10 16:31:06.447440 2020] [wsgi:error] [pid 12428:tid 1332] [client ::1:60059] ModuleNotFoundError: No module named 'matplotlib'\r
+[Tue Mar 10 17:28:46.765730 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702] mod_wsgi (pid=22424): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Tue Mar 10 17:28:46.765730 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702] mod_wsgi (pid=22424): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702] Traceback (most recent call last):\r
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702]     from app_wsgi import app as application\r
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app_wsgi.py", line 11\r
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702]     from matplotlib\r
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702]                   ^\r
+[Tue Mar 10 17:28:46.803707 2020] [wsgi:error] [pid 22424:tid 1368] [client ::1:60702] SyntaxError: invalid syntax\r
+[Tue Mar 10 17:45:46.337033 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857] [2020-03-10 17:45:46,322] ERROR in app: Exception on /webcam [GET]\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857] Traceback (most recent call last):\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 2446, in wsgi_app\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     response = self.full_dispatch_request()\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1951, in full_dispatch_request\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     rv = self.handle_user_exception(e)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1820, in handle_user_exception\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\_compat.py", line 39, in reraise\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     raise value\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1949, in full_dispatch_request\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     rv = self.dispatch_request()\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 1935, in dispatch_request\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return self.view_functions[rule.endpoint](**req.view_args)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\app.py", line 61, in webcam\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return render_template('webcam.html')\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\templating.py", line 137, in render_template\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return _render(\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\templating.py", line 120, in _render\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     rv = template.render(context)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\asyncsupport.py", line 76, in render\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return original_render(self, *args, **kwargs)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\environment.py", line 1008, in render\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.338032 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return self.environment.handle_exception(exc_info, True)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\environment.py", line 780, in handle_exception\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\_compat.py", line 37, in reraise\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     raise value.with_traceback(tb)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\webcam.html", line 2, in <module>\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     {% extends 'layout.html' %}\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\environment.py", line 1005, in render\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return concat(self.root_render_func(self.new_context(vars)))\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\webcam.html", line 16, in root\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     </video>\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\layout.html", line 19, in root\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     padding-top: 100px;\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "C:\\Users\\Oliver\\Desktop\\Masterarbeit\\03_Software\\Website\\templates\\webcam.html", line 25, in block_body\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     // Variable, initialisiert zum html video element\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\jinja2\\runtime.py", line 262, in call\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return __obj(*args, **kwargs)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\helpers.py", line 370, in url_for\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     return appctx.app.handle_url_build_error(error, endpoint, values)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\app.py", line 2215, in handle_url_build_error\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     reraise(exc_type, exc_value, tb)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\_compat.py", line 39, in reraise\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     raise value\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\helpers.py", line 357, in url_for\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     rv = url_adapter.build(\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\werkzeug\\routing.py", line 2020, in build\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857]     raise BuildError(endpoint, values, method, self)\r, referer: http://localhost/
+[Tue Mar 10 17:45:46.339031 2020] [wsgi:error] [pid 15380:tid 1348] [client ::1:60857] werkzeug.routing.BuildError: Could not build url for endpoint 'video_feed'. Did you mean 'index' instead?\r, referer: http://localhost/
