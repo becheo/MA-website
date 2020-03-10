@@ -398,8 +398,8 @@ def upload_file():
 
 if __name__ == '__main__':
     # app.secret_key = 'secret123'
-    # app.run(debug=True)  # damit man app nicht immer neu starten muss
+    app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
-    app.run()
+    # app.run()
