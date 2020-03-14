@@ -1,93 +1,96 @@
-{% extends 'layout.html' %}
-
-{% block body %}
-<h1>
-    Dashboard &nbsp; &nbsp; <small>Willkommen {{session.username}}</small>
-</h1>
+{% extends 'layout.html' %} {% block body %}
+<h1>Dashboard &nbsp; &nbsp; <small>Willkommen {{session.username}}</small></h1>
 <!--<a class="btn btn-success" href="/add_article">+ Neue Messung hinzufügen</a> -->
 <a></a>
 <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="file">
-    <input type="submit" value="Datei hochladen" class="btn btn-success">
+  <input type="file" name="file" />
+  <input type="submit" value="Datei hochladen" class="btn btn-success" />
 </form>
-<hr>
+<hr />
 <table class="table table-striped">
-    <tr>
-        <th>ID</th>
-        <th>Hochgeladene Datei</th>
-        <th>Datum</th>
-        <th>Spannungsvorgabe</th>
-        <th>Ergebnisse</th>
-        <th>Ausgeführt am</th>
-        <th></th>
-        <th></th>
-    </tr>
-    {% for file in files %}
-    <tr>
-        <td>{{file.id}}</td>
-        <td>{{file.name}}</td>
-        <td>{{file.upload_date}}</td>
-        <!-- <td><a href="{{url_for('static', filename='Spannungsvorgabe.png')}}"><img
+  <tr>
+    <th>ID</th>
+    <th>Hochgeladene Datei</th>
+    <th>Datum</th>
+    <th>Spannungsvorgabe</th>
+    <th>Ergebnisse</th>
+    <th>Ausgeführt am</th>
+    <th></th>
+    <th></th>
+  </tr>
+  {% for file in files %}
+  <tr>
+    <td>{{file.id}}</td>
+    <td>{{file.name}}</td>
+    <td>{{file.upload_date}}</td>
+    <!-- <td><a href="{{url_for('static', filename='Spannungsvorgabe.png')}}"><img
                     src="{{url_for('static', filename='Spannungsvorgabe.png')}}" alt="Spannungsverlauf"
                     height="100" /></a>
         </td> -->
-        <td><button id="myBtn">Vergrößern</button><img id="img_Spannungsvorgabe"
-                src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}" alt="Spannungsverlauf"
-                height="100" />
-            <!-- The Modal -->
-            <div id="myModal" class="w3_modal">
-
-                <!-- Modal content -->
-                <div class="w3_modal-content">
-                    <span class="w3_close">&times;</span>
-                    <img id="img_Spannungsvorgabe_big"
-                        src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}" alt="Spannungsverlauf" />
-                </div>
-
-            </div>
-        </td>
-        <td></td>
-        <td></td>
-        <td>
-            <!-- <a href="edit_article/{{files.id}}" class="btn btn-default pull-right">Edit</a> -->
-        </td>
-        <td>
-            <form action="{{url_for('delete_article', id=file.id)}}" method="POST">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="submit" value="DELETE" class="btn btn-danger">
-            </form>
-        </td>
-    </tr> {% endfor %}
+    <td>
+      <button id="myBtn">Vergrößern</button
+      ><img
+        id="img_Spannungsvorgabe"
+        src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}"
+        alt="Spannungsverlauf"
+        height="100"
+      />
+      <!-- The Modal -->
+      <div id="myModal" class="w3_modal">
+        <!-- Modal content -->
+        <div class="w3_modal-content">
+          <span class="w3_close">&times;</span>
+          <img
+            id="img_Spannungsvorgabe_big"
+            src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}"
+            alt="Spannungsverlauf"
+          />
+        </div>
+      </div>
+    </td>
+    <td></td>
+    <td></td>
+    <td>
+      <!-- <a href="edit_article/{{files.id}}" class="btn btn-default pull-right">Edit</a> -->
+    </td>
+    <td>
+      <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="submit" value="DELETE" class="btn btn-danger" />
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
 </table>
 
 <script>
-    // TODO Javascript code in externe Dateien speichern
-    // Javascript
-    // Get the modal
-    var modal = document.getElementById("myModal");
+  // TODO Javascript code in externe Dateien speichern
+  // Javascript
+  // Get the modal
+  var modal = document.getElementById("myModal");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("w3_close")[0];
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("w3_close")[0];
 
-    // When the user clicks the button, open the modal 
-    btn.onclick = function () {
-        modal.style.display = "block";
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "block";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
     }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+  };
 </script>
 
 {% endblock %}
