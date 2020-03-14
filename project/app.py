@@ -183,21 +183,27 @@ def logout():
 @app.route('/dashboard')
 @is_logged_in
 def dashboard():
-    # Create Cursor
-    cur = mysql.connection.cursor()
+    cur = mysql.connection.cursor()  # creates database cursor
 
-    # Get articles
+    # Get file entries from database
+    # TODO select all from files wher user is session['username']
     result = cur.execute("SELECT * FROM files")
+    files = cur.fetchall()  # fetches in dictionary form
 
-    files = cur.fetchall()  # fetch in dictionary form
-
-    voltage_curve = 'USB6009-Messung.png'  # TODO ID o.ä übergenen
+    voltage_curve = 'USB6009-Messung.png'  # TODO ID o.ä übergeben
 
     # für plot: IDs die aktuell in DB sind anzeigen lassen
     # ID an render_template übergeben damit die richtigen plots angezeigt werden können
 
+    # remove id from filename for presentation on dashboard
+    for i in range(len(files)):
+        name = files[i]['name']
+        name = name.split('-', 1)[1]  # split(seperator, maxsplit)[element]
+        files[i]['name'] = name
+
     if result > 0:  # if there are rows
         return render_template('dashboard.html', files=files, Spannungsverlauf=voltage_curve)
+
     else:
         msg = 'Keine Dateien vorhanden'
         return render_template('dashboard.html', msg=msg)
@@ -285,14 +291,12 @@ def edit_article(id):
 
     return render_template('edit_article.html', form=form)
 
-# TODO Funktion anpassen und umbenennen
 # TODO Modal hinzufügen und nachfragen, ob wirklich gelöscht werden soll
 # erst wenn ein Button im Modal bestätigt wird die Daten löschen
-# Delete Article
-# TODO überprüfen wie neue IDs vergeben werden wenn ein Eintrag gelöscht wird
-@app.route('/delete_article/<string:id>', methods=['POST'])
+# Delete entry - only entry in database is deleted, not the file in 'uploads' folder
+@app.route('/delete_entry/<string:id>', methods=['POST'])
 @is_logged_in
-def delete_article(id):
+def delete_entry(id):
     # Create Cursor
     cur = mysql.connection.cursor()
 
