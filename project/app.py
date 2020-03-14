@@ -366,8 +366,6 @@ def upload_file():
 
         if file and allowed_filename(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            flash('Datei erfolgreich hochgeladen', 'success')
 
             # TODO Create plot here or at dashboard site with plotly dash or some other visualization tool
             # plot_voltage(filename)
@@ -376,9 +374,20 @@ def upload_file():
             # Create cursor
             cur = mysql.connection.cursor()
 
+            # get last entry in db
+            cur.execute("SELECT * FROM files ORDER BY id DESC LIMIT 1")
+            last_row_db = cur.fetchone()
+            print("result.id = {}" .format(last_row_db['id']))
+
+            # Add id and hyphen to beginning of filename for clear allocation
+            filename = str(last_row_db['id']+1) + '-' + filename
+
             # TODO User-ID auch mit in Tabelle scheiben für eindeutige Zuordnung
             # TODO überprüfen ob die Lösung optimal ist. Wenn Dateien aus Ordner gelöscht werden, sind
             # die Daten in der Datenbank nicht mehr aktuell!
+
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Datei erfolgreich hochgeladen', 'success')
 
             cur.execute("INSERT INTO files(name, username) VALUES(%s, %s)",
                         (filename, session['username']))
