@@ -251,3 +251,35 @@
 [Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]   File "c:\\users\\oliver\\anaconda3\\envs\\website\\lib\\site-packages\\flask\\sessions.py", line 102, in _fail\r, referer: http://localhost/login
 [Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748]     raise RuntimeError(\r, referer: http://localhost/login
 [Tue Mar 10 18:52:20.107417 2020] [wsgi:error] [pid 1208:tid 1312] [client ::1:61748] RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.\r, referer: http://localhost/login
+[Sat Mar 14 18:00:14.835172 2020] [wsgi:error] [pid 20484:tid 1336] [client ::1:57677] mod_wsgi (pid=20484): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Sat Mar 14 18:00:14.837172 2020] [wsgi:error] [pid 20484:tid 1336] [client ::1:57677] mod_wsgi (pid=20484): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Sat Mar 14 18:00:14.887137 2020] [wsgi:error] [pid 20484:tid 1336] [client ::1:57677] Traceback (most recent call last):\r
+[Sat Mar 14 18:00:14.887137 2020] [wsgi:error] [pid 20484:tid 1336] [client ::1:57677]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Sat Mar 14 18:00:14.888138 2020] [wsgi:error] [pid 20484:tid 1336] [client ::1:57677]     from app import app as application\r
+[Sat Mar 14 18:00:14.888138 2020] [wsgi:error] [pid 20484:tid 1336] [client ::1:57677] ModuleNotFoundError: No module named 'app'\r
+[Sat Mar 14 18:03:50.928687 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741] mod_wsgi (pid=9088): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Sat Mar 14 18:03:50.928687 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741] mod_wsgi (pid=9088): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi'.
+[Sat Mar 14 18:03:50.932689 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741] Traceback (most recent call last):\r
+[Sat Mar 14 18:03:50.932689 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/web.wsgi", line 5, in <module>\r
+[Sat Mar 14 18:03:50.932689 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741]     from project.app import app as application\r
+[Sat Mar 14 18:03:50.932689 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website\\project\\app.py", line 11, in <module>\r
+[Sat Mar 14 18:03:50.932689 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741]     import app_helpers\r
+[Sat Mar 14 18:03:50.932689 2020] [wsgi:error] [pid 9088:tid 1336] [client ::1:57741] ModuleNotFoundError: No module named 'app_helpers'\r
+[Sat Mar 14 18:49:05.039690 2020] [wsgi:error] [pid 21056:tid 1328] [client ::1:55800] mod_wsgi (pid=21056): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Sat Mar 14 18:49:05.040690 2020] [wsgi:error] [pid 21056:tid 1328] [client ::1:55800] mod_wsgi (pid=21056): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Sat Mar 14 18:49:05.063679 2020] [wsgi:error] [pid 21056:tid 1328] [client ::1:55800] Traceback (most recent call last):\r
+[Sat Mar 14 18:49:05.063679 2020] [wsgi:error] [pid 21056:tid 1328] [client ::1:55800]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r
+[Sat Mar 14 18:49:05.063679 2020] [wsgi:error] [pid 21056:tid 1328] [client ::1:55800]     from app import app as application\r
+[Sat Mar 14 18:49:05.063679 2020] [wsgi:error] [pid 21056:tid 1328] [client ::1:55800] ModuleNotFoundError: No module named 'app'\r
+[Sat Mar 14 18:51:03.170574 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55816] mod_wsgi (pid=10144): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Sat Mar 14 18:51:03.171576 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55816] mod_wsgi (pid=10144): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Sat Mar 14 18:51:03.198558 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55816] Traceback (most recent call last):\r
+[Sat Mar 14 18:51:03.198558 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55816]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r
+[Sat Mar 14 18:51:03.198558 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55816]     from app import app as application\r
+[Sat Mar 14 18:51:03.198558 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55816] ModuleNotFoundError: No module named 'app'\r
+[Sat Mar 14 18:51:07.891077 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55820] mod_wsgi (pid=10144): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Sat Mar 14 18:51:07.891077 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55820] mod_wsgi (pid=10144): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Sat Mar 14 18:51:07.891077 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55820] Traceback (most recent call last):\r
+[Sat Mar 14 18:51:07.892077 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55820]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r
+[Sat Mar 14 18:51:07.892077 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55820]     from app import app as application\r
+[Sat Mar 14 18:51:07.892077 2020] [wsgi:error] [pid 10144:tid 1328] [client ::1:55820] ModuleNotFoundError: No module named 'app'\r

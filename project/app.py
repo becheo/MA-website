@@ -1,11 +1,14 @@
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
-# from data import Articles # nicht mehr nötig mit Datenbank
+import os  # built-in
+
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging  # third party
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
-import os
+
+from Website.project import app_helpers  # own modules
+# import app_helpers
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
 
@@ -15,15 +18,8 @@ app = Flask(__name__)
 
 app.secret_key = b'secret123'
 
-# Config MySQL
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'abcabc'  # TODO Passwort ändern
-app.config['MYSQL_DB'] = 'website'  # TODO ändern auf TU database (?)
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-# init MySQL
-# evtl anpassen, je nachdem welche DB am Ende verwendet wird
-mysql = MySQL(app)
+app_helpers.init_db(app)
+mysql = MySQL(app)  # init MySQL
 
 # render_template: brings in the template, to create a page
 # redirect : page already there, just want to point to that page
@@ -373,8 +369,8 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Datei erfolgreich hochgeladen', 'success')
 
-            # TODO hier plot für datei erstellen
-            plot_voltage(filename)
+            # TODO Create plot here or at dashboard site with plotly dash or some other visualization tool
+            # plot_voltage(filename)
 
             # write data to database:
             # Create cursor
