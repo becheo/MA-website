@@ -1,14 +1,14 @@
-import os
+import os  # built-in
 
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
-# from data import Articles # nicht mehr nötig mit Datenbank
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging  # third party
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
 
-import app_helpers
+from Website.project import app_helpers  # own modules
+# import app_helpers
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
 
@@ -396,8 +396,8 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
+    app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
-    app.run()
+    # app.run()

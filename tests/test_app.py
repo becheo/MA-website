@@ -6,7 +6,7 @@ import pytest
 from flask import g
 from flask import session
 
-from Website import app
+from Website.project import app
 
 
 @pytest.fixture
