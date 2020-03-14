@@ -8,7 +8,7 @@ from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
 
-from Website import app_helpers
+import app_helpers
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
 
@@ -369,8 +369,8 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Datei erfolgreich hochgeladen', 'success')
 
-            # TODO hier plot für datei erstellen
-            plot_voltage(filename)
+            # TODO Create plot here or at dashboard site with plotly dash or some other visualization tool
+            # plot_voltage(filename)
 
             # write data to database:
             # Create cursor
@@ -396,8 +396,8 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
+    # app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
-    # app.run()
+    app.run()
