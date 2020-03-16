@@ -1,20 +1,24 @@
-{% extends 'layout.html' %}
-
-{% block body %}
+{% extends 'layout.html' %} {% block body %}
 <div class="jumbotron text-center">
-    <h2>Web-basierter Prüfstand</h2>
-    <br>
-    <img src="{{url_for('static', filename='MDT_logo.jpg')}}" alt="TU_logo" height="100" />
-    <p><br></p>
-    <p class="lead">Dies ist die Website zum Web-basierten Prüfstand des Fachgebiets MDT der TU-Berlin. Dieser Versuch
-        wird
-        gegenwärtig in der
-        Lehrveranstaltung "Modellierung und Simulation mechatronischer Systeme" verwendet.
-    </p>
-    {% if session.logged_in == NULL %}
-    <a href="/register" class="btn btn-primary btn-lg">Register</a>
-    <a href="/login" class="btn-success btn-lg">Login</a>
-    {% endif %}
+  <h2>Web-basierter Prüfstand</h2>
+  <br />
+  <img
+    src="{{url_for('static', filename='media/MDT_logo.jpg')}}"
+    alt="TU_logo"
+    height="100"
+  />
+  <p><br /></p>
+  <p class="lead">
+    Dies ist die Website zum Web-basierten Prüfstand des Fachgebiets MDT der
+    TU-Berlin. Dieser Versuch wird gegenwärtig in der Lehrveranstaltung
+    "Modellierung und Simulation mechatronischer Systeme" verwendet.
+  </p>
+  {% if session.logged_in == NULL %}
+  <a href="/register" class="btn btn-primary btn-lg">Register</a>
+  <a href="/login" class="btn-success btn-lg">Login</a>
+  {% endif %}
 </div>
-<div style="position:fixed; text-align: center; bottom: 5px; width: 100%;">Version 0.1</div>
+<div style="position:fixed; text-align: center; bottom: 5px; width: 100%;">
+  Version 0.1
+</div>
 {% endblock %}

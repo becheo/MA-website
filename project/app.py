@@ -57,6 +57,9 @@ def nutzung():
 # webcam stream
 @app.route('/webcam')
 def webcam():
+
+    # <!-- <img src="{{ url_for('video_feed') }}"> -->
+
     return render_template('webcam.html')
 
 

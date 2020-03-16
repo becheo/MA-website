@@ -1,42 +1,40 @@
 <title>TUB-Prüfstand - Webcam</title>
-{% extends 'layout.html' %}
-
-{% block body %}
+{% extends 'layout.html' %} {% block body %}
 <h2>Webcam</h2>
-<p>Dies ist der Prüfstand, an dem Sie die Messdaten für die Modellbildung aufnehmen.
+<p>
+  Dies ist der Prüfstand, an dem Sie die Messdaten für die Modellbildung
+  aufnehmen.
 </p>
 <div>
-    <h3>Video-stream</h3>
-    <img src="{{ url_for('video_feed') }}">
-</div>
-<div id="container">
-    <h3>Video User-Kamera</h3>
-    <video controls autoplay="true" id="videoElement">
+  <h3>Video-stream</h3>
 
-    </video>
-    <div style="height: 20px;"></div>
-    <img src="{{url_for('static', filename='TU_Logo_lang.JPG')}}" />
-    <div style="height: 20px;"></div>
-    <video autoplay="true" controls src="{{url_for('static', filename='kann-es-sein-dass-du-dumm-bist.mp4')}}">
+  <div style="height: 20px;"></div>
+  <img src="{{url_for('static', filename='media/TU_Logo_lang.JPG')}}" />
+  <div style="height: 20px;"></div>
+</div>
+<div id="containter">
+  <video
+    controls
+    src="{{url_for('static', filename='media/kann-es-sein-dass-du-dumm-bist.mp4')}}"
+  ></video>
 </div>
 
 <script>
-    // 046d:0825 Adresse Logitech Kamera ?
-    // Variable, initialisiert zum html video element
-    var video = document.querySelector("#videoElement");
-    myvideo = document.getElementById("video").src;
+  // 046d:0825 Adresse Logitech Kamera ?
+  // Variable, initialisiert zum html video element
+  //   var video = document.querySelector("#videoElement");
+  //   myvideo = document.getElementById("video").src;
 
-    // nur wenn getUserMedia vom Browser unterstützt wird
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-            })
-            .catch(function (err0r) {
-                console.log("Something went wrong");
-            });
-    }
-
-
+  //   // nur wenn getUserMedia vom Browser unterstützt wird
+  //   if (navigator.mediaDevices.getUserMedia) {
+  //     navigator.mediaDevices
+  //       .getUserMedia({ video: true, audio: true })
+  //       .then(function(stream) {
+  //         video.srcObject = stream;
+  //       })
+  //       .catch(function(err0r) {
+  //         console.log("Something went wrong");
+  //       });
+  //   }
 </script>
 {% endblock %}
