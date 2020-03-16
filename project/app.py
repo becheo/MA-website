@@ -63,6 +63,11 @@ def webcam():
     return render_template('webcam.html')
 
 
+@app.route('/testseite')
+def testseite():
+    return render_template('testseite.html')
+
+
 # Single Article
 @app.route('/article/<string:id>/')  # id: dynamic value
 def article(id):
