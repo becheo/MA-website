@@ -125,3 +125,8 @@
 ::1 - - [20/Mar/2020:15:43:47 +0100] "GET /dashboard HTTP/1.1" 200 10655
 ::1 - - [20/Mar/2020:15:44:00 +0100] "POST /start_measurement/13 HTTP/1.1" 302 227
 ::1 - - [20/Mar/2020:15:44:00 +0100] "GET /dashboard HTTP/1.1" 200 10655
+::1 - - [20/Mar/2020:22:34:02 +0100] "GET / HTTP/1.1" 200 3904
+::1 - - [20/Mar/2020:22:34:04 +0100] "GET / HTTP/1.1" 200 3904
+::1 - - [20/Mar/2020:22:34:09 +0100] "GET /dashboard HTTP/1.1" 200 10747
+::1 - - [20/Mar/2020:22:34:12 +0100] "POST /start_measurement/11/Spannungsvorgabe_03.txt HTTP/1.1" 302 227
+::1 - - [20/Mar/2020:22:34:12 +0100] "GET /dashboard HTTP/1.1" 200 10747

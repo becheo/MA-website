@@ -420,14 +420,21 @@ def upload_file():
 
 
 @app.route('/start_measurement/<int:id>/<string:filename>', methods=['POST'])
+@is_logged_in
 def start_measurement(id, filename):
+    """Writes data about measurement in queue table"""
 
     print("Test mit folgender ID wird gestartet, ID: {}" .format(id))
 
-    # start programm to control the testbench
     # /C - Carries out the command specified by string and then terminates
     # /K - Carries out the command specified by string but remains
     # os.system("start cmd /K python project/start_measurement.py")
+
+    # TODO Button auf dashboard nun für die entsprechende Zeile entfernen
+    #  -> evtl in dashboard() queue database auch auslesen
+    #  3. table mit tests die durchgefuert wurden?
+    #  -> Oder in files neues feld mit status (status kann sein: waiting, in queue, done oder aehnlich)
+
     # save file to queue table
     cur = mysql.connection.cursor()
     # %s is a placeholder, not a formatter in this case

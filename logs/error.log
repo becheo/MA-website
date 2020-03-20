@@ -314,3 +314,4 @@
 [Fri Mar 20 15:27:32.469570 2020] [wsgi:error] [pid 15288:tid 1368] [client ::1:59520] Test gestartet, ID: 11\r, referer: http://localhost/dashboard
 [Fri Mar 20 15:43:47.789491 2020] [wsgi:error] [pid 19960:tid 1336] [client ::1:60455] Test gestartet, ID: 11\r, referer: http://localhost/dashboard
 [Fri Mar 20 15:44:00.040631 2020] [wsgi:error] [pid 19960:tid 1336] [client ::1:60474] Test gestartet, ID: 13\r, referer: http://localhost/dashboard
+[Fri Mar 20 22:34:12.596606 2020] [wsgi:error] [pid 22388:tid 1328] [client ::1:56091] Test mit folgender ID wird gestartet, ID: 11\r, referer: http://localhost/dashboard

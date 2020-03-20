@@ -1,11 +1,26 @@
 import subprocess
+import time
+
+import mysql.connector as mysql
+# import app_helpers
+import main
+
+# TODO datei in Ordner mit 'testbench-control' speichern.
+#  -> muss ja nur auf Datenbank zugreifen können
+
+db = mysql.connect(
+    host='localhost',
+    user='root',
+    passwd='aligator3',
+    database='website'
+)
 
 # open cmd
-proc = subprocess.Popen('cmd.exe', stdin=subprocess.PIPE)
+# proc = subprocess.Popen('cmd.exe', stdin=subprocess.PIPE)
 
 # activate conda prompt out of cmd
-proc.stdin.write(
-    b"/K C:/Users/Oliver/Anaconda3/Scripts/activate.bat C:/Users/Oliver/Anaconda3\n")
+# proc.stdin.write(
+#     b"/K C:/Users/Oliver/Anaconda3/Scripts/activate.bat C:/Users/Oliver/Anaconda3\n")
 
 # start the pyhton file running the test
 # TODO conda activate virtualenv to the final virtualenv name (maybe: testbench)
@@ -13,8 +28,8 @@ proc.stdin.write(
 #     b"cd C:/Users/Oliver/Desktop/Masterarbeit/03_Software/testbench-control && python testbench_control.py\n")
 
 # temporary file link for testing
-proc.stdin.write(
-    b"cd C:/Users/Oliver/Desktop/Masterarbeit/03_Software/z_Tutorials_Beispielprogramme/test-exe && python main.py\n")
+# proc.stdin.write(
+#     b"cd C:/Users/Oliver/Desktop/Masterarbeit/03_Software/z_Tutorials_Beispielprogramme/test-exe && python main.py\n")
 
 # -----------------------------------------------------------------------------------
 # possible programm outline:
@@ -29,3 +44,31 @@ proc.stdin.write(
 #   print number of entries left in database
 #
 # when loop ends: program is finished and cmd will close automatically
+
+cursor = db.cursor()
+start_time = time.time()
+
+# TODO überlegen, welche methode hier besser ist: nur erster Eintrag oder alle fetchen
+result = cursor.execute("SELECT * FROM queue limit 1")
+# result = cursor.execute("SELECT * FROM queue")
+end_time = time.time() - start_time
+print("Dauer: {}" .format(end_time))
+files = cursor.fetchall()
+
+for i in range(len(files)):
+    print(files[i])
+
+print("Folgende Datei wird getestet: {}" .format(files[0]))
+# database columns: | queueID | id | filename | add_date |
+filename_now = files[0][2]
+id_now = files[0][1]
+# TODO hier später durch das testbench-control Programm ersetzen
+main.count(filename_now)
+
+# delete file
+cursor = db.cursor()
+# TODO überlegen, welche id hier genommen werden soll bzw. auch, ob es die Möglichkeit
+# geben soll einen Test nochmal zu starten, obwohl er schon durchgeführt wurde
+cursor.execute("DELETE FROM queue WHERE id = %s", [id_now])
+db.commit()
+cursor.close()
