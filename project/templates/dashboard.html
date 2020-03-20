@@ -47,7 +47,7 @@
     </td>
     <!-- TODO> if condition for button to only show when test is not done/started yet -->
     <td>
-      <form action="{{url_for('start_measurement', id=file.id)}}" method="POST">
+      <form action="{{url_for('start_measurement', id=file.id, filename=file.name)}}" method="POST">
         <input type="hidden" name="_method" value="Messung starten" />
         <input type="submit" value="Messung starten" class="btn btn-primary" />
       </form>

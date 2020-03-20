@@ -209,6 +209,9 @@ def dashboard():
         name = name.split('-', 1)[1]  # split(seperator, maxsplit)[element]
         files[i]['name'] = name
 
+    # for i in range(len(files)):
+    #     print(files[i])
+
     if result > 0:  # if there are rows
         return render_template('dashboard.html', files=files, Spannungsverlauf=voltage_curve)
 
@@ -416,28 +419,29 @@ def upload_file():
             return redirect(url_for('dashboard'))
 
 
-@app.route('/start_measurement/<string:id>', methods=['POST'])
-def start_measurement(id):
-    # check if there are entries in database
-    # if entries in database: set flag true/false
-    # write new test id to database 'test-queue'
-    # if flag=false then start cmd
-    #   start the gateway programm to check the database
-    #   and start the tests in that programm
+@app.route('/start_measurement/<int:id>/<string:filename>', methods=['POST'])
+def start_measurement(id, filename):
 
-    print("Test gestartet, ID: {}" .format(id))
+    print("Test mit folgender ID wird gestartet, ID: {}" .format(id))
 
     # start programm to control the testbench
     # /C - Carries out the command specified by string and then terminates
     # /K - Carries out the command specified by string but remains
-    # os.system("start cmd /c python project/start_measurement.py")
-    os.system("start cmd /K python project/start_measurement.py")
+    # os.system("start cmd /K python project/start_measurement.py")
+    # save file to queue table
+    cur = mysql.connection.cursor()
+    # %s is a placeholder, not a formatter in this case
+    cur.execute("INSERT INTO queue(id, filename) VALUES(%s, %s)",
+                (id, filename))
+    mysql.connection.commit()
+    cur.close()
+
     return redirect('/dashboard')
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
+    app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
-    app.run()
+    # app.run()
