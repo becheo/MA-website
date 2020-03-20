@@ -7,8 +7,8 @@ from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
 
-from Website.project import app_helpers  # own modules
-# import app_helpers
+# from Website.project import app_helpers  # own modules
+import app_helpers
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
 
@@ -426,15 +426,18 @@ def start_measurement(id):
     #   and start the tests in that programm
 
     print("Test gestartet, ID: {}" .format(id))
-    # os.system("start cmd /c python start_test.py")
-    os.system("start cmd /c python project/start_measurement.py")
-    # cd project &&
+
+    # start programm to control the testbench
+    # /C - Carries out the command specified by string and then terminates
+    # /K - Carries out the command specified by string but remains
+    # os.system("start cmd /c python project/start_measurement.py")
+    os.system("start cmd /K python project/start_measurement.py")
     return redirect('/dashboard')
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
+    # app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
-    # app.run()
+    app.run()
