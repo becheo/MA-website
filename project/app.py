@@ -416,6 +416,22 @@ def upload_file():
             return redirect(url_for('dashboard'))
 
 
+@app.route('/start_measurement/<string:id>', methods=['POST'])
+def start_measurement(id):
+    # check if there are entries in database
+    # if entries in database: set flag true/false
+    # write new test id to database 'test-queue'
+    # if flag=false then start cmd
+    #   start the gateway programm to check the database
+    #   and start the tests in that programm
+
+    print("Test gestartet, ID: {}" .format(id))
+    # os.system("start cmd /c python start_test.py")
+    os.system("start cmd /c python project/start_measurement.py")
+    # cd project &&
+    return redirect('/dashboard')
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen

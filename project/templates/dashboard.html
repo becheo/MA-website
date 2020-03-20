@@ -28,23 +28,15 @@
                     height="100" /></a>
         </td> -->
     <td>
-      <button id="myBtn">Vergrößern</button
-      ><img
-        id="img_Spannungsvorgabe"
-        src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}"
-        alt="Spannungsverlauf"
-        height="100"
-      />
+      <button id="myBtn">Vergrößern</button><img id="img_Spannungsvorgabe"
+        src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}" alt="Spannungsverlauf" height="100" />
       <!-- The Modal -->
       <div id="myModal" class="w3_modal">
         <!-- Modal content -->
         <div class="w3_modal-content">
           <span class="w3_close">&times;</span>
-          <img
-            id="img_Spannungsvorgabe_big"
-            src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}"
-            alt="Spannungsverlauf"
-          />
+          <img id="img_Spannungsvorgabe_big" src="{{url_for('static', filename='plots/Spannungsvorgabe.png')}}"
+            alt="Spannungsverlauf" />
         </div>
       </div>
     </td>
@@ -53,7 +45,12 @@
     <td>
       <!-- <a href="edit_article/{{files.id}}" class="btn btn-default pull-right">Edit</a> -->
     </td>
+    <!-- TODO> if condition for button to only show when test is not done/started yet -->
     <td>
+      <form action="{{url_for('start_measurement', id=file.id)}}" method="POST">
+        <input type="hidden" name="_method" value="Messung starten" />
+        <input type="submit" value="Messung starten" class="btn btn-primary" />
+      </form>
       <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
         <input type="hidden" name="_method" value="DELETE" />
         <input type="submit" value="DELETE" class="btn btn-danger" />
@@ -76,17 +73,17 @@
   var span = document.getElementsByClassName("w3_close")[0];
 
   // When the user clicks the button, open the modal
-  btn.onclick = function() {
+  btn.onclick = function () {
     modal.style.display = "block";
   };
 
   // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
   };
 
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
