@@ -3,7 +3,7 @@ test2.py
 testDecorator.py
 
 # error and access log files
-*.log
+logs/
 
 # folder with files uploaded by users
 uploads/
