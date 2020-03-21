@@ -1,4 +1,12 @@
+# files for testing purposes
 test2.py
 testDecorator.py
+
+# error and access log files
 *.log
+
+# folder with files uploaded by users
 uploads/
+
+# folder with results of taken measurements
+results/
