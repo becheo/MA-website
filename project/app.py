@@ -435,6 +435,8 @@ def start_measurement(id, filename):
     #  3. table mit tests die durchgefuert wurden?
     #  -> Oder in files neues feld mit status (status kann sein: waiting, in queue, done oder aehnlich)
 
+    # TODO get filename from files table trough id (for full filename)
+
     # save file to queue table
     cur = mysql.connection.cursor()
     # %s is a placeholder, not a formatter in this case

@@ -15,11 +15,15 @@ def count(filename):
     for i in range(1, 6):
         print(i)
         time.sleep(0.1)
-    print(filename)
 
 
-def create_file():
-    with open("TESTFILE.txt", "w") as f:
+def create_file(filename, id):
+    print("main.py - ", filename)
+    filename = str(id) + '-' + filename
+    print("main.py - ", filename)
+    path_results = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/results/' + filename
+
+    with open(path_results, "w") as f:
         f.write("Created On {}\n\n" .format(datetime.datetime.now()))
         f.close()
 

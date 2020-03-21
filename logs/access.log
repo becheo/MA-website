@@ -130,3 +130,10 @@
 ::1 - - [20/Mar/2020:22:34:09 +0100] "GET /dashboard HTTP/1.1" 200 10747
 ::1 - - [20/Mar/2020:22:34:12 +0100] "POST /start_measurement/11/Spannungsvorgabe_03.txt HTTP/1.1" 302 227
 ::1 - - [20/Mar/2020:22:34:12 +0100] "GET /dashboard HTTP/1.1" 200 10747
+::1 - - [21/Mar/2020:15:08:26 +0100] "GET /dashboard HTTP/1.1" 200 9244
+::1 - - [21/Mar/2020:15:08:28 +0100] "GET /static/plots/Spannungsvorgabe.png HTTP/1.1" 200 25684
+::1 - - [21/Mar/2020:15:08:28 +0100] "GET /static/media/MDT-dunkel.png HTTP/1.1" 200 5084
+::1 - - [21/Mar/2020:15:08:28 +0100] "GET /static/style/style.css HTTP/1.1" 200 205267
+::1 - - [21/Mar/2020:15:08:30 +0100] "GET /static/favicon-io-mdt/site.webmanifest HTTP/1.1" 304 -
+::1 - - [21/Mar/2020:15:09:02 +0100] "POST /dashboard HTTP/1.1" 302 227
+::1 - - [21/Mar/2020:15:09:02 +0100] "GET /dashboard HTTP/1.1" 200 10849

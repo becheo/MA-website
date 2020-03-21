@@ -46,29 +46,28 @@ db = mysql.connect(
 # when loop ends: program is finished and cmd will close automatically
 
 cursor = db.cursor()
-start_time = time.time()
 
 # TODO überlegen, welche methode hier besser ist: nur erster Eintrag oder alle fetchen
-result = cursor.execute("SELECT * FROM queue limit 1")
-# result = cursor.execute("SELECT * FROM queue")
-end_time = time.time() - start_time
-print("Dauer: {}" .format(end_time))
+# result = cursor.execute("SELECT * FROM queue limit 1")
+result = cursor.execute("SELECT * FROM queue")
 files = cursor.fetchall()
 
-for i in range(len(files)):
-    print(files[i])
+print("Anzahl der Dateien in der Warteschlange: {}" .format(len(files)))
+# for i in range(len(files)):
+#     print(files[i])
 
 print("Folgende Datei wird getestet: {}" .format(files[0]))
 # database columns: | queueID | id | filename | add_date |
 filename_now = files[0][2]
 id_now = files[0][1]
 # TODO hier später durch das testbench-control Programm ersetzen
-main.count(filename_now)
+# main.count(filename_now)
+main.create_file(filename_now, id_now)
 
 # delete file
-cursor = db.cursor()
-# TODO überlegen, welche id hier genommen werden soll bzw. auch, ob es die Möglichkeit
-# geben soll einen Test nochmal zu starten, obwohl er schon durchgeführt wurde
-cursor.execute("DELETE FROM queue WHERE id = %s", [id_now])
-db.commit()
-cursor.close()
+# cursor = db.cursor()
+# # TODO überlegen, welche id hier genommen werden soll bzw. auch, ob es die Möglichkeit
+# # geben soll einen Test nochmal zu starten, obwohl er schon durchgeführt wurde
+# cursor.execute("DELETE FROM queue WHERE id = %s", [id_now])
+# db.commit()
+# cursor.close()
