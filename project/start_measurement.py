@@ -1,5 +1,6 @@
 import subprocess
 import time
+import datetime
 
 import mysql.connector as mysql
 # import app_helpers
@@ -8,6 +9,7 @@ import main
 # TODO datei in Ordner mit 'testbench-control' speichern.
 #  -> muss ja nur auf Datenbank zugreifen können
 
+# connect to database
 db = mysql.connect(
     host='localhost',
     user='root',
@@ -35,39 +37,60 @@ db = mysql.connect(
 # possible programm outline:
 
 # check database for entries
-# while entries > 0:
+# while true:
+#   check database for entries
 #   get entry with lowest id from database and store filename in variable
 #   print data form entry (name of file, id) and seperator(\n ----- \n)
 #   run script 'testbench-control.py' with that filename as parameter
 #   delete entry that was fetched from database
 #   update entries (check database for entries)
 #   print number of entries left in database
-#
-# when loop ends: program is finished and cmd will close automatically
 
-cursor = db.cursor()
+no_files = 0
+wait_seconds = 5
 
-# TODO überlegen, welche methode hier besser ist: nur erster Eintrag oder alle fetchen
-# result = cursor.execute("SELECT * FROM queue limit 1")
-result = cursor.execute("SELECT * FROM queue")
-files = cursor.fetchall()
+while True:
+    cursor = db.cursor()
 
-print("Anzahl der Dateien in der Warteschlange: {}" .format(len(files)))
-# for i in range(len(files)):
-#     print(files[i])
+    # TODO überlegen, welche methode hier besser ist: nur erster Eintrag oder alle fetchen
+    # result = cursor.execute("SELECT * FROM queue limit 1")
+    cursor.execute("SELECT * FROM queue")
+    files = cursor.fetchall()
+    db.commit()
+    cursor.close()
 
-print("Folgende Datei wird getestet: {}" .format(files[0]))
-# database columns: | queueID | id | filename | add_date |
-filename_now = files[0][2]
-id_now = files[0][1]
-# TODO hier später durch das testbench-control Programm ersetzen
-# main.count(filename_now)
-main.create_file(filename_now, id_now)
+    if len(files) > 0:
+        if no_files > 0:
+            print("Zeit seit letzter Messung: {}" .format(
+                str(datetime.timedelta(seconds=no_files*wait_seconds))))
+        no_files = 0
+        print("----------------  Neue Messung  -----------------------")
+        print("Anzahl der Dateien in der Warteschlange: {}" .format(len(files)))
+        # for i in range(len(files)):
+        #     print(files[i])
 
-# delete file
-# cursor = db.cursor()
-# # TODO überlegen, welche id hier genommen werden soll bzw. auch, ob es die Möglichkeit
-# # geben soll einen Test nochmal zu starten, obwohl er schon durchgeführt wurde
-# cursor.execute("DELETE FROM queue WHERE id = %s", [id_now])
-# db.commit()
-# cursor.close()
+        print("Folgende Datei wird getestet: {}" .format(files[0]))
+        # database columns: | queueID | id | filename | add_date |
+        queueID_now = files[0][0]
+        id_now = files[0][1]
+        filename_now = files[0][2]
+
+        # TODO hier später durch das testbench-control Programm ersetzen
+        main.count()
+        main.create_file(filename_now, id_now)
+        print("Messung beendet - Ergebnisse in Ordner 'results' gespeichert.")
+        print("")
+
+        # delete entry from database
+        cursor = db.cursor()
+        # TODO überlegen, welche id hier genommen werden soll bzw. auch, ob es die Möglichkeit
+        # geben soll einen Test nochmal zu starten, obwohl er schon durchgeführt wurde
+        cursor.execute("DELETE FROM queue WHERE queueID = %s", [queueID_now])
+        db.commit()
+        cursor.close()
+    else:
+        print("Keine Dateien vorhanden, Zeit seit letzter Messung: {}     (zum Beenden: Strg+C)" .format(
+            str(datetime.timedelta(seconds=no_files*wait_seconds))), end='\r')
+        no_files = no_files + 1
+
+    time.sleep(wait_seconds)

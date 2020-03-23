@@ -11,16 +11,16 @@ import datetime
 # C:\Users\Oliver\Desktop\Masterarbeit\03_Software\z_Tutorials_Beispielprogramme\test-exe
 
 
-def count(filename):
-    for i in range(1, 6):
-        print(i)
-        time.sleep(0.1)
+def count():
+    for i in range(1, 11):
+        print("Dauer: {}" .format(i), end='\r')
+        time.sleep(1)
 
 
 def create_file(filename, id):
-    print("main.py - ", filename)
-    filename = str(id) + '-' + filename
-    print("main.py - ", filename)
+    # dies ersetzt zum testen die testbench-contorl function
+
+    filename = 'results-' + filename
     path_results = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/results/' + filename
 
     with open(path_results, "w") as f:

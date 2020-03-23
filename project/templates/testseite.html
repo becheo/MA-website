@@ -5,25 +5,14 @@
   <div class="card">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
-        <button
-          class="btn btn-link"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseOne"
-          aria-expanded="true"
-          aria-controls="collapseOne"
-        >
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+          aria-expanded="true" aria-controls="collapseOne">
           Collapsible Group Item #1
         </button>
       </h2>
     </div>
 
-    <div
-      id="collapseOne"
-      class="collapse show"
-      aria-labelledby="headingOne"
-      data-parent="#accordionExample"
-    >
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
         terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
@@ -40,24 +29,13 @@
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0">
-        <button
-          class="btn btn-link collapsed"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseTwo"
-          aria-expanded="false"
-          aria-controls="collapseTwo"
-        >
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
+          aria-expanded="false" aria-controls="collapseTwo">
           Collapsible Group Item #2
         </button>
       </h2>
     </div>
-    <div
-      id="collapseTwo"
-      class="collapse"
-      aria-labelledby="headingTwo"
-      data-parent="#accordionExample"
-    >
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
         terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
@@ -74,24 +52,13 @@
   <div class="card">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0">
-        <button
-          class="btn btn-link collapsed"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseThree"
-          aria-expanded="false"
-          aria-controls="collapseThree"
-        >
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
+          aria-expanded="false" aria-controls="collapseThree">
           Collapsible Group Item #3
         </button>
       </h2>
     </div>
-    <div
-      id="collapseThree"
-      class="collapse"
-      aria-labelledby="headingThree"
-      data-parent="#accordionExample"
-    >
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
       <div class="card-body">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
         terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
@@ -105,6 +72,27 @@
       </div>
     </div>
   </div>
+</div>
+<div>
+  <br>
+  <h5>Inhalte der 'queue' Datenbank</h5>
+  <br>
+  <table class="table table-striped">
+    <tr>
+      <th>queueID</th>
+      <th>id</th>
+      <th>filename</th>
+      <th>add_date</th>
+    </tr>
+    <tr>
+      {% for entry in entries %}
+    </tr>
+    <td>{{entry.queueID}}</td>
+    <td>{{entry.id}}</td>
+    <td>{{entry.filename}}</td>
+    <td>{{entry.add_date}}</td>
+    {% endfor %}
+  </table>
 </div>
 
 {% endblock %}
