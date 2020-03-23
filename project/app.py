@@ -65,7 +65,12 @@ def webcam():
 
 @app.route('/testseite')
 def testseite():
-    return render_template('testseite.html')
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM queue")
+    entries = cur.fetchall()  # fetch in dictionary form
+
+    return render_template('testseite.html', entries=entries)
 
 
 # Single Article
@@ -419,23 +424,27 @@ def upload_file():
             return redirect(url_for('dashboard'))
 
 
-@app.route('/start_measurement/<int:id>/<string:filename>', methods=['POST'])
+@app.route('/start_measurement/<int:id>', methods=['POST'])
 @is_logged_in
-def start_measurement(id, filename):
+def start_measurement(id):
     """Writes data about measurement in queue table"""
 
-    print("Test mit folgender ID wird gestartet, ID: {}" .format(id))
+    print("Test mit folgender ID wird der Warteschlange hinzufgefügt, ID: {}" .format(id))
 
     # /C - Carries out the command specified by string and then terminates
     # /K - Carries out the command specified by string but remains
     # os.system("start cmd /K python project/start_measurement.py")
 
-    # TODO Button auf dashboard nun für die entsprechende Zeile entfernen
+    # TODO Button auf dashboard nun für die entsprechende Zeile entfernen/aendern
     #  -> evtl in dashboard() queue database auch auslesen
     #  3. table mit tests die durchgefuert wurden?
     #  -> Oder in files neues feld mit status (status kann sein: waiting, in queue, done oder aehnlich)
 
-    # TODO get filename from files table trough id (for full filename)
+    # get filename from files table
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM files WHERE id = %s", [id])
+    file = cur.fetchone()
+    filename = file['name']
 
     # save file to queue table
     cur = mysql.connection.cursor()
