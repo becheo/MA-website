@@ -458,6 +458,31 @@ def start_measurement(id):
     return redirect('/dashboard')
 
 
+def mdt_user(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        # if 'logged_in' in session:
+        if session['username'] == 'mdt':
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized, Please login as mdt', 'danger')
+            return redirect(url_for('login'))
+    return wrap
+
+
+# Page for settings administered through chair of mdt
+@app.route('/mdt-settings', methods=['GET', 'POST'])
+@is_logged_in
+@mdt_user
+def mdt_settings():
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM queue")
+    entries = cur.fetchall()  # fetch in dictionary form
+
+    return render_template('mdt-settings.html', entries=entries)
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen

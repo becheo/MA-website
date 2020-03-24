@@ -1,0 +1,26 @@
+<title>TUB-Prüfstand - Einstellungen</title>
+{% extends 'layout.html' %} {% block body %}
+
+<div>
+    <br>
+    <h5>Dateien in der Warteschlange</h5>
+    <br>
+    <table class="table table-striped">
+        <tr>
+            <th>queueID</th>
+            <th>id</th>
+            <th>filename</th>
+            <th>add_date</th>
+        </tr>
+        <tr>
+            {% for entry in entries %}
+        </tr>
+        <td>{{entry.queueID}}</td>
+        <td>{{entry.id}}</td>
+        <td>{{entry.filename}}</td>
+        <td>{{entry.add_date}}</td>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
