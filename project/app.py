@@ -89,8 +89,8 @@ def article(id):
 
 # Register Form Class
 class RegisterForm(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    username = StringField('Username', [validators.Length(min=4, max=25)])
+    # name = StringField('Name', [validators.Length(min=1, max=50)])
+    username = StringField('Username', [validators.Length(min=3, max=25)])
     email = StringField('EMail', [validators.Length(min=6, max=50)])
     password = PasswordField('Password', [
         validators.DataRequired(),
@@ -105,7 +105,7 @@ def register():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
         # handle submission:
-        name = form.name.data
+        # name = form.name.data
         email = form.email.data
         username = form.username.data
         password = sha256_crypt.encrypt(str(form.password.data))
@@ -113,8 +113,8 @@ def register():
         # Create cursor
         cur = mysql.connection.cursor()
 
-        cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)",
-                    (name, email, username, password))
+        cur.execute("INSERT INTO users(email, username, password) VALUES(%s, %s, %s)",
+                    (email, username, password))
 
         # Commit to db
         mysql.connection.commit()
@@ -439,6 +439,7 @@ def start_measurement(id):
     #  -> evtl in dashboard() queue database auch auslesen
     #  3. table mit tests die durchgefuert wurden?
     #  -> Oder in files neues feld mit status (status kann sein: waiting, in queue, done oder aehnlich)
+    # TODO evtl. weitere Informationen uebergeben wie z.B. Testdauer (aus Vorgabe bestimmt)
 
     # get filename from files table
     cur = mysql.connection.cursor()

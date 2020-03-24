@@ -47,7 +47,7 @@ db = mysql.connect(
 #   print number of entries left in database
 
 no_files = 0
-wait_seconds = 5
+wait_seconds = 1
 
 while True:
     cursor = db.cursor()
@@ -61,7 +61,7 @@ while True:
 
     if len(files) > 0:
         if no_files > 0:
-            print("Zeit seit letzter Messung: {}" .format(
+            print("                         Zeit seit letzter Messung: {}" .format(
                 str(datetime.timedelta(seconds=no_files*wait_seconds))))
         no_files = 0
         print("----------------  Neue Messung  -----------------------")

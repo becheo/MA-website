@@ -39,6 +39,15 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       {% if session.logged_in %}
+      {% if session.username == 'mdt' %}
+      {% if request.path == '/testseite' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item"></li>
+      {% endif %}
+      <a class="nav-link" href="/testseite">testseite</a>
+      {% endif %}
+      </li>
       {% if request.path == '/dashboard' %}
       <li class="nav-item active">
         {% else %}
