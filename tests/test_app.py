@@ -9,6 +9,11 @@ from flask import session
 from Website.project import app
 
 
+# data for login:
+username = 'Oliver'
+password = 'Oliver'
+
+
 @pytest.fixture
 def client():
     """The client can trigger test requests to the application.
@@ -23,19 +28,38 @@ def client():
 
     with app.app.test_client() as client:
         with app.app.app_context():
-            app.app_helpers.init_db(app.app)
+            app.apph.init_db(app.app)
         yield client
 
     os.close(db_fd)
     os.unlink(app.app.config['DATABASE'])
 
 
+# index page
 def test_home(client):
     # assert client.get("/").status_code == 200
 
     # Alternative:
     result = client.get("/").status_code
     assert result == 200
+
+
+def test_about(client):
+    result = client.get("/about").status_code
+    assert result == 200
+
+
+def test_howto(client):
+    result = client.get("/nutzung-pruefstand").status_code
+    assert result == 200
+
+
+def test_webcam_logged_out(client):
+    # response = client.get("/webcam").status_code
+    # assert response == 302
+
+    response = client.get("/webcam")
+    assert response.status_code == 302
 
 
 def login(client, username, password):
@@ -46,11 +70,10 @@ def login(client, username, password):
 
 
 def test_login(client):
-    username = 'Oliver'
 
-    # assert client.get("/login").status_code == 200
+    assert client.get("/login").status_code == 200
 
-    response = login(client, username, 'Oliver')
+    response = login(client, username, password)
 
     # check for status code 200 (success, OK)
     assert response.status_code == 200
