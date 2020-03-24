@@ -320,3 +320,19 @@
 [Mon Mar 23 19:56:14.395095 2020] [wsgi:error] [pid 15232:tid 1332] [client ::1:51588] Test mit folgender ID wird der Warteschlange hinzufgef\xc3\xbcgt, ID: 18\r, referer: http://localhost/dashboard
 [Mon Mar 23 19:56:15.806413 2020] [wsgi:error] [pid 15232:tid 1332] [client ::1:51588] Test mit folgender ID wird der Warteschlange hinzufgef\xc3\xbcgt, ID: 19\r, referer: http://localhost/dashboard
 [Mon Mar 23 20:00:44.310933 2020] [wsgi:error] [pid 15232:tid 1332] [client ::1:51883] Test mit folgender ID wird der Warteschlange hinzufgef\xc3\xbcgt, ID: 17\r, referer: http://localhost/dashboard
+[Tue Mar 24 17:59:29.543566 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718] mod_wsgi (pid=13636): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Tue Mar 24 17:59:29.544063 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718] mod_wsgi (pid=13636): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Tue Mar 24 17:59:29.548057 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718] Traceback (most recent call last):\r
+[Tue Mar 24 17:59:29.548557 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r
+[Tue Mar 24 17:59:29.548557 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718]     from app import app as application\r
+[Tue Mar 24 17:59:29.548557 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 10, in <module>\r
+[Tue Mar 24 17:59:29.548557 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718]     from Website.project import app_helpers as apph  # own modules\r
+[Tue Mar 24 17:59:29.548557 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53718] ModuleNotFoundError: No module named 'Website'\r
+[Tue Mar 24 17:59:30.733800 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721] mod_wsgi (pid=13636): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/
+[Tue Mar 24 17:59:30.734298 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721] mod_wsgi (pid=13636): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/
+[Tue Mar 24 17:59:30.734798 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721] Traceback (most recent call last):\r, referer: http://localhost/
+[Tue Mar 24 17:59:30.735298 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r, referer: http://localhost/
+[Tue Mar 24 17:59:30.735298 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721]     from app import app as application\r, referer: http://localhost/
+[Tue Mar 24 17:59:30.735298 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 10, in <module>\r, referer: http://localhost/
+[Tue Mar 24 17:59:30.735298 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721]     from Website.project import app_helpers as apph  # own modules\r, referer: http://localhost/
+[Tue Mar 24 17:59:30.735298 2020] [wsgi:error] [pid 13636:tid 1336] [client ::1:53721] ModuleNotFoundError: No module named 'Website'\r, referer: http://localhost/

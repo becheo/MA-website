@@ -1,24 +1,39 @@
-import os  # built-in
+"""Main file for website program
 
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging  # third party
+Defines routing and performs backend functions for the website to host.
+
+Part of master thesis: Entwicklung eines vernetzten Prüftands zur web-basierten
+                       Validierung und Parametrierung von Simulationsmodellen
+"""
+
+# built-in modules
+import os
+import sys
+
+# third party
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
 
-# from Website.project import app_helpers  # own modules
-import app_helpers
+# local modules
+if 'pytest' in sys.modules:
+    from Website.project import app_helpers as apph  # for pytest
+else:
+    import app_helpers as apph  # for Apache Server
+
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
-
 # TODO funktionen in externe datei schreiben und importieren (code uebersichtlicher machen)
+
 
 app = Flask(__name__)
 
 app.secret_key = b'secret123'
 
-app_helpers.init_db(app)
+apph.init_db(app)
 mysql = MySQL(app)  # init MySQL
 
 # render_template: brings in the template, to create a page
@@ -54,8 +69,21 @@ def nutzung():
     return render_template('nutzung.html')
 
 
+# Check if user is logged in
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized, Please login', 'danger')
+            return redirect(url_for('login'))
+    return wrap
+
+
 # webcam stream
 @app.route('/webcam')
+@is_logged_in
 def webcam():
 
     # <!-- <img src="{{ url_for('video_feed') }}"> -->
@@ -168,18 +196,6 @@ def login():
 
     return render_template('login.html')
 
-# Check if user is logged in
-
-
-def is_logged_in(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('Unauthorized, Please login', 'danger')
-            return redirect(url_for('login'))
-    return wrap
 
 # Logout
 @app.route('/logout')
@@ -355,9 +371,8 @@ def plot_voltage(filename_saved):
     plt.savefig("static/plots/Spannungsvorgabe.png", bbox_inches='tight')
 
 
-UPLOAD_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/uploads'
 ALLOWED_EXTENSIONS = {'txt'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = apph.UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024    # 16 MB
 # TODO Textausgabe (Warnung) für größere Dateien als hier spezifiziert hinzufügen
 # -> aktuell "bricht" Seite zusammen
@@ -476,11 +491,23 @@ def mdt_user(f):
 @mdt_user
 def mdt_settings():
 
+    # get queue entries
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in dictionary form
 
-    return render_template('mdt-settings.html', entries=entries)
+    # get access-log entries
+    buffer_accesslog = apph.read_txt_by_lines(apph.accesslog)
+    buffer_accesslog.reverse()
+
+    # get error-log entries
+    buffer_errorlog = apph.read_txt_by_lines(apph.errorlog)
+    buffer_errorlog.reverse()
+
+    return render_template('mdt-settings.html',
+                           entries=entries,
+                           accesslog=buffer_accesslog[:20],
+                           errorlog=buffer_errorlog[:20])
 
 
 if __name__ == '__main__':
