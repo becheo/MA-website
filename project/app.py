@@ -98,7 +98,10 @@ def testseite():
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in dictionary form
 
-    return render_template('testseite.html', entries=entries)
+    xdata = [1, 2, 3, 4, 5]
+    ydata = [1, 2, 10, 12, 16]
+
+    return render_template('testseite.html', entries=entries, xdata=xdata, ydata=ydata)
 
 
 # Single Article

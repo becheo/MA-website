@@ -73,26 +73,23 @@
     </div>
   </div>
 </div>
-<div>
-  <br>
-  <h5>Inhalte der 'queue' Datenbank</h5>
-  <br>
-  <table class="table table-striped">
-    <tr>
-      <th>queueID</th>
-      <th>id</th>
-      <th>filename</th>
-      <th>add_date</th>
-    </tr>
-    <tr>
-      {% for entry in entries %}
-    </tr>
-    <td>{{entry.queueID}}</td>
-    <td>{{entry.id}}</td>
-    <td>{{entry.filename}}</td>
-    <td>{{entry.add_date}}</td>
-    {% endfor %}
-  </table>
-</div>
 
+
+
+<!-- plotly Vatiante -->
+<div id="tester" style="width:800px;height:250px;"></div>
+<script>
+  TESTER = document.getElementById('tester');
+  Plotly.newPlot(TESTER, [{
+    x: {{ xdata }},
+    y: {{ ydata }},
+  }], {
+    margin: { t: 0 }
+  });
+</script>
+
+
+<br>
+<br>
+<br>
 {% endblock %}
