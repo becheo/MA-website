@@ -28,6 +28,7 @@ def read_txt_by_lines(path):
 
     Args:
         path (str): path to the file to read
+
     Returns:
         buffer (list): content of textfile
     """

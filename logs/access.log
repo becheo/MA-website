@@ -173,3 +173,9 @@
 ::1 - - [24/Mar/2020:18:22:48 +0100] "GET /dashboard HTTP/1.1" 200 9401
 ::1 - - [24/Mar/2020:18:22:51 +0100] "GET /mdt-settings HTTP/1.1" 200 13175
 ::1 - - [24/Mar/2020:18:23:11 +0100] "GET /dashboard HTTP/1.1" 200 9337
+::1 - - [24/Mar/2020:18:39:06 +0100] "GET / HTTP/1.1" 200 4051
+::1 - - [24/Mar/2020:18:39:13 +0100] "GET /about HTTP/1.1" 200 4533
+::1 - - [24/Mar/2020:18:39:41 +0100] "GET /webcam HTTP/1.1" 200 4575
+::1 - - [24/Mar/2020:18:39:44 +0100] "GET /static/favicon-io-mdt/apple-touch-icon.png HTTP/1.1" 200 25735
+::1 - - [24/Mar/2020:18:39:47 +0100] "GET /dashboard HTTP/1.1" 200 9337
+::1 - - [24/Mar/2020:18:40:03 +0100] "GET /mdt-settings HTTP/1.1" 200 13226
