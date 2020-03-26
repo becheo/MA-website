@@ -236,8 +236,12 @@ def dashboard():
     # for i in range(len(files)):
     #     print(files[i])
 
+    # data to show in dashboard (plotly graph)
+    xdata = [1, 2, 3, 4, 5]
+    ydata = [1, 2, 10, 12, 16]
+
     if result > 0:  # if there are rows
-        return render_template('dashboard.html', files=files, Spannungsverlauf=voltage_curve)
+        return render_template('dashboard.html', files=files, Spannungsverlauf=voltage_curve, xdata=xdata, ydata=ydata)
 
     else:
         msg = 'Keine Dateien vorhanden'
