@@ -50,9 +50,15 @@
         <td>{{file.upload_date}}</td>
         <td>Status, Ausgefuehrt am ...</td>
         <td>
+          {% if file.status == 'uploaded' %}
           <form action="{{url_for('start_measurement', id=file.id)}}" method="POST">
             <input type="hidden" name="_method" value="Messung starten" />
             <input type="submit" value="Messung starten" class="btn btn-primary" />
+            {% else %}
+            <!-- <input type="button" value="Messung gestartet" class="btn btn-secondary" disabled /> -->
+            <button type="button" class="btn btn-secondary" disabled>Messung gestartet</button>
+
+            {% endif %}
           </form>
         </td>
       </tr>
@@ -121,6 +127,7 @@
     margin: { t: 0 }
   });
 
+  {% if file.status == 'executed' %}
   plot_results = document.getElementById('plot_results{{file.index}}');
 
   var layout_results = {
@@ -140,6 +147,7 @@
 }], layout_results, {
     margin: { t: 0 }
   });
+  {% endif %}
   {% endfor %}
 </script>
 

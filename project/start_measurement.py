@@ -88,6 +88,13 @@ while True:
         cursor.execute("DELETE FROM queue WHERE queueID = %s", [queueID_now])
         db.commit()
         cursor.close()
+
+        # update status in files table
+        cursor = db.cursor()
+        cursor.execute(
+            "UPDATE files SET status = 'executed' WHERE id = %s", [id_now])
+        db.commit()
+        cursor.close()
     else:
         print("Keine Dateien vorhanden, Zeit seit letzter Messung: {}     (zum Beenden: Strg+C)" .format(
             str(datetime.timedelta(seconds=no_files*wait_seconds))), end='\r')

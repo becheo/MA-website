@@ -107,11 +107,12 @@ def testseite():
         data = [float(j) for j in data]
         files[i]['ydata'] = data
 
-        path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
-        data = apph.read_txt_by_lines(path)
-        files[i]['xdata_results'] = list(range(len(data)))
-        data = [float(j) for j in data]
-        files[i]['ydata_results'] = data
+        if files[i]['status'] == 'executed':
+            path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
+            data = apph.read_txt_by_lines(path)
+            files[i]['xdata_results'] = list(range(len(data)))
+            data = [float(j) for j in data]
+            files[i]['ydata_results'] = data
 
         # remove id from filename for presentation on dashboard
         name = files[i]['name']
@@ -449,8 +450,8 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Datei erfolgreich hochgeladen', 'success')
 
-            cur.execute("INSERT INTO files(name, username) VALUES(%s, %s)",
-                        (filename, session['username']))
+            cur.execute("INSERT INTO files(name, username, status) VALUES(%s, %s, %s)",
+                        (filename, session['username'], 'uploaded'))
 
             # Commit to db
             mysql.connection.commit()
@@ -492,6 +493,12 @@ def start_measurement(id):
     # %s is a placeholder, not a formatter in this case
     cur.execute("INSERT INTO queue(id, filename) VALUES(%s, %s)",
                 (id, filename))
+    mysql.connection.commit()
+    cur.close()
+
+    # update status
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE files SET status = 'in_queue' WHERE id = %s", [id])
     mysql.connection.commit()
     cur.close()
 
