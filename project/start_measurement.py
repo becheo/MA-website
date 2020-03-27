@@ -93,4 +93,8 @@ while True:
             str(datetime.timedelta(seconds=no_files*wait_seconds))), end='\r')
         no_files = no_files + 1
 
+    # TODO alle 10 min oder so: Kamerabild auf Helligkeit überprüfen, je
+    #   nachdem wie hell die LEDs einschalten oder nicht
+    #   Strategie fuer das ausschalten ueberlegen
+
     time.sleep(wait_seconds)

@@ -94,14 +94,32 @@ def webcam():
 @app.route('/testseite')
 def testseite():
 
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM queue")
-    entries = cur.fetchall()  # fetch in dictionary form
+    cur = mysql.connection.cursor()  # creates database cursor
+    cur.execute("SELECT * FROM files WHERE username = %s",
+                [session['username']])
+    files = cur.fetchall()  # fetches in dictionary form
 
-    xdata = [1, 2, 3, 4, 5]
-    ydata = [1, 2, 10, 12, 16]
+    for i in range(len(files)):
+        # get data for files
+        path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
+        data = apph.read_txt_by_lines(path)
+        files[i]['xdata'] = list(range(len(data)))
+        data = [float(j) for j in data]
+        files[i]['ydata'] = data
 
-    return render_template('testseite.html', entries=entries, xdata=xdata, ydata=ydata)
+        path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
+        data = apph.read_txt_by_lines(path)
+        files[i]['xdata_results'] = list(range(len(data)))
+        data = [float(j) for j in data]
+        files[i]['ydata_results'] = data
+
+        # remove id from filename for presentation on dashboard
+        name = files[i]['name']
+        name = name.split('-', 1)[1]  # split(seperator, maxsplit)[element]
+        files[i]['name'] = name
+        files[i]['index'] = str(i)
+
+    return render_template('testseite.html', files=files)
 
 
 # Single Article
