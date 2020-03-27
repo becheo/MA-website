@@ -98,18 +98,22 @@ def testseite():
     cur.execute("SELECT * FROM files WHERE username = %s",
                 [session['username']])
     files = cur.fetchall()  # fetches in dictionary form
+    cur.close()
 
     for i in range(len(files)):
         # get data for files
         path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
         data = apph.read_txt_by_lines(path)
-        files[i]['xdata'] = list(range(len(data)))
+        xdata = list(range(len(data)))
+        xdata = [(x/apph.samplerate_write) for x in xdata]
+        files[i]['xdata'] = xdata
         data = [float(j) for j in data]
         files[i]['ydata'] = data
 
         if files[i]['status'] == 'executed':
             path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
             data = apph.read_txt_by_lines(path)
+            # TODO xdata durch Zeit aus datei ersetzen
             files[i]['xdata_results'] = list(range(len(data)))
             data = [float(j) for j in data]
             files[i]['ydata_results'] = data
@@ -476,10 +480,6 @@ def start_measurement(id):
     # /K - Carries out the command specified by string but remains
     # os.system("start cmd /K python project/start_measurement.py")
 
-    # TODO Button auf dashboard nun für die entsprechende Zeile entfernen/aendern
-    #  -> evtl in dashboard() queue database auch auslesen
-    #  3. table mit tests die durchgefuert wurden?
-    #  -> Oder in files neues feld mit status (status kann sein: waiting, in queue, done oder aehnlich)
     # TODO evtl. weitere Informationen uebergeben wie z.B. Testdauer (aus Vorgabe bestimmt)
 
     # get filename from files table

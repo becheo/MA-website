@@ -1,12 +1,15 @@
 
 """Functions to use in app.py"""
 
-# Path variables:
+# Path variables
 #  TODO change to TU PC paths
 UPLOAD_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/uploads'
 RESULTS_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/results'
 accesslog = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/logs/access.log'
 errorlog = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/logs/error.log'
+
+# Parameters
+samplerate_write = 500
 
 # Config MySQL
 

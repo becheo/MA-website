@@ -12,35 +12,12 @@
         <th></th>
         <th>ID</th>
         <th>Hochgeladene Datei</th>
-        <th>Datum</th>
-        <th>Status</th>
-        <th>Aktion</th>
+        <th>Datum (Upload)</th>
+        <th>Datum (Messung)</th>
+        <th>Aktion/Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="accordion-toggle collapsed" id="accordion1" data-toggle="collapse" data-parent="#accordion1"
-        href="#collapseOne">
-        <td class="expand-button"></td>
-        <td>Eins</td>
-        <td>Zwei</td>
-        <td>Drei</td>
-        <td>Vier</td>
-        <td>Fünf</td>
-      </tr>
-
-      <tr class="hide-table-padding">
-        <!-- <td></td> -->
-        <td colspan="6">
-          <div id="collapseOne" class="collapse in p-3">
-            <!-- <div class="row"> -->
-            <!-- <div class="col-2"> -->
-            Text
-            <!-- </div> -->
-            <!-- <div class="col-6">value 1</div> -->
-            <!-- </div> -->
-          </div>
-        </td>
-      </tr>
       {% for file in files %}
       <tr class="accordion-toggle collapsed" id="accordion2" data-toggle="collapse" data-parent="#accordion2"
         href="#collapse{{file.index}}">
@@ -48,16 +25,16 @@
         <td>{{file.id}}</td>
         <td>{{file.name}}</td>
         <td>{{file.upload_date}}</td>
-        <td>Status, Ausgefuehrt am ...</td>
+        <td>Status, Ausgeführt </td>
         <td>
           {% if file.status == 'uploaded' %}
           <form action="{{url_for('start_measurement', id=file.id)}}" method="POST">
             <input type="hidden" name="_method" value="Messung starten" />
-            <input type="submit" value="Messung starten" class="btn btn-primary" />
+            <input type="submit" value="Messung starten" class="btn btn-primary btn-block" />
+            {% elif file.status == 'in_queue' %}
+            <button type="button" class="btn btn-secondary btn-block" disabled>Messung gestartet</button>
             {% else %}
-            <!-- <input type="button" value="Messung gestartet" class="btn btn-secondary" disabled /> -->
-            <button type="button" class="btn btn-secondary" disabled>Messung gestartet</button>
-
+            <button type="button" class="btn btn-success btn-block" disabled>Messung durchgeführt</button>
             {% endif %}
           </form>
         </td>

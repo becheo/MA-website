@@ -93,6 +93,8 @@ while True:
         cursor = db.cursor()
         cursor.execute(
             "UPDATE files SET status = 'executed' WHERE id = %s", [id_now])
+        cursor.execute(
+            "UPDATE files SET execution_date = NOW() WHERE id = %s", [id_now])
         db.commit()
         cursor.close()
     else:
