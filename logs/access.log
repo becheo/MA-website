@@ -179,3 +179,7 @@
 ::1 - - [24/Mar/2020:18:39:44 +0100] "GET /static/favicon-io-mdt/apple-touch-icon.png HTTP/1.1" 200 25735
 ::1 - - [24/Mar/2020:18:39:47 +0100] "GET /dashboard HTTP/1.1" 200 9337
 ::1 - - [24/Mar/2020:18:40:03 +0100] "GET /mdt-settings HTTP/1.1" 200 13226
+::1 - - [28/Mar/2020:16:36:18 +0100] "GET / HTTP/1.1" 200 3173
+::1 - - [28/Mar/2020:16:36:20 +0100] "GET /static/media/MDT_logo.jpg HTTP/1.1" 200 146210
+::1 - - [28/Mar/2020:16:36:24 +0100] "GET /mdt-settings HTTP/1.1" 200 12160
+::1 - - [28/Mar/2020:16:36:33 +0100] "GET /testseite HTTP/1.1" 200 1240701

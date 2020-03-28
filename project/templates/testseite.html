@@ -60,10 +60,29 @@
         </td>
         <td colspan="1">
           <div id="collapse{{file.index}}" class="collapse in p-3">
+            {% if file.status == 'executed' %}
+            <!-- <form href="{{file.result_path}}">
+              <input type="hidden" name="_method" value="Daten herunterladen" />
+              <input type="button" value="Daten herunterladen" class="btn btn-primary btn-block" />
+            </form> -->
+            <a href="{{file.result_path}}" download class="btn btn-primary btn-block" style="vertical-align: top;">Daten
+              herunterladen</a>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
 
             <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
               <input type="hidden" name="_method" value="Eintrag Löschen" />
-              <input type="submit" value="Eintrag Löschen" class="btn btn-danger" />
+              <input type="submit" value="Eintrag Löschen" class="btn btn-outline-danger btn-sm btn-block"
+                style="vertical-align: bottom;" />
             </form>
         </td>
       </tr>

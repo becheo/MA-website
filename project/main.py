@@ -21,7 +21,7 @@ def create_file(filename, id):
     # dies ersetzt zum testen die testbench-contorl function
 
     filename = 'results-' + filename
-    path_results = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/results/' + filename
+    path_results = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/static/results/' + filename
 
     with open(path_results, "w") as f:
         f.write("Created On {}\n\n" .format(datetime.datetime.now()))

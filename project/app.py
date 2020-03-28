@@ -117,6 +117,8 @@ def testseite():
             files[i]['xdata_results'] = list(range(len(data)))
             data = [float(j) for j in data]
             files[i]['ydata_results'] = data
+            path = '../static/results/' + 'results-' + files[i]['name']
+            files[i]['result_path'] = path
 
         # remove id from filename for presentation on dashboard
         name = files[i]['name']
