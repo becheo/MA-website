@@ -3,6 +3,7 @@
 
 
 <br>
+<p>Zum interagieren bitte auf den entsprechenden Datensatz klicken.</p>
 <br>
 
 <div class="table-responsive">
@@ -25,7 +26,12 @@
         <td>{{file.id}}</td>
         <td>{{file.name}}</td>
         <td>{{file.upload_date}}</td>
-        <td>Status, Ausgeführt </td>
+        {% if file.status == 'executed' %}
+        <td>{{file.execution_date}}</td>
+        {% else %}
+        <td style="color: rgb(131, 131, 131);">Noch nicht durchgeführt</td>
+        {% endif %}
+
         <td>
           {% if file.status == 'uploaded' %}
           <form action="{{url_for('start_measurement', id=file.id)}}" method="POST">
