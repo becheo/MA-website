@@ -112,11 +112,11 @@ def testseite():
 
         if files[i]['status'] == 'executed':
             path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
-            data = apph.read_txt_by_lines(path)
+            data = apph.read_results_by_lines(path)
             # TODO xdata durch Zeit aus datei ersetzen
-            files[i]['xdata_results'] = list(range(len(data)))
-            data = [float(j) for j in data]
-            files[i]['ydata_results'] = data
+
+            files[i]['xdata_results'] = data[1]  # time
+            files[i]['ydata_results'] = data[4]
             path = '../static/results/' + 'results-' + files[i]['name']
             files[i]['result_path'] = path
 

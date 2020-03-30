@@ -48,16 +48,19 @@
 
       <tr class="hide-table-padding">
         <!-- <td></td> -->
+        <!-- Plot voltage specification -->
         <td colspan="3">
           <div id="collapse{{file.index}}" class="collapse in p-3">
             <div id="plot{{file.index}}" style="width:400px;height:250px;"></div>
           </div>
         </td>
+        <!-- Plot results -->
         <td colspan="2">
           <div id="collapse{{file.index}}" class="collapse in p-3">
             <div id="plot_results{{file.index}}" style="width:400px;height:250px;"></div>
           </div>
         </td>
+        <!-- Buttons for interaction -->
         <td colspan="1">
           <div id="collapse{{file.index}}" class="collapse in p-3">
             {% if file.status == 'executed' %}
@@ -110,13 +113,6 @@
               </div>
             </div>
 
-
-
-            <!-- <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
-              <input type="hidden" name="_method" value="Eintrag Löschen" />
-              <input type="submit" value="Eintrag Löschen" class="btn btn-outline-danger btn-sm btn-block"
-                style="vertical-align: bottom;" />
-            </form> -->
         </td>
       </tr>
       <!-- <tr class="hide-table-padding">
