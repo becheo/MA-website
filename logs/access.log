@@ -183,3 +183,10 @@
 ::1 - - [28/Mar/2020:16:36:20 +0100] "GET /static/media/MDT_logo.jpg HTTP/1.1" 200 146210
 ::1 - - [28/Mar/2020:16:36:24 +0100] "GET /mdt-settings HTTP/1.1" 200 12160
 ::1 - - [28/Mar/2020:16:36:33 +0100] "GET /testseite HTTP/1.1" 200 1240701
+::1 - - [28/Mar/2020:23:24:36 +0100] "GET / HTTP/1.1" 200 3173
+::1 - - [28/Mar/2020:23:24:41 +0100] "GET /testseite HTTP/1.1" 200 1241301
+::1 - - [28/Mar/2020:23:24:49 +0100] "GET /static/results/results-21-Spannungsvorgabe_fuer_Strommessung.txt HTTP/1.1" 200 152
+::1 - - [28/Mar/2020:23:26:17 +0100] "GET /webcam HTTP/1.1" 200 3697
+::1 - - [28/Mar/2020:23:26:17 +0100] "GET /static/media/TU_Logo_lang.JPG HTTP/1.1" 200 41578
+::1 - - [28/Mar/2020:23:26:18 +0100] "GET /static/media/kann-es-sein-dass-du-dumm-bist.mp4 HTTP/1.1" 200 109441
+::1 - - [28/Mar/2020:23:26:25 +0100] "GET /testseite HTTP/1.1" 200 1241301

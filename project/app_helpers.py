@@ -3,7 +3,7 @@
 
 # Path variables
 #  TODO change to TU PC paths
-UPLOAD_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/uploads'
+UPLOAD_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/static/uploads'
 RESULTS_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/static/results'
 accesslog = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/logs/access.log'
 errorlog = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/logs/error.log'

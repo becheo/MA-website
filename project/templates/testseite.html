@@ -77,13 +77,46 @@
             <br>
             <br>
             <br>
+            <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal"
+              data-target="#deleteEntry{{file.id}}">
+              Eintrag Löschen
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteEntry{{file.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="deleteEntryTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteEntryLongTitle">Eintrag wirklich löschen?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Möchten Sie die Datei {{file.name}} mit der ID {{file.id}} wirklich löschen?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Abbrechen</button>
+
+                    <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
+                      <input type="hidden" name="_method" value="Eintrag Löschen" />
+                      <input type="submit" value="Eintrag Löschen" class="btn btn-danger btn-sm btn-block"
+                        style="vertical-align: bottom;" />
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
-            <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
+
+            <!-- <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
               <input type="hidden" name="_method" value="Eintrag Löschen" />
               <input type="submit" value="Eintrag Löschen" class="btn btn-outline-danger btn-sm btn-block"
                 style="vertical-align: bottom;" />
-            </form>
+            </form> -->
         </td>
       </tr>
       <!-- <tr class="hide-table-padding">
