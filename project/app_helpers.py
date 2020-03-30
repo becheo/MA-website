@@ -60,6 +60,7 @@ def read_results_by_lines(path):
                         list[3]: Generator voltage [V]
                         list[4]: Motor voltage [V]
                         list[5]: Current [A]
+                        list[6]: Temperature [°C]
     """
 
     with open(path, "r") as f:

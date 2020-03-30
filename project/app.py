@@ -113,10 +113,15 @@ def testseite():
         if files[i]['status'] == 'executed':
             path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
             data = apph.read_results_by_lines(path)
-            # TODO xdata durch Zeit aus datei ersetzen
-
             files[i]['xdata_results'] = data[1]  # time
-            files[i]['ydata_results'] = data[4]
+            files[i]['ydata_results_mot_volt'] = data[4]
+            files[i]['ydata_results_gen_volt'] = data[3]
+            files[i]['ydata_results_rpm'] = data[2]
+            files[i]['ydata_results_current'] = data[5]
+            files[i]['ydata_results_temp'] = data[6]
+            files[i]['temp_min_value'] = min(data[6]) - 5
+            files[i]['temp_max_value'] = max(data[6]) + 5
+
             path = '../static/results/' + 'results-' + files[i]['name']
             files[i]['result_path'] = path
 
