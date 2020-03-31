@@ -94,44 +94,7 @@ def webcam():
 @app.route('/testseite')
 def testseite():
 
-    cur = mysql.connection.cursor()  # creates database cursor
-    cur.execute("SELECT * FROM files WHERE username = %s",
-                [session['username']])
-    files = cur.fetchall()  # fetches in dictionary form
-    cur.close()
-
-    for i in range(len(files)):
-        # get data for files
-        path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
-        data = apph.read_txt_by_lines(path)
-        xdata = list(range(len(data)))
-        xdata = [(x/apph.samplerate_write) for x in xdata]
-        files[i]['xdata'] = xdata
-        data = [float(j) for j in data]
-        files[i]['ydata'] = data
-
-        if files[i]['status'] == 'executed':
-            path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
-            data = apph.read_results_by_lines(path)
-            files[i]['xdata_results'] = data[1]  # time
-            files[i]['ydata_results_mot_volt'] = data[4]
-            files[i]['ydata_results_gen_volt'] = data[3]
-            files[i]['ydata_results_rpm'] = data[2]
-            files[i]['ydata_results_current'] = data[5]
-            files[i]['ydata_results_temp'] = data[6]
-            files[i]['temp_min_value'] = min(data[6]) - 5
-            files[i]['temp_max_value'] = max(data[6]) + 5
-
-            path = '../static/results/' + 'results-' + files[i]['name']
-            files[i]['result_path'] = path
-
-        # remove id from filename for presentation on dashboard
-        name = files[i]['name']
-        name = name.split('-', 1)[1]  # split(seperator, maxsplit)[element]
-        files[i]['name'] = name
-        files[i]['index'] = str(i)
-
-    return render_template('testseite.html', files=files)
+    return render_template('testseite.html')
 
 
 # Single Article

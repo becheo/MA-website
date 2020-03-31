@@ -1,29 +1,43 @@
 {% extends 'layout.html' %} {% block body %}
 <h1>Dashboard &nbsp; &nbsp; &nbsp; <small>Willkommen {{session.username}}</small></h1>
-<!--<a class="btn btn-success" href="/add_article">+ Neue Messung hinzufügen</a> -->
-<br>
-<br>
-<form method="POST" enctype="multipart/form-data">
-  <input type="file" name="file" class="btn btn-outline-primary" />
-  <input type="submit" value="Datei hochladen" class="btn btn-success" />
-</form>
-<!-- <hr /> -->
-<br>
-<input class="filestyle" type="file" multiple="multiple">
-<br>
-<input type="button" value="Datei hochladen">
-<br>
-<input type="file" name="file" id="filetest" class="inputfile" />
-<label for="filetest">Choose a file</label>
-<br>
-<br>
-<input type="file" name="file" id="filetest2" class="inputfile2" />
-<label for="filetest2" class="custom-file-upload">Choose file</label>
-<br>
 
 <br>
-<p>Zum interagieren bitte auf den entsprechenden Datensatz klicken.</p>
 <br>
+
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#fileUpload">
+  Neue Messung hinzufügen
+</button>
+
+<div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="fileUploadTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fileUploadLongTitle">Neue Messung hinzufügen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Laden Sie die Datei mit der Spannungsvorgabe hier hoch.
+        <br>
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+          1. &nbsp; <input type="file" name="file" style="width: 400px;" />
+          <br>
+          <br>
+          2. &nbsp; <input type="submit" value="Datei hochladen" class="btn btn-outline-success btn-sm"
+            style="width: 130px;" />
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<p>Zum interagieren bitte auf den entsprechenden Datensatz klicken.</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -156,7 +170,7 @@
                     Möchten Sie die Datei {{file.name}} mit der ID {{file.id}} wirklich löschen?
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Abbrechen</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Abbrechen</button>
 
                     <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
                       <input type="hidden" name="_method" value="Eintrag Löschen" />

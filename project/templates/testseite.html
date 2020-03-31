@@ -2,295 +2,31 @@
 {% extends 'layout.html' %} {% block body %}
 
 
-<br>
-<p>Zum interagieren bitte auf den entsprechenden Datensatz klicken.</p>
-<br>
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#fileUpload">
+  Neue Messung hinzufügen
+</button>
 
-<div class="table-responsive">
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th style="width: 3%;"></th>
-        <th style="width: 3%;">ID</th>
-        <th style="width: 34%;">Hochgeladene Datei</th>
-        <th style="width: 20%;">Datum (Upload)</th>
-        <th style="width: 20%;">Datum (Messung)</th>
-        <th style="width: 20%;">Aktion/Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for file in files %}
-      <tr class="accordion-toggle collapsed" id="accordion2" data-toggle="collapse" data-parent="#accordion2"
-        href="#collapse{{file.index}}">
-        <td class="expand-button" style="width: 3%;"></td>
-        <td style="width: 3%;">{{file.id}}</td>
-        <td style="width: 34%;">{{file.name}}</td>
-        <td style="width: 20%;">{{file.upload_date}}</td>
-        {% if file.status == 'executed' %}
-        <td style="width: 20%;">{{file.execution_date}}</td>
-        {% else %}
-        <td style="color: rgb(131, 131, 131);width: 20%;">Noch nicht durchgeführt</td>
-        {% endif %}
+<div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="fileUploadTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fileUploadLongTitle">Neue Messung hinzufügen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data">
+          <input type="file" name="file" style="width: 500px;" />
+          <br>
+          <br>
+          <input type="submit" value="Datei hochladen" class="btn btn-outline-success btn-sm" style="width: 130px;" />
+        </form>
+      </div>
 
-        <td style="width: 20%;">
-          {% if file.status == 'uploaded' %}
-          <form action="{{url_for('start_measurement', id=file.id)}}" method="POST">
-            <input type="hidden" name="_method" value="Messung starten" />
-            <input type="submit" value="Messung starten" class="btn btn-primary btn-block" />
-            {% elif file.status == 'in_queue' %}
-            <button type="button" class="btn btn-secondary btn-block" disabled>Messung gestartet</button>
-            {% else %}
-            <button type="button" class="btn btn-success btn-block" disabled>Messung durchgeführt</button>
-            {% endif %}
-          </form>
-        </td>
-      </tr>
-
-      <tr class="hide-table-padding">
-        <!-- <td></td> -->
-        <!-- Plot voltage specification -->
-        <td colspan="3">
-          <div id="collapse{{file.index}}" class="collapse in p-3">
-            <!-- <div id="plot{{file.index}}" style="width:450px;height:350px;"></div> -->
-            <div id="plot{{file.index}}" style="width:400px;height:300px;"></div>
-
-          </div>
-        </td>
-        <!-- Plot results -->
-        <td colspan="2">
-          <div id="collapse{{file.index}}" class="collapse in p-3">
-            {% if file.status == 'executed' %}
-
-            <!-- data-ride="carousel" -->
-            <div id="carouselIndicator{{file.index}}" class="carousel slide" data-interval="false">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselIndicator{{file.index}}" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselIndicator{{file.index}}" data-slide-to="1"></li>
-                <li data-target="#carouselIndicator{{file.index}}" data-slide-to="2"></li>
-                <li data-target="#carouselIndicator{{file.index}}" data-slide-to="3"></li>
-                <li data-target="#carouselIndicator{{file.index}}" data-slide-to="4"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div id="ydata_results_mot_volt{{file.index}}" style="width:400px;height:300px;"></div>
-                </div>
-                <div class="carousel-item">
-                  <div id="ydata_results_gen_volt{{file.index}}" style="width:400px;height:300px;"></div>
-                </div>
-                <div class="carousel-item">
-                  <div id="ydata_results_current{{file.index}}" style="width:400px;height:300px;"></div>
-                </div>
-                <div class="carousel-item">
-                  <div id="ydata_results_rpm{{file.index}}" style="width:400px;height:300px;"></div>
-                </div>
-                <div class="carousel-item">
-                  <div id="ydata_results_temp{{file.index}}" style="width:400px;height:300px;"></div>
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselIndicator{{file.index}}" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselIndicator{{file.index}}" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-
-            {% endif %}
-          </div>
-
-        </td>
-        <!-- Buttons for interaction -->
-        <td colspan="1">
-          <div id="collapse{{file.index}}" class="collapse in p-3">
-            {% if file.status == 'executed' %}
-            <a href="{{file.result_path}}" download class="btn btn-primary btn-block" style="vertical-align: top;">Daten
-              herunterladen</a>
-            {% endif %}
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal"
-              data-target="#deleteEntry{{file.id}}">
-              Eintrag Löschen
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="deleteEntry{{file.id}}" tabindex="-1" role="dialog"
-              aria-labelledby="deleteEntryTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="deleteEntryLongTitle">Eintrag wirklich löschen?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    Möchten Sie die Datei {{file.name}} mit der ID {{file.id}} wirklich löschen?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Abbrechen</button>
-
-                    <form action="{{url_for('delete_entry', id=file.id)}}" method="POST">
-                      <input type="hidden" name="_method" value="Eintrag Löschen" />
-                      <input type="submit" value="Eintrag Löschen" class="btn btn-danger btn-sm btn-block"
-                        style="vertical-align: bottom;" />
-                    </form>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        </td>
-      </tr>
-      {% endfor %}
-
-    </tbody>
-    <tr style="border-bottom: 10pt solid black; "></tr>
-
-  </table>
+    </div>
+  </div>
 </div>
-
-<br>
-<br>
-<br>
-<br>
-
-<!-- Script -->
-<script>
-  {% for file in files %}
-  // voltage specification
-  plot = document.getElementById('plot{{file.index}}');
-
-  var layout = {
-    title: 'Spannungsvorgabe',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Spannung in V',
-      showgrid: true
-    }
-  }
-
-  Plotly.newPlot(plot, [{
-    x: {{ file.xdata }},
-    y: {{ file.ydata }},
-}], layout, {
-    margin: { t: 0 }
-  });
-
-  {% if file.status == 'executed' %}
-  // motor voltage
-  ydata_results_mot_volt = document.getElementById('ydata_results_mot_volt{{file.index}}');
-
-  var layout_results_mot_volt = {
-    title: 'Motorspannung',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Spannung in V',
-      showgrid: true
-    }
-  }
-
-  Plotly.newPlot(ydata_results_mot_volt, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_mot_volt }},
-}], layout_results_mot_volt, {
-    margin: { t: 0 }
-  });
-
-  // generator voltage
-  ydata_results_gen_volt = document.getElementById('ydata_results_gen_volt{{file.index}}');
-  var layout_results_gen_volt = {
-    title: 'Generatorspannung',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Spannung in V',
-      showgrid: true
-    }
-  }
-  Plotly.newPlot(ydata_results_gen_volt, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_gen_volt }},
-}], layout_results_gen_volt, {
-    margin: { t: 0 }
-  });
-
-
-  // current
-  ydata_results_current = document.getElementById('ydata_results_current{{file.index}}');
-  var layout_results_current = {
-    title: 'Strommessung',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Strom in A',
-      showgrid: true
-    }
-  }
-  Plotly.newPlot(ydata_results_current, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_current }},
-}], layout_results_current, {
-    margin: { t: 0 }
-  });
-
-  // rpm
-  ydata_results_rpm = document.getElementById('ydata_results_rpm{{file.index}}');
-  var layout_results_rpm = {
-    title: 'Drehzahl',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Drehzahl in 1/min',
-      showgrid: true
-    }
-  }
-  Plotly.newPlot(ydata_results_rpm, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_rpm }},
-}], layout_results_rpm, {
-    margin: { t: 0 }
-  });
-
-  // temperature
-  ydata_results_temp = document.getElementById('ydata_results_temp{{file.index}}');
-  var layout_results_temp = {
-    title: 'Temperatur',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Temperatur in °C',
-      showgrid: true,
-      range: [{{ file.temp_min_value }}, {{ file.temp_max_value }}]
-    }
-  }
-  Plotly.newPlot(ydata_results_temp, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_temp }},
-}], layout_results_temp, {
-    margin: { t: 0 }
-  });
-
-  {% endif %}
-  {% endfor %}
-</script>
 
 {% endblock %}
