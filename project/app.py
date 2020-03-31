@@ -115,40 +115,56 @@ def article(id):
 class RegisterForm(Form):
     # name = StringField('Name', [validators.Length(min=1, max=50)])
     username = StringField('Username', [validators.Length(min=3, max=25)])
-    email = StringField('EMail', [validators.Length(min=6, max=50)])
-    password = PasswordField('Password', [
+    email = StringField('E-Mail', [validators.Length(min=6, max=50)])
+    password = PasswordField('Passwort', [
         validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords do not match')
+        validators.EqualTo(
+            'confirm', message='Passwörter stimmen nicht überein')
     ])
-    confirm = PasswordField('Confirm Password')
+    confirm = PasswordField('Passwort bestätigen')
 
 
 # User register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
-    if request.method == 'POST' and form.validate():
-        # handle submission:
-        # name = form.name.data
-        email = form.email.data
-        username = form.username.data
-        password = sha256_crypt.encrypt(str(form.password.data))
 
-        # Create cursor
-        cur = mysql.connection.cursor()
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users")
+    users = cur.fetchall()
+    cur.close()
 
-        cur.execute("INSERT INTO users(email, username, password) VALUES(%s, %s, %s)",
-                    (email, username, password))
+    # check if user already exists
+    result = next(
+        (item for item in users if item['username'] == str(form.username.data)), None)
 
-        # Commit to db
-        mysql.connection.commit()
+    if result == None:
+        if request.method == 'POST' and form.validate():
 
-        # Close conneciton
-        cur.close()
+            # handle submission:
+            # name = form.name.data
+            email = form.email.data
+            username = form.username.data
+            password = sha256_crypt.encrypt(str(form.password.data))
 
-        flash('You are now registered and can log in', 'success')
+            # Create cursor
+            cur = mysql.connection.cursor()
 
-        return redirect(url_for('login'))
+            cur.execute("INSERT INTO users(email, username, password) VALUES(%s, %s, %s)",
+                        (email, username, password))
+
+            # Commit to db
+            mysql.connection.commit()
+
+            # Close conneciton
+            cur.close()
+
+            flash('Registrierung erfolgreich. Sie können sich nun einloggen.', 'success')
+
+            return redirect(url_for('login'))
+    else:
+        # username already registered
+        flash('Dieser Benutzername ist bereits vergeben und kann nicht verwendet werden.', 'danger')
 
     return render_template('register.html', form=form)
 
@@ -179,7 +195,7 @@ def login():
                 session['logged_in'] = True
                 session['username'] = username
 
-                flash('You are now logged in', 'success')
+                flash('Login erfolgreich', 'success')
                 return redirect(url_for('dashboard'))
             else:
                 error = 'Invalid login'
@@ -254,7 +270,7 @@ def dashboard():
 
     else:
         msg = 'Keine Dateien vorhanden'
-        return render_template('dashboard.html', msg=msg)
+        return render_template('dashboard.html', no_files=msg)
 
     # Close connection
     cur.close()

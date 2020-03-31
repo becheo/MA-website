@@ -51,6 +51,7 @@
         <th style="width: 20%;">Aktion/Status</th>
       </tr>
     </thead>
+    {% if files is defined %}
     <tbody>
       {% for file in files %}
       <tr class="accordion-toggle collapsed" id="accordion2" data-toggle="collapse" data-parent="#accordion2"
@@ -187,12 +188,19 @@
       </tr>
       {% endfor %}
 
+
     </tbody>
     <tr style="border-bottom: 10pt solid black; "></tr>
 
   </table>
 </div>
+{% else %}
+</table>
+</div>
+<br>
+<div style="text-align: center;">Noch keine Einträge vorhanden.</div>
 
+{% endif %}
 <br>
 <br>
 <br>
