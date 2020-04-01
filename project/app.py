@@ -196,14 +196,20 @@ def login():
                 session['username'] = username
 
                 flash('Login erfolgreich', 'success')
+
+                cur.close()
                 return redirect(url_for('dashboard'))
             else:
-                error = 'Invalid login'
+                error = 'Passwort inkorrekt'
+
+                cur.close()
                 return render_template('login.html', error=error)
             # Close connection
-            cur.close()
+            # cur.close()
         else:
-            error = 'Username not found'
+            error = 'Benutzername nicht gefunden'
+
+            cur.close()
             return render_template('login.html', error=error)
 
     return render_template('login.html')
@@ -214,7 +220,7 @@ def login():
 @is_logged_in
 def logout():
     session.clear()
-    flash('You are now logged out', 'success')
+    flash('Logout erfolgreich', 'success')
     return redirect(url_for('login'))
 
 
@@ -252,9 +258,13 @@ def dashboard():
             files[i]['ydata_results_gen_volt'] = data[3]
             files[i]['ydata_results_rpm'] = data[2]
             files[i]['ydata_results_current'] = data[5]
-            files[i]['ydata_results_temp'] = data[6]
-            files[i]['temp_min_value'] = min(data[6]) - 5
-            files[i]['temp_max_value'] = max(data[6]) + 5
+            # TODO wieder zurueck aendern oder mit try except umsetzen
+            # files[i]['ydata_results_temp'] = data[6]
+            # files[i]['temp_min_value'] = min(data[6]) - 5
+            # files[i]['temp_max_value'] = max(data[6]) + 5
+            files[i]['ydata_results_temp'] = 20
+            files[i]['temp_min_value'] = 15
+            files[i]['temp_max_value'] = 25
 
             path = '../static/results/' + 'results-' + files[i]['name']
             files[i]['result_path'] = path  # for download hyperlink
@@ -355,8 +365,6 @@ def edit_article(id):
 
     return render_template('edit_article.html', form=form)
 
-# TODO Modal hinzufügen und nachfragen, ob wirklich gelöscht werden soll
-# erst wenn ein Button im Modal bestätigt wird die Daten löschen
 # Delete entry - only entry in database is deleted, not the file in 'uploads' folder
 @app.route('/delete_entry/<string:id>', methods=['POST'])
 @is_logged_in
@@ -376,31 +384,6 @@ def delete_entry(id):
     flash('Eintrag gelöscht', 'success')
 
     return redirect(url_for('dashboard'))
-
-
-def plot_voltage(filename_saved):
-    # TODO filename_web ersetzten und nach ID suchen
-    filename_web = filename_saved
-    mypath = os.listdir('uploads')
-    for i in range(0, len(mypath)):
-        if filename_web == mypath[i]:
-            filename = mypath[i]
-
-    # Datei auslesen:
-    print("Folgende Datei wird geöffnet: ", filename)
-    with open(filename, "r") as f:
-        buffer_textfile = f.read().splitlines()
-        f.close()
-
-    data_AO = [float(i) for i in buffer_textfile]  # Konvertierung in float
-    plt.title('Spannung Vorgabe')
-    # TODO Zeit zum plot hinzufügen
-    # TODO plot so erstellen, sodass Verlauf bei kleinem Plot gut erkennbar (z.B. Linewidth dicker)
-    plt.plot(data_AO)
-    plt.xlabel('Zeit in s')
-    plt.ylabel('Spannung in V')
-    plt.grid(True)
-    plt.savefig("static/plots/Spannungsvorgabe.png", bbox_inches='tight')
 
 
 ALLOWED_EXTENSIONS = {'txt'}
@@ -434,11 +417,7 @@ def upload_file():
         if file and allowed_filename(file.filename):
             filename = secure_filename(file.filename)
 
-            # TODO Create plot here or at dashboard site with plotly dash or some other visualization tool
-            # plot_voltage(filename)
-
             # write data to database:
-            # Create cursor
             cur = mysql.connection.cursor()
 
             # get last entry in db
