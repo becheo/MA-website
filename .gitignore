@@ -2,6 +2,9 @@
 test2.py
 testDecorator.py
 
+# config file
+config.py
+
 # error and access log files
 logs/
 
