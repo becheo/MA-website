@@ -5,4 +5,88 @@
 <ul class="list-group">
     {% for article in articles %}
     <li class="list-group-item"><a href="article/{{article.id}}">{{article.title}}</a></li> {% endfor %} </ul>
+
+<div id="myDiv" style="width: 480px; height: 400px;">
+    <!-- Plotly chart will be drawn inside this DIV -->
+</div>
+
+<script>
+    // function makeplot() {
+    //     Plotly.d3.csv("https://raw.githubusercontent.com/plotly/datasets/master/2014_apple_stock.csv", function (data) { processData(data) });
+
+    // };
+
+    // function processData(allRows) {
+
+    //     console.log(allRows);
+    //     var x = [], y = [], standard_deviation = [];
+
+    //     for (var i = 0; i < allRows.length; i++) {
+    //         row = allRows[i];
+    //         x.push(row['AAPL_x']);
+    //         y.push(row['AAPL_y']);
+    //     }
+    //     console.log('X', x, 'Y', y, 'SD', standard_deviation);
+    //     makePlotly(x, y, standard_deviation);
+    // }
+
+    // function makePlotly(x, y, standard_deviation) {
+    //     var plotDiv = document.getElementById("plot");
+    //     var traces = [{
+    //         x: x,
+    //         y: y
+    //     }];
+
+    //     Plotly.newPlot('myDiv', traces,
+    //         { title: 'Plotting CSV data from AJAX call' });
+    // };
+    // makeplot();
+
+
+
+
+    function processData(allRows) {
+        var x = [], y = [];
+
+        for (var i = 0; i < allRows.length; i++) {
+            row = allRows[i];
+            x.push(row['time']);
+            y.push(row['voltage']);
+        }
+        makePlotly(x, y);
+    }
+
+    function makePlotly(x, y) {
+        var plotDiv = document.getElementById('myDiv');
+        var traces = [{
+            x: x,
+            y: y
+        }];
+        var layout = {
+            title: 'Spannungsvorgabe',
+            xaxis: {
+                title: 'Zeit in s'
+            },
+            yaxis: {
+                title: 'Spannung in V',
+                showgrid: true
+            }
+        }
+
+        Plotly.newPlot(plotDiv, traces, layout);
+        // { title: 'Plotting CSV data from AJAX call' });
+    }
+
+    // plot = document.getElementById('myDiv');
+
+    // Plotly.newPlot('myDiv', traces, layout);
+
+    function makeplot() {
+        Plotly.d3.csv("{{url_for('static', filename='uploads/17-Spannungsvorgabe-03.csv')}}", function (data) { processData(data) });
+    }
+
+    makeplot();
+
+
+</script>
 {% endblock %}
