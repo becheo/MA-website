@@ -124,7 +124,7 @@ def testseite():
             path = files[i]['name']
             path = path[0:-3]
             path = 'results/' + 'results-' + path + 'csv'
-            print(path)
+            # print(path)
             files[i]['result_path'] = path
 
             # data = apph.read_results_by_lines(path)
