@@ -1,12 +1,14 @@
 
 """Functions to use in app.py"""
 
+import config as cfg
+
+
 # Path variables
-#  TODO change to TU PC paths
-UPLOAD_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/static/uploads'
-RESULTS_FOLDER = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/static/results'
-accesslog = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/logs/access.log'
-errorlog = 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/logs/error.log'
+UPLOAD_FOLDER = cfg.folder_upload
+RESULTS_FOLDER = cfg.folder_results
+accesslog = cfg.file_accesslog
+errorlog = cfg.file_errorlog
 
 # Parameters
 samplerate_write = 500
@@ -17,11 +19,11 @@ samplerate_write = 500
 def init_db(app):
     """Initialize database."""
 
-    app.config['MYSQL_HOST'] = 'localhost'
-    app.config['MYSQL_USER'] = 'root'
-    app.config['MYSQL_PASSWORD'] = 'aligator3'  #
-    app.config['MYSQL_DB'] = 'website'  # TODO ändern auf TU database (?)
-    app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+    app.config['MYSQL_HOST'] = cfg.MYSQL_HOST
+    app.config['MYSQL_USER'] = cfg.MYSQL_USER
+    app.config['MYSQL_PASSWORD'] = cfg.MYSQL_PASSWORD
+    app.config['MYSQL_DB'] = cfg.MYSQL_DB
+    app.config['MYSQL_CURSORCLASS'] = cfg.MYSQL_CURSORCLASS
 
 
 def read_txt_by_lines(path):
