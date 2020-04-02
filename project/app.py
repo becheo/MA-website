@@ -40,8 +40,41 @@ mysql = MySQL(app)  # init MySQL
 # redirect : page already there, just want to point to that page
 
 # Index
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+
+    if request.method == 'POST':
+        username = request.form['username']
+        password_candidate = request.form['password']
+
+        cur = mysql.connection.cursor()
+        result = cur.execute(
+            "SELECT * FROM users WHERE username = %s", [username])
+
+        if result > 0:
+            # Get stored hash
+            data = cur.fetchone()
+            password = data['password']
+
+            # Compare Passwords
+            if sha256_crypt.verify(password_candidate, password):
+                session['logged_in'] = True
+                session['username'] = username
+
+                flash('Login erfolgreich', 'success')
+
+                cur.close()
+                return redirect(url_for('dashboard'))
+            else:
+                error = 'Passwort inkorrekt'
+
+                cur.close()
+                return render_template('home.html', error=error)
+        else:
+            error = 'Benutzername nicht gefunden'
+
+            cur.close()
+            return render_template('home.html', error=error)
     return render_template('home.html')
 
 # About

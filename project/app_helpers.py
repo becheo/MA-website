@@ -1,7 +1,11 @@
-
 """Functions to use in app.py"""
 
-import config as cfg
+import sys
+
+if 'pytest' in sys.modules:
+    from Website.project import config as cfg  # for pytest
+else:
+    import config as cfg  # for Apache Server
 
 
 # Path variables

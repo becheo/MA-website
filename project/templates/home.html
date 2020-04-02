@@ -1,24 +1,57 @@
 {% extends 'layout.html' %} {% block body %}
-<div class="jumbotron text-center">
+
+
+<div class="jumbotron">
   <h2>Web-basierter Prüfstand</h2>
-  <br />
-  <img
-    src="{{url_for('static', filename='media/MDT_logo.jpg')}}"
-    alt="TU_logo"
-    height="100"
-  />
-  <p><br /></p>
+  <br>
   <p class="lead">
     Dies ist die Website zum Web-basierten Prüfstand des Fachgebiets MDT der
     TU-Berlin. Dieser Versuch wird gegenwärtig in der Lehrveranstaltung
     "Modellierung und Simulation mechatronischer Systeme" verwendet.
   </p>
-  {% if session.logged_in == NULL %}
-  <a href="/register" class="btn btn-primary btn-lg">Register</a>
-  <a href="/login" class="btn-success btn-lg">Login</a>
-  {% endif %}
+  <hr class="my-4">
+  <br>
+  
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="card" style="width: 400px;">
+        <div class="card-body">
+          <form action="" method="POST">
+            <br>
+            <div class="form-group">
+                <label for="username" style="text-align: left;float: left;">Username</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Username" value={{request.form.username}}>
+            </div>
+            <div class="form-group">
+                <label for="password" style="text-align: left;float: left;">Passwort</label>
+                <input type="password" name="password" id="password" class="form-control" value={{request.form.password}}>          
+            </div>
+            <div class="form-group">
+              {% if session.logged_in == NULL %}
+              <button type="submit" class="btn btn-success" style="float: left;width: 120px;">Login</button>
+              <a href="/register" class="btn btn-primary" style="width: 120px; float: right;">Registrieren</a>
+              {% else %}
+              <a class="btn btn-danger" href="/logout" style="float: left;width: 120px;">Logout</a>
+              {% endif %}
+            </div>    
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <img
+        src="{{url_for('static', filename='media/MDT-logo.jpg')}}"
+        alt="TU_logo"
+        style="width: 280px; "
+      />
+
+    </div>
+  </div>
 </div>
-<div style="position:fixed; text-align: center; bottom: 5px; width: 100%;">
+
+<div style="position:fixed; bottom: 5px;  width: 100%; align-content: center; text-align: center;">
   Version 0.1
 </div>
 {% endblock %}
