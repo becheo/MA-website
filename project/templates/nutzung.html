@@ -2,91 +2,39 @@
 
 {% block body %}
 <h1>Durchführung eines Versuchs</h1>
-<ul class="list-group">
-    {% for article in articles %}
-    <li class="list-group-item"><a href="article/{{article.id}}">{{article.title}}</a></li> {% endfor %} </ul>
+<br>
+<br>
+<p>Um einen Versuch an dem Prüfstand durchführen zu können, muss dem Prüfstand eine 
+    Spannung übermittelt werden. Der vorzugebende Spannungsverlauf muss dabei in 
+    einer csv-Datei gespeichert werden. Jede Zeile in der Datei entspricht einem 
+    Spannungswert zu einem bestimmten Zeitpunkt. Die Samplerate am Prüfstand
+    beträgt 250 Hz. Somit entsprechen 250 Werte in der csv-Datei dem Spannungsverlauf
+    für eine Sekunde.
+</p>
+<p>Für die Erstellung des Spannungsverlauf kann das hier verfügbare Python Skript 
+    verwendet werden. In der Datei 'create_voltage_curve.py' ist dazu ein Beispiel
+    gegeben.</p>
+<a href="{{url_for('static', filename='voltage-curve.zip')}}" download class="btn btn-primary" style="vertical-align: top;">
+Python Skript herunterladen
+</a>
+<br>
+<br>
+<br>
+<p>Nachdem Sie einen Spannungsverlauf erstellt haben, müssen Sie diesen noch an den
+    Prüfstand übergeben. Dafür dient diese Webseite. Erstellen Sie einen Account und
+    loggen Sie sich anschließend ein. Nach dem Login sehen Sie ihr persönliches Dashboard.
+    Hier können Sie ihre Messungen verwalten. Fügen Sie den erstellten Spannungsverlauf über
+    den Button 'Neue Messung hinzufügen' ihrem Dashboard hinzu. 
+</p>
+<p>Sobald Sie ihren Spannugsverlauf hinzugefügt haben, können Sie diesen über den 
+    Button 'Messung starten' am Prüfstand ausführen. Über den Reiter 'Webcam' 
+    können Sie Ihre Messung live am Prüfstand verfolgen.
+</p>
+<p>Sobald die Messung durchgeführt wurde, werden die Messdaten an der entsprechenden 
+    Stelle auf dem Dashboard angezeigt. Sie können die Messdaten inspizieren und 
+    diese als csv-Datei herunterladen. Mit den erhaltenen Daten können Sie dann die
+    Identifikation der Parameter Ihres Simulationsmodells vornehmen.
+</p>
+<p>Viel Spaß bei der Verwendung des Prüfstands.</p>
 
-<div id="myDiv" style="width: 480px; height: 400px;">
-    <!-- Plotly chart will be drawn inside this DIV -->
-</div>
-
-<script>
-    // function makeplot() {
-    //     Plotly.d3.csv("https://raw.githubusercontent.com/plotly/datasets/master/2014_apple_stock.csv", function (data) { processData(data) });
-
-    // };
-
-    // function processData(allRows) {
-
-    //     console.log(allRows);
-    //     var x = [], y = [], standard_deviation = [];
-
-    //     for (var i = 0; i < allRows.length; i++) {
-    //         row = allRows[i];
-    //         x.push(row['AAPL_x']);
-    //         y.push(row['AAPL_y']);
-    //     }
-    //     console.log('X', x, 'Y', y, 'SD', standard_deviation);
-    //     makePlotly(x, y, standard_deviation);
-    // }
-
-    // function makePlotly(x, y, standard_deviation) {
-    //     var plotDiv = document.getElementById("plot");
-    //     var traces = [{
-    //         x: x,
-    //         y: y
-    //     }];
-
-    //     Plotly.newPlot('myDiv', traces,
-    //         { title: 'Plotting CSV data from AJAX call' });
-    // };
-    // makeplot();
-
-
-
-
-    function processData(allRows) {
-        var x = [], y = [];
-
-        for (var i = 0; i < allRows.length; i++) {
-            row = allRows[i];
-            x.push(row['time']);
-            y.push(row['voltage']);
-        }
-        makePlotly(x, y);
-    }
-
-    function makePlotly(x, y) {
-        var plotDiv = document.getElementById('myDiv');
-        var traces = [{
-            x: x,
-            y: y
-        }];
-        var layout = {
-            title: 'Spannungsvorgabe',
-            xaxis: {
-                title: 'Zeit in s'
-            },
-            yaxis: {
-                title: 'Spannung in V',
-                showgrid: true
-            }
-        }
-
-        Plotly.newPlot(plotDiv, traces, layout);
-        // { title: 'Plotting CSV data from AJAX call' });
-    }
-
-    // plot = document.getElementById('myDiv');
-
-    // Plotly.newPlot('myDiv', traces, layout);
-
-    function makeplot() {
-        Plotly.d3.csv("{{url_for('static', filename='uploads/17-Spannungsvorgabe-03.csv')}}", function (data) { processData(data) });
-    }
-
-    makeplot();
-
-
-</script>
 {% endblock %}
