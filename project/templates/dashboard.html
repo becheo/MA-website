@@ -87,6 +87,8 @@
           <div id="collapse{{file.index}}" class="collapse in p-3">
             <!-- <div id="plot{{file.index}}" style="width:450px;height:350px;"></div> -->
             <div id="plot{{file.index}}" style="width:400px;height:300px;"></div>
+            <!-- <div id="plot" style="width:400px;height:300px;"></div> -->
+
 
           </div>
         </td>
@@ -190,7 +192,7 @@
 
 
     </tbody>
-    <tr style="border-bottom: 10pt solid black; "></tr>
+    <tr style="border-bottom: 1pt solid black; "></tr>
 
   </table>
 </div>
@@ -208,131 +210,255 @@
 
 <!-- Script -->
 <script>
+  var slice_rows = 6;  // number of rows to slice from csv file (header of file)
+
+  // iteration step for data to take from the csv file, the higher the faster the
+  // data is plotted, less data available to inspect though. As the data to work
+  // with is downloaded completly, this can be a nice way to speed up the 
+  // visualizaion process for the dashboard
+  var intertion_step_plot = 10;  
+  var csv_time = ' Zeit[s]';
+  var csv_motor_voltage = ' Spg. Motor[V]';
+  var csv_generator_voltage = ' Spg. Generator[V]';
+  var csv_current = ' Spg. Strommessung[V]';
+  var csv_rpm = ' Spg. Tachometer[V]';
+  var csv_temperature = ' Temperatur[C]';
+
 
   {% for file in files %}
-  // voltage specification
-  plot = document.getElementById('plot{{file.index}}');
 
-  var layout = {
-    title: 'Spannungsvorgabe',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Spannung in V',
-      showgrid: true
-    }
+  // file with user voltage specification
+  var path{{file.index}} = "{{url_for('static', filename=file.path)}}"
+
+  function makeplot{{ file.index }}(path{{ file.index }}) {
+    Plotly.d3.csv(path{{ file.index }}, function (data{{file.index}}) { processData{{file.index}}(data{{file.index}}) });
   }
 
-  Plotly.newPlot(plot, [{
-    x: {{ file.xdata }},
-    y: {{ file.ydata }},
-}], layout, {
-    margin: { t: 0 }
-  });
+  function processData{{file.index}}(allRows) {
+    var x = [], y = [];
 
+    for (var i = 0; i < allRows.length; i++) {
+      row = allRows[i];
+      x.push(row['time']);
+      y.push(row['voltage']);
+    }
+    makePlotly{{file.index}}(x, y);
+  }
+
+  function makePlotly{{file.index}}(x, y) {
+    var plotDiv = document.getElementById('plot{{file.index}}');
+    var traces = [{
+      x: x,
+      y: y
+    }];
+    var layout = {
+      title: 'Spannungsvorgabe',
+      xaxis: {
+        title: 'Zeit in s'
+      },
+      yaxis: {
+        title: 'Spannung in V',
+        showgrid: true
+      }
+    }
+
+    Plotly.newPlot(plotDiv, traces, layout);
+  }
+
+  makeplot{{ file.index }}(path{{ file.index }});
+
+
+  // console.log(allRows);
   {% if file.status == 'executed' %}
-  // motor voltage
-  ydata_results_mot_volt = document.getElementById('ydata_results_mot_volt{{file.index}}');
 
-  var layout_results_mot_volt = {
-    title: 'Motorspannung',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Spannung in V',
-      showgrid: true
-    }
+  var path_results{{file.index}} = "{{url_for('static', filename=file.result_path)}}"
+
+  function makeplot_results{{ file.index }}(path_results{{ file.index }}) {
+    Plotly.d3.csv(path_results{{ file.index }}, function (data_mot{{file.index}}) { 
+      processData_mot{{file.index}}(data_mot{{file.index}}.slice(slice_rows)),
+      processData_gen{{file.index}}(data_mot{{file.index}}.slice(slice_rows)),
+      processData_current{{file.index}}(data_mot{{file.index}}.slice(slice_rows)),
+      processData_rpm{{file.index}}(data_mot{{file.index}}.slice(slice_rows)),
+      processData_temp{{file.index}}(data_mot{{file.index}}.slice(slice_rows))
+    });
   }
 
-  Plotly.newPlot(ydata_results_mot_volt, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_mot_volt }},
-}], layout_results_mot_volt, {
-    margin: { t: 0 }
-  });
+
+  // motor voltage
+  function processData_mot{{file.index}}(allRows) {
+    var x = [], y = [];
+
+    for (var i = 0; i < allRows.length; i=i+intertion_step_plot) {
+      row = allRows[i];
+      x.push(row[csv_time]);
+      y.push(row[csv_motor_voltage]);
+    }
+    makePlotly_mot{{file.index}}(x, y);
+  }
+
+  function makePlotly_mot{{file.index}}(x, y) {
+    var plotDiv = document.getElementById('ydata_results_mot_volt{{file.index}}');
+    var traces = [{
+      x: x,
+      y: y
+    }];
+    var layout = {
+      title: 'Motorspannung',
+      xaxis: {
+        title: 'Zeit in s'
+      },
+      yaxis: {
+        title: 'Spannung in V',
+        showgrid: true
+      }
+    }
+
+    Plotly.newPlot(plotDiv, traces, layout);
+  }
+
+  // makeplot_results_mot(path_results{{file.index}} );
+
 
   // generator voltage
-  ydata_results_gen_volt = document.getElementById('ydata_results_gen_volt{{file.index}}');
-  var layout_results_gen_volt = {
-    title: 'Generatorspannung',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Spannung in V',
-      showgrid: true
+  function processData_gen{{file.index}}(allRows) {
+    var x = [], y = [];
+
+    for (var i = 0; i < allRows.length; i=i+intertion_step_plot) {
+      row = allRows[i];
+      x.push(row[csv_time]);
+      y.push(row[csv_generator_voltage]);
     }
+    makePlotly_gen{{file.index}}(x, y);
   }
-  Plotly.newPlot(ydata_results_gen_volt, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_gen_volt }},
-}], layout_results_gen_volt, {
-    margin: { t: 0 }
-  });
+
+  function makePlotly_gen{{file.index}}(x, y) {
+    var plotDiv = document.getElementById('ydata_results_gen_volt{{file.index}}');
+    var traces = [{
+      x: x,
+      y: y
+    }];
+    var layout = {
+      title: 'Generatorspannung',
+      xaxis: {
+        title: 'Zeit in s'
+      },
+      yaxis: {
+        title: 'Spannung in V',
+        showgrid: true
+      }
+    }
+
+    Plotly.newPlot(plotDiv, traces, layout);
+  }
 
 
   // current
-  ydata_results_current = document.getElementById('ydata_results_current{{file.index}}');
-  var layout_results_current = {
-    title: 'Strommessung',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Strom in A',
-      showgrid: true
+  function processData_current{{file.index}}(allRows) {
+    var x = [], y = [];
+
+    for (var i = 0; i < allRows.length; i=i+intertion_step_plot) {
+      row = allRows[i];
+      x.push(row[csv_time]);
+      y.push(row[csv_current]);
     }
+    makePlotly_current{{file.index}}(x, y);
   }
-  Plotly.newPlot(ydata_results_current, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_current }},
-}], layout_results_current, {
-    margin: { t: 0 }
-  });
+
+  function makePlotly_current{{file.index}}(x, y) {
+    var plotDiv = document.getElementById('ydata_results_current{{file.index}}');
+    var traces = [{
+      x: x,
+      y: y
+    }];
+    var layout = {
+      title: 'Motorstrom',
+      xaxis: {
+        title: 'Zeit in s'
+      },
+      yaxis: {
+        title: 'Strom in A',
+        showgrid: true
+      }
+    }
+
+    Plotly.newPlot(plotDiv, traces, layout);
+  }
+
 
   // rpm
-  ydata_results_rpm = document.getElementById('ydata_results_rpm{{file.index}}');
-  var layout_results_rpm = {
-    title: 'Drehzahl',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Drehzahl in 1/min',
-      showgrid: true
+  function processData_rpm{{file.index}}(allRows) {
+    var x = [], y = [];
+
+    for (var i = 0; i < allRows.length; i=i+intertion_step_plot) {
+      row = allRows[i];
+      x.push(row[csv_time]);
+      y.push(row[csv_rpm]);
     }
+    makePlotly_rpm{{file.index}}(x, y);
   }
-  Plotly.newPlot(ydata_results_rpm, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_rpm }},
-}], layout_results_rpm, {
-    margin: { t: 0 }
-  });
+
+  function makePlotly_rpm{{file.index}}(x, y) {
+    var plotDiv = document.getElementById('ydata_results_rpm{{file.index}}');
+    var traces = [{
+      x: x,
+      y: y
+    }];
+    var layout = {
+      title: 'Drehzahl',
+      xaxis: {
+        title: 'Zeit in s'
+      },
+      yaxis: {
+        title: 'Drehzahl in 1/min',
+        showgrid: true
+      }
+    }
+
+    Plotly.newPlot(plotDiv, traces, layout);
+  }
+
 
   // temperature
-  ydata_results_temp = document.getElementById('ydata_results_temp{{file.index}}');
-  var layout_results_temp = {
-    title: 'Temperatur',
-    xaxis: {
-      title: 'Zeit in s'
-    },
-    yaxis: {
-      title: 'Temperatur in °C',
-      showgrid: true,
-      range: [{{ file.temp_min_value }}, {{ file.temp_max_value }}]
+  function processData_temp{{file.index}}(allRows) {
+    var x = [], y = [];
+
+    for (var i = 0; i < allRows.length; i=i+intertion_step_plot) {
+      row = allRows[i];
+      x.push(row[csv_time]);
+      y.push(row[csv_time]);
     }
+    makePlotly_temp{{file.index}}(x, y);
   }
-  Plotly.newPlot(ydata_results_temp, [{
-    x: {{ file.xdata_results }},
-    y: {{ file.ydata_results_temp }},
-}], layout_results_temp, {
-    margin: { t: 0 }
-  });
+
+  function makePlotly_temp{{file.index}}(x, y) {
+    var plotDiv = document.getElementById('ydata_results_temp{{file.index}}');
+    var traces = [{
+      x: x,
+      y: y
+    }];
+    var layout = {
+      title: 'Temperatur',
+      xaxis: {
+        title: 'Zeit in s'
+      },
+      yaxis: {
+        title: 'Temperatur in °C',
+        showgrid: true
+      }
+    }
+
+    Plotly.newPlot(plotDiv, traces, layout);
+  }
+
+  // plot all results
+  makeplot_results{{ file.index }}(path_results{{ file.index }});
+
 
   {% endif %}
+
   {% endfor %}
+ 
+
 </script>
 
 {% endblock %}

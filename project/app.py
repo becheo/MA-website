@@ -94,67 +94,6 @@ def webcam():
 @app.route('/testseite')
 def testseite():
 
-    # get data from database
-    cur = mysql.connection.cursor()  # creates database cursor
-    cur.execute("SELECT * FROM files WHERE username = %s",
-                [session['username']])
-    files = cur.fetchall()  # fetches in dictionary form
-    cur.close()
-
-    # get data for files
-    for i in range(len(files)):
-        # user voltage specifications
-        path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
-        # TODO hier wieder anpassen, wenn Datien normal schon in csv sind
-        path = path[72:-3]
-        path = path + 'csv'
-        # print(path)
-        files[i]['path'] = path
-
-        # data = apph.read_txt_by_lines(path)
-        # xdata = list(range(len(data)))
-        # xdata = [(x/apph.samplerate_write) for x in xdata]
-        # files[i]['xdata'] = xdata
-        # data = [float(j) for j in data]
-        # files[i]['ydata'] = data
-
-        # result files with data from measurement
-        if files[i]['status'] == 'executed':
-            # path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
-            path = files[i]['name']
-            path = path[0:-3]
-            path = 'results/' + 'results-' + path + 'csv'
-            # print(path)
-            files[i]['result_path'] = path
-
-            # data = apph.read_results_by_lines(path)
-            # files[i]['xdata_results'] = data[1]  # time
-            # files[i]['ydata_results_mot_volt'] = data[4]
-            # files[i]['ydata_results_gen_volt'] = data[3]
-            # files[i]['ydata_results_rpm'] = data[2]
-            # files[i]['ydata_results_current'] = data[5]
-            # files[i]['ydata_results_temp'] = data[6]
-            # files[i]['temp_min_value'] = min(data[6]) - 5
-            # files[i]['temp_max_value'] = max(data[6]) + 5
-            # path = '../static/results/' + 'results-' + files[i]['name']
-            # files[i]['result_path'] = path  # for download hyperlink
-
-        # remove id from filename for presentation on dashboard
-        name = files[i]['name']
-        name = name.split('-', 1)[1]  # split(seperator, maxsplit)[element]
-        files[i]['name'] = name
-        files[i]['index'] = str(i)
-
-    if len(files) > 0:  # if there are rows
-        return render_template('testseite.html', files=files)
-
-    else:
-        msg = 'Keine Dateien vorhanden'
-        return render_template('testseite.html', no_files=msg)
-
-    # Close connection
-    cur.close()
-
     return render_template('testseite.html')
 
 
@@ -303,32 +242,20 @@ def dashboard():
     for i in range(len(files)):
         # user voltage specifications
         path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
-        data = apph.read_txt_by_lines(path)
-        xdata = list(range(len(data)))
-        xdata = [(x/apph.samplerate_write) for x in xdata]
-        files[i]['xdata'] = xdata
-        data = [float(j) for j in data]
-        files[i]['ydata'] = data
+        # TODO hier wieder anpassen, wenn Datien normal schon in csv sind
+        path = path[72:-3]
+        path = path + 'csv'
+        # print(path)
+        files[i]['path'] = path
 
         # result files with data from measurement
         if files[i]['status'] == 'executed':
-            path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
-            data = apph.read_results_by_lines(path)
-            files[i]['xdata_results'] = data[1]  # time
-            files[i]['ydata_results_mot_volt'] = data[4]
-            files[i]['ydata_results_gen_volt'] = data[3]
-            files[i]['ydata_results_rpm'] = data[2]
-            files[i]['ydata_results_current'] = data[5]
-            # TODO wieder zurueck aendern oder mit try except umsetzen
-            # files[i]['ydata_results_temp'] = data[6]
-            # files[i]['temp_min_value'] = min(data[6]) - 5
-            # files[i]['temp_max_value'] = max(data[6]) + 5
-            files[i]['ydata_results_temp'] = 20
-            files[i]['temp_min_value'] = 15
-            files[i]['temp_max_value'] = 25
-
-            path = '../static/results/' + 'results-' + files[i]['name']
-            files[i]['result_path'] = path  # for download hyperlink
+            # path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
+            path = files[i]['name']
+            path = path[0:-3]
+            path = 'results/' + 'results-' + path + 'csv'
+            # print(path)
+            files[i]['result_path'] = path
 
         # remove id from filename for presentation on dashboard
         name = files[i]['name']
@@ -348,9 +275,8 @@ def dashboard():
 
     return render_template('dashboard.html')
 
+
 # Article Form Class
-
-
 class ArticleForm(Form):
     title = StringField('Title', [validators.Length(min=1, max=200)])
     body = TextAreaField('Body', [validators.Length(min=30)])
