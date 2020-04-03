@@ -4,16 +4,98 @@
 <h1>Durchführung eines Versuchs</h1>
 <br>
 <br>
-<p>Um einen Versuch an dem Prüfstand durchführen zu können, muss dem Prüfstand eine 
-    Spannung übermittelt werden. Der vorzugebende Spannungsverlauf muss dabei in 
-    einer csv-Datei gespeichert werden. Jede Zeile in der Datei entspricht einem 
-    Spannungswert zu einem bestimmten Zeitpunkt. Die Samplerate am Prüfstand
-    beträgt 250 Hz. Somit entsprechen 250 Werte in der csv-Datei dem Spannungsverlauf
-    für eine Sekunde.
-</p>
+<br>
+<div class="row">
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-file-csv fa-2x"></i>
+        <br>
+        <br>
+        Spannungsverlauf erstellen
+    </div>
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-arrow-alt-circle-right fa-2x" style="margin-top: 30px;"></i>
+    </div>
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-file-upload fa-2x"></i>
+        <br>
+        <br>
+        Datei hochladen
+    </div>
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-arrow-alt-circle-right fa-2x" style="margin-top: 30px;"></i>
+    </div>
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-microscope fa-2x"></i>
+        <br>
+        <br>
+        Messung durchführen
+    </div>
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-arrow-alt-circle-right fa-2x" style="margin-top: 30px;"></i>
+    </div>
+    <div class="col" style="text-align: center;">
+        <i class="fas fa-file-download fa-2x"></i>
+        <br>
+        <br>
+        Ergebnisse herunterladen
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-9">
+        <p>Um einen Versuch an dem Prüfstand durchführen zu können, muss dem Prüfstand eine 
+            Spannung übermittelt werden. Der vorzugebende Spannungsverlauf muss dabei in 
+            einer csv-Datei gespeichert werden. Jede Zeile in der Datei entspricht einem 
+            Spannungswert zu einem bestimmten Zeitpunkt. Die Samplerate am Prüfstand
+            beträgt 250 Hz. Somit entsprechen 250 Werte in der csv-Datei dem Spannungsverlauf
+            für eine Sekunde. Zudem muss die erste Zeile der Datei wie folgt aussehen: "time,voltage".
+            Diese Überschift ordnet die Werte in der csv-Datei der entsprechenden Spalte hinzu.
+            Auf der rechten Seite ist ein Beispiel dargestellt, welches die Struktur der Datei verdeutlichen 
+            soll.
+        </p>
+    </div>
+    <div class="col">
+        <div class="card" style="width: 200px;background-color: rgb(216, 216, 216);margin-left: 5px;">
+            <div class="row">
+                <div class="col-8" style="margin-left: 5px;">
+                    time,voltage <br>
+                    0.0,0.0 <br>
+                    0.004,0.0012<br>
+                    0.008,0.0024<br>
+                    0.012,0.0036<br>
+                    0.016,0.0048<br>
+                    0.02,0.0059<br>
+                    0.024,0.0071<br>
+                    0.028,0.0084<br>
+                    0.032,0.0096
+                </div>
+                <div class="col">
+                    <i class="fas fa-file-csv fa-3x" style="float: right;text-align: right;"></i>
+                </div>
+            </div>
+            <!-- </div>
+            time,voltage <i class="fas fa-file-csv" style="float: right;text-align: right;"></i>
+            time,voltage <br>
+            0.0,0.0 <br>
+            0.004,0.0012<br>
+            0.008,0.0024<br>
+            0.012,0.0036<br>
+            0.016,0.0048<br>
+            0.02,0.0059<br>
+            0.024,0.0071<br>
+            0.028,0.0084<br>
+            0.032,0.0096 -->
+        </div>
+    </div>
+</div>
+<br>
 <p>Für die Erstellung des Spannungsverlauf kann das hier verfügbare Python Skript 
     verwendet werden. In der Datei 'create_voltage_curve.py' ist dazu ein Beispiel
-    gegeben.</p>
+    gegeben. Beachten Sie, dass für die Verwendung des Skripts die Pakete "numpy" 
+    sowie "pandas" installiert sein müssen.</p>
 <a href="{{url_for('static', filename='voltage-curve.zip')}}" download class="btn btn-primary" style="vertical-align: top;">
 Python Skript herunterladen
 </a>
