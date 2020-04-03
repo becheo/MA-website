@@ -217,12 +217,12 @@
   // with is downloaded completly, this can be a nice way to speed up the 
   // visualizaion process for the dashboard
   var intertion_step_plot = 10;  
-  var csv_time = ' Zeit[s]';
-  var csv_motor_voltage = ' Spg. Motor[V]';
-  var csv_generator_voltage = ' Spg. Generator[V]';
-  var csv_current = ' Spg. Strommessung[V]';
-  var csv_rpm = ' Spg. Tachometer[V]';
-  var csv_temperature = ' Temperatur[C]';
+  var csv_time = 'Zeit[s]';
+  var csv_motor_voltage = 'Spg. Motor[V]';
+  var csv_generator_voltage = 'Spg. Generator[V]';
+  var csv_current = 'Spg. Strommessung[V]';
+  var csv_rpm = 'Spg. Tachometer[V]';
+  var csv_temperature = 'Spg. AI6[V]';
 
 
   {% for file in files %}
@@ -230,6 +230,7 @@
   // file with user voltage specification
   var path{{file.index}} = "{{url_for('static', filename=file.path)}}"
 
+  // get data form csv file and process the data
   function makeplot{{ file.index }}(path{{ file.index }}) {
     Plotly.d3.csv(path{{ file.index }}, function (data{{file.index}}) { processData{{file.index}}(data{{file.index}}) });
   }
@@ -245,6 +246,7 @@
     makePlotly{{file.index}}(x, y);
   }
 
+  // define x, y and axis layout
   function makePlotly{{file.index}}(x, y) {
     var plotDiv = document.getElementById('plot{{file.index}}');
     var traces = [{
@@ -425,7 +427,7 @@
     for (var i = 0; i < allRows.length; i=i+intertion_step_plot) {
       row = allRows[i];
       x.push(row[csv_time]);
-      y.push(row[csv_time]);
+      y.push(row[csv_temperature]);
     }
     makePlotly_temp{{file.index}}(x, y);
   }
@@ -443,7 +445,8 @@
       },
       yaxis: {
         title: 'Temperatur in °C',
-        showgrid: true
+        showgrid: true,
+        range: [(Math.min.apply(Math, y) -5), (Math.max.apply(Math, y) + 5)]
       }
     }
 
