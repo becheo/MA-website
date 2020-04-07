@@ -2,13 +2,15 @@
 
 import sys
 import os
-import cv2
 import time
 import threading
 try:
-    from thread import get_ident
+    from greenlet import getcurrent as get_ident
 except ImportError:
-    from _thread import get_ident
+    try:
+        from thread import get_ident
+    except ImportError:
+        from _thread import get_ident
 
 
 if 'pytest' in sys.modules:
@@ -163,8 +165,8 @@ class BaseCamera(object):
             BaseCamera.thread.start()
 
             # wait until frames are available
-            while self.get_frame() is None:
-                time.sleep(0)
+            # while self.get_frame() is None:
+            #     time.sleep(0)
 
     def get_frame(self):
         """Return the current camera frame."""
@@ -193,7 +195,7 @@ class BaseCamera(object):
 
             # if there hasn't been any clients asking for frames in
             # the last 10 seconds then stop the thread
-            if time.time() - BaseCamera.last_access > 30:
+            if time.time() - BaseCamera.last_access > 60:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
                 break
@@ -215,6 +217,11 @@ class Camera(BaseCamera):
 
     @staticmethod
     def frames():
+        # It is crucial that the import statement for the cv2 module is
+        # located inside this function. Otherwise the Apache server will not
+        # be able to start and serve the webpage
+        import cv2
+
         camera = cv2.VideoCapture(Camera.video_source)
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
