@@ -7,7 +7,11 @@
 </p>
 <div>
   <h3>Video-stream</h3>
-
+  <br>
+  <img controls src="{{ url_for('video_feed') }}" alt="Webcam">
+  <p>Falls der Videostream nicht dargestellt wird, verwenden Sie bitte einen
+    anderen Browser.
+  </p>
   <div style="height: 20px;"></div>
   <img src="{{url_for('static', filename='media/TU_Logo_lang.JPG')}}" />
   <div style="height: 20px;"></div>

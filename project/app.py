@@ -11,7 +11,7 @@ import os
 import sys
 
 # third party
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, Response
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
@@ -112,16 +112,6 @@ def is_logged_in(f):
             flash('Unauthorized, Please login', 'danger')
             return redirect(url_for('login'))
     return wrap
-
-
-# webcam stream
-@app.route('/webcam')
-@is_logged_in
-def webcam():
-
-    # <!-- <img src="{{ url_for('video_feed') }}"> -->
-
-    return render_template('webcam.html')
 
 
 @app.route('/testseite')
@@ -506,6 +496,24 @@ def start_measurement(id):
     return redirect('/dashboard')
 
 
+# webcam stream
+@app.route('/webcam')
+@is_logged_in
+def webcam():
+    # <!-- <img src="{{ url_for('video_feed') }}"> -->
+
+    return render_template('webcam.html')
+
+
+@app.route('/video_feed')
+def video_feed():
+    """Route used by html to access video"""
+
+    # with this multipart type, each part replaces the one before
+    return Response(apph.generate(apph.Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 def mdt_user(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -548,4 +556,5 @@ if __name__ == '__main__':
     # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
+    # app.run(threaded=True)
     # app.run()
