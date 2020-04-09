@@ -165,11 +165,13 @@ class BaseCamera(object):
             BaseCamera.thread.start()
 
             # wait until frames are available
-            # while self.get_frame() is None:
-            #     time.sleep(0)
+            while self.get_frame() is None:
+                time.sleep(0)
 
     def get_frame(self):
         """Return the current camera frame."""
+
+        # store time to check if camera is frequently accessed
         BaseCamera.last_access = time.time()
 
         # wait for a signal from the camera thread
@@ -194,7 +196,7 @@ class BaseCamera(object):
             time.sleep(0)
 
             # if there hasn't been any clients asking for frames in
-            # the last 10 seconds then stop the thread
+            # the last 60 seconds then stop the thread
             if time.time() - BaseCamera.last_access > 60:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
@@ -203,8 +205,7 @@ class BaseCamera(object):
 
 
 class Camera(BaseCamera):
-    # TODO change according to setup from PC at TU Berlin
-    video_source = 0  # 0: 'first' camera (e.g. internal) 1. second camera
+    video_source = cfg.camera_selection
 
     def __init__(self):
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
@@ -232,3 +233,18 @@ class Camera(BaseCamera):
 
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
+
+
+def generate(camera):
+    """Generate the data for video stream.
+
+    Generate the data with the use of Python generator function. The concept of
+    generator in python is explained in PEP 255.
+    """
+
+    while True:
+        frame = camera.get_frame()
+
+        # each yield expression is directly sent to the browser
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')

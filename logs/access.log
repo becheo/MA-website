@@ -264,3 +264,12 @@
 ::1 - - [07/Apr/2020:19:24:52 +0200] "GET /video_feed HTTP/1.1" 200 354136112
 ::1 - - [07/Apr/2020:19:24:38 +0200] "GET /video_feed HTTP/1.1" 200 376035893
 ::1 - - [07/Apr/2020:19:24:26 +0200] "GET /video_feed HTTP/1.1" 200 399974145
+::1 - - [09/Apr/2020:14:03:52 +0200] "GET / HTTP/1.1" 200 5212
+::1 - - [09/Apr/2020:14:03:55 +0200] "GET /static/media/MDT-dunkel.png HTTP/1.1" 200 5084
+::1 - - [09/Apr/2020:14:03:55 +0200] "GET /static/script/popper.min.js HTTP/1.1" 200 21262
+::1 - - [09/Apr/2020:14:03:55 +0200] "GET /static/script/jquery-3.4.1.slim.min.js HTTP/1.1" 200 71039
+::1 - - [09/Apr/2020:14:03:55 +0200] "GET /static/script/bootstrap.min.js HTTP/1.1" 200 60016
+::1 - - [09/Apr/2020:14:03:55 +0200] "GET /static/script/plotly-latest.min.js HTTP/1.1" 200 3311389
+::1 - - [09/Apr/2020:14:03:57 +0200] "GET /static/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 79444
+::1 - - [09/Apr/2020:14:04:03 +0200] "GET /webcam HTTP/1.1" 200 3856
+::1 - - [09/Apr/2020:14:04:03 +0200] "GET /static/media/TU_Logo_lang.JPG HTTP/1.1" 200 41578

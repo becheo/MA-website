@@ -505,22 +505,13 @@ def webcam():
     return render_template('webcam.html')
 
 
-def generate(camera):
-    """Generate the data for video stream."""
-
-    while True:
-        frame = camera.get_frame()
-
-        # each yield expression is directly sent to the browser
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
 @app.route('/video_feed')
 def video_feed():
     """Route used by html to access video"""
 
-    return Response(generate(apph.Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+    # with this multipart type, each part replaces the one before
+    return Response(apph.generate(apph.Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 def mdt_user(f):
