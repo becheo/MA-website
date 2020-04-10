@@ -355,3 +355,47 @@
 [Mon Mar 30 13:40:38.189959 2020] [wsgi:error] [pid 23660:tid 1352] [client ::1:54988]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 118, in <listcomp>\r, referer: http://localhost/
 [Mon Mar 30 13:40:38.189959 2020] [wsgi:error] [pid 23660:tid 1352] [client ::1:54988]     data = [float(j) for j in data]\r, referer: http://localhost/
 [Mon Mar 30 13:40:38.189959 2020] [wsgi:error] [pid 23660:tid 1352] [client ::1:54988] ValueError: could not convert string to float: 'TU Berlin - Pruefstand Scheibenlaeufer'\r, referer: http://localhost/
+[Fri Apr 10 18:50:23.191877 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053] mod_wsgi (pid=26036): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.192377 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053] mod_wsgi (pid=26036): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197436 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053] Traceback (most recent call last):\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]     from app import app as application\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 25, in <module>\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]     import app_helpers as apph  # for Apache Server\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app_helpers.py", line 190\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]     yield cv2.imencode('.jpg', img)[1].tobytes())\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.197934 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053]                                                 ^\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:23.198435 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60053] SyntaxError: unmatched ')'\r, referer: http://localhost/dashboard
+[Fri Apr 10 18:50:24.465021 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054] mod_wsgi (pid=26036): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.465021 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054] mod_wsgi (pid=26036): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.466018 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054] Traceback (most recent call last):\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.466519 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.466519 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]     from app import app as application\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.466519 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 25, in <module>\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.466519 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]     import app_helpers as apph  # for Apache Server\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.467016 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app_helpers.py", line 190\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.467016 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]     yield cv2.imencode('.jpg', img)[1].tobytes())\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.467516 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054]                                                 ^\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:24.467516 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60054] SyntaxError: unmatched ')'\r, referer: http://localhost/mdt-settings
+[Fri Apr 10 18:50:33.159573 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057] mod_wsgi (pid=26036): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Fri Apr 10 18:50:33.159573 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057] mod_wsgi (pid=26036): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'.
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057] Traceback (most recent call last):\r
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]     from app import app as application\r
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 25, in <module>\r
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]     import app_helpers as apph  # for Apache Server\r
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app_helpers.py", line 190\r
+[Fri Apr 10 18:50:33.160571 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]     yield cv2.imencode('.jpg', img)[1].tobytes())\r
+[Fri Apr 10 18:50:33.161070 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057]                                                 ^\r
+[Fri Apr 10 18:50:33.161070 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60057] SyntaxError: unmatched ')'\r
+[Fri Apr 10 18:50:33.680080 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058] mod_wsgi (pid=26036): Failed to exec Python script file 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/
+[Fri Apr 10 18:50:33.680582 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058] mod_wsgi (pid=26036): Exception occurred processing WSGI script 'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi'., referer: http://localhost/
+[Fri Apr 10 18:50:33.681078 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058] Traceback (most recent call last):\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.681078 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/web.wsgi", line 5, in <module>\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.681576 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]     from app import app as application\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.681576 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app.py", line 25, in <module>\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.681576 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]     import app_helpers as apph  # for Apache Server\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.681576 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]   File "C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project\\app_helpers.py", line 190\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.681576 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]     yield cv2.imencode('.jpg', img)[1].tobytes())\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.682077 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058]                                                 ^\r, referer: http://localhost/
+[Fri Apr 10 18:50:33.682077 2020] [wsgi:error] [pid 26036:tid 1332] [client ::1:60058] SyntaxError: unmatched ')'\r, referer: http://localhost/

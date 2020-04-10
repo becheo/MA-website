@@ -151,7 +151,7 @@ class CameraEvent(object):
 
 
 class Camera(object):
-    # video_source = cfg.camera_selection  # set in config file
+    video_source = cfg.camera_selection  # set in config file
 
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
@@ -160,27 +160,25 @@ class Camera(object):
 
     def __init__(self):
         """Start the background camera thread if it isn't running yet."""
-
-        self.video_source = cfg.camera_selection
-
-        if self.thread is None:
-            self.last_access = time.time()
+        if Camera.thread is None:
+            Camera.last_access = time.time()
 
             # start background frame thread
-            self.thread = threading.Thread(target=self._thread)
-            self.thread.start()
+            Camera.thread = threading.Thread(target=self._thread)
+            Camera.thread.start()
 
             # wait until frames are available
             while self.get_frame() is None:
                 time.sleep(0)
 
-    def frames(self):
+    @staticmethod
+    def frames():
         # It is crucial that the import statement for the cv2 module is
         # located inside this function. Otherwise the Apache server will not
         # be able to start and serve the webpage
         import cv2
 
-        camera = cv2.VideoCapture(self.video_source)
+        camera = cv2.VideoCapture(Camera.video_source)
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
 
@@ -195,36 +193,43 @@ class Camera(object):
         """Return the current camera frame."""
 
         # store time to check if camera is frequently accessed
-        self.last_access = time.time()
+        Camera.last_access = time.time()
 
         # wait for a signal from the camera thread
-        self.event.wait()
+        Camera.event.wait()
+        Camera.event.clear()
 
-        # reset the event with the current thread id
-        self.event.clear()
+        return Camera.frame
 
-        return self.frame
-
-    def _thread(self):
+    @classmethod
+    def _thread(cls):
         """Camera background thread."""
 
         print('Starting camera thread.')
 
         # get frame from camera via cv2
-        frames_iterator = self.frames()
+        frames_iterator = cls.frames()
 
         for frame in frames_iterator:
-            self.frame = frame
-            self.event.set()  # send signal to clients
-            time.sleep(0)  # CPU release from framework
+            Camera.frame = frame
+            Camera.event.set()  # send signal to clients
+            time.sleep(0)
 
             # if there hasn't been any clients asking for frames in
             # the last 60 seconds then stop the thread
-            if time.time() - self.last_access > 60:
+            if time.time() - Camera.last_access > 60:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
                 break
-        self.thread = None
+        Camera.thread = None
+
+
+# class BaseCamera(object):
+
+#     @staticmethod
+#     def frames():
+#         """"Generator that returns frames from the camera."""
+#         raise RuntimeError('Must be implemented by subclasses.')
 
 
 def generate(camera):
