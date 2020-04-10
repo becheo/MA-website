@@ -112,7 +112,10 @@ class CameraEvent(object):
 
     def wait(self):
         """Invoked from each client's thread to wait for the next frame."""
+
+        # get unique id for current thread
         ident = get_ident()
+
         if ident not in self.events:
             # this is a new client
             # add an entry for it in the self.events dict
@@ -122,6 +125,7 @@ class CameraEvent(object):
 
     def set(self):
         """Invoked by the camera thread when a new frame is available."""
+
         now = time.time()
         remove = None
         for ident, event in self.events.items():
@@ -142,10 +146,13 @@ class CameraEvent(object):
 
     def clear(self):
         """Invoked from each client's thread after a frame was processed."""
+
         self.events[get_ident()][0].clear()
 
 
-class BaseCamera(object):
+class Camera(object):
+    video_source = cfg.camera_selection  # set in config file
+
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
@@ -153,64 +160,16 @@ class BaseCamera(object):
 
     def __init__(self):
         """Start the background camera thread if it isn't running yet."""
-        if BaseCamera.thread is None:
-            BaseCamera.last_access = time.time()
+        if Camera.thread is None:
+            Camera.last_access = time.time()
 
             # start background frame thread
-            BaseCamera.thread = threading.Thread(target=self._thread)
-            BaseCamera.thread.start()
+            Camera.thread = threading.Thread(target=self._thread)
+            Camera.thread.start()
 
             # wait until frames are available
             while self.get_frame() is None:
                 time.sleep(0)
-
-    def get_frame(self):
-        """Return the current camera frame."""
-
-        # store time to check if camera is frequently accessed
-        BaseCamera.last_access = time.time()
-
-        # wait for a signal from the camera thread
-        BaseCamera.event.wait()
-        BaseCamera.event.clear()
-
-        return BaseCamera.frame
-
-    @staticmethod
-    def frames():
-        """"Generator that returns frames from the camera."""
-        raise RuntimeError('Must be implemented by subclasses.')
-
-    @classmethod
-    def _thread(cls):
-        """Camera background thread."""
-        print('Starting camera thread.')
-        frames_iterator = cls.frames()
-        for frame in frames_iterator:
-            BaseCamera.frame = frame
-            BaseCamera.event.set()  # send signal to clients
-            time.sleep(0)
-
-            # if there hasn't been any clients asking for frames in
-            # the last 60 seconds then stop the thread
-            if time.time() - BaseCamera.last_access > 60:
-                frames_iterator.close()
-                print('Stopping camera thread due to inactivity.')
-                break
-        BaseCamera.thread = None
-
-
-class Camera(BaseCamera):
-    video_source = cfg.camera_selection
-
-    def __init__(self):
-        if os.environ.get('OPENCV_CAMERA_SOURCE'):
-            Camera.set_video_source(int(os.environ['OPENCV_CAMERA_SOURCE']))
-        super(Camera, self).__init__()
-
-    @staticmethod
-    def set_video_source(source):
-        Camera.video_source = source
 
     @staticmethod
     def frames():
@@ -229,6 +188,48 @@ class Camera(BaseCamera):
 
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
+
+    def get_frame(self):
+        """Return the current camera frame."""
+
+        # store time to check if camera is frequently accessed
+        Camera.last_access = time.time()
+
+        # wait for a signal from the camera thread
+        Camera.event.wait()
+        Camera.event.clear()
+
+        return Camera.frame
+
+    @classmethod
+    def _thread(cls):
+        """Camera background thread."""
+
+        print('Starting camera thread.')
+
+        # get frame from camera via cv2
+        frames_iterator = cls.frames()
+
+        for frame in frames_iterator:
+            Camera.frame = frame
+            Camera.event.set()  # send signal to clients
+            time.sleep(0)
+
+            # if there hasn't been any clients asking for frames in
+            # the last 60 seconds then stop the thread
+            if time.time() - Camera.last_access > 60:
+                frames_iterator.close()
+                print('Stopping camera thread due to inactivity.')
+                break
+        Camera.thread = None
+
+
+# class BaseCamera(object):
+
+#     @staticmethod
+#     def frames():
+#         """"Generator that returns frames from the camera."""
+#         raise RuntimeError('Must be implemented by subclasses.')
 
 
 def generate(camera):
