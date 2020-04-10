@@ -224,14 +224,6 @@ class Camera(object):
         Camera.thread = None
 
 
-# class BaseCamera(object):
-
-#     @staticmethod
-#     def frames():
-#         """"Generator that returns frames from the camera."""
-#         raise RuntimeError('Must be implemented by subclasses.')
-
-
 def generate(camera):
     """Generate the data for video stream.
 

@@ -1,44 +1,55 @@
 <title>TUB-Prüfstand - Webcam</title>
 {% extends 'layout.html' %} {% block body %}
+
+<br>
 <h2>Webcam</h2>
-<p>
-  Dies ist der Prüfstand, an dem Sie die Messdaten für die Modellbildung
-  aufnehmen.
-</p>
-<div>
-  <h3>Video-stream</h3>
+    <p>
+      Hier können sie den Prüfstand, an dem Sie die Messdaten für die
+      Modellbildung aufnehmen, live beobachten.
+    </p>
+<br>
+<br>
+<div class="row">
+  <div class="col md-8">
+    <div>
+      <h4>Video-stream</h4>
+      <br>
+      <!-- evtl. Groesse des Bildes ueber mdt seite einstellbar machen -->
+      <img width="600" src="{{ url_for('video_feed') }}" alt="Webcam">
+      <p>Falls der Videostream nicht dargestellt wird, verwenden Sie bitte einen
+        anderen Browser.
+      </p>
+    </div>
+  </div>
+
+  <div class="col md-4">
+    <br>
+  <h4>Dateien in der Warteschlange</h4>
   <br>
-  <img controls src="{{ url_for('video_feed') }}" alt="Webcam">
-  <p>Falls der Videostream nicht dargestellt wird, verwenden Sie bitte einen
-    anderen Browser.
-  </p>
-  <div style="height: 20px;"></div>
-  <img src="{{url_for('static', filename='media/TU_Logo_lang.JPG')}}" />
-  <div style="height: 20px;"></div>
-</div>
-<div id="containter">
-  <video
-    controls
-    src="{{url_for('static', filename='media/kann-es-sein-dass-du-dumm-bist.mp4')}}"
-  ></video>
+  <i>
+      Die Tests werden von oben nach unten durchgeführt. Der oberste Test ist
+      der, der aktuell am Prüfstand durchgeführt wird.
+  </i>
+  <table class="table table-striped">
+      <tr>
+          <th>id</th>
+          <th>filename</th>
+      </tr>
+      <tr>
+          {% for entry in entries %}
+      </tr>
+      <td>{{entry.id}}</td>
+      <td>{{entry.filename[3:]}}</td>
+      {% endfor %}
+  </table>
+
+  </div>
 </div>
 
-<script>
-  // 046d:0825 Adresse Logitech Kamera ?
-  // Variable, initialisiert zum html video element
-  //   var video = document.querySelector("#videoElement");
-  //   myvideo = document.getElementById("video").src;
+<br>
+<br>
+<br>
+<br>
 
-  //   // nur wenn getUserMedia vom Browser unterstützt wird
-  //   if (navigator.mediaDevices.getUserMedia) {
-  //     navigator.mediaDevices
-  //       .getUserMedia({ video: true, audio: true })
-  //       .then(function(stream) {
-  //         video.srcObject = stream;
-  //       })
-  //       .catch(function(err0r) {
-  //         console.log("Something went wrong");
-  //       });
-  //   }
-</script>
+
 {% endblock %}
