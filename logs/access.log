@@ -273,3 +273,5 @@
 ::1 - - [09/Apr/2020:14:03:57 +0200] "GET /static/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 79444
 ::1 - - [09/Apr/2020:14:04:03 +0200] "GET /webcam HTTP/1.1" 200 3856
 ::1 - - [09/Apr/2020:14:04:03 +0200] "GET /static/media/TU_Logo_lang.JPG HTTP/1.1" 200 41578
+::1 - - [09/Apr/2020:16:11:48 +0200] "GET / HTTP/1.1" 200 5212
+::1 - - [09/Apr/2020:16:11:51 +0200] "GET /webcam HTTP/1.1" 200 3856

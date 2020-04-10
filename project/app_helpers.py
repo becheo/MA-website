@@ -5,13 +5,9 @@ import os
 import time
 import threading
 try:
-    from greenlet import getcurrent as get_ident
+    from thread import get_ident
 except ImportError:
-    try:
-        from thread import get_ident
-    except ImportError:
-        from _thread import get_ident
-
+    from _thread import get_ident
 
 if 'pytest' in sys.modules:
     from Website.project import config as cfg  # for pytest
