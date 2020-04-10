@@ -496,13 +496,16 @@ def start_measurement(id):
     return redirect('/dashboard')
 
 
-# webcam stream
 @app.route('/webcam')
 @is_logged_in
 def webcam():
-    # <!-- <img src="{{ url_for('video_feed') }}"> -->
 
-    return render_template('webcam.html')
+    # get files in queue to show which test is currently running
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM queue")
+    entries = cur.fetchall()  # fetch in dictionary form
+
+    return render_template('webcam.html', entries=entries)
 
 
 @app.route('/video_feed')
