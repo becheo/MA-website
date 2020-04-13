@@ -121,6 +121,7 @@ class CameraEvent(object):
             # add an entry for it in the self.events dict
             # each entry has two elements, a threading.Event() and a timestamp
             self.events[ident] = [threading.Event(), time.time()]
+
         return self.events[ident][0].wait()
 
     def set(self):
@@ -130,8 +131,8 @@ class CameraEvent(object):
         remove = None
         for ident, event in self.events.items():
             if not event[0].isSet():
-                # if this client's event is not set, then set it
-                # also update the last set timestamp to now
+                # if this client's event is not set, then set it and update the
+                # last timestamp to now
                 event[0].set()
                 event[1] = now
             else:
@@ -211,13 +212,13 @@ class Camera(object):
         frames_iterator = cls.frames()
 
         for frame in frames_iterator:
-            Camera.frame = frame
+            Camera.frame = frame  # store frame from cv2 in class object
             Camera.event.set()  # send signal to clients
             time.sleep(0)
 
-            # if there hasn't been any clients asking for frames in
-            # the last 60 seconds then stop the thread
-            if time.time() - Camera.last_access > 60:
+            # if there hasn't been any clients asking for frames in the last x
+            # seconds then stop the thread
+            if time.time() - Camera.last_access > cfg.camera_timeout:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
                 break
@@ -228,7 +229,7 @@ def generate(camera):
     """Generate the data for video stream.
 
     Generate the data with the use of Python generator function. The concept of
-    generator in python is explained in PEP 255.
+    generators in python is explained in PEP 255.
     """
 
     while True:
