@@ -161,6 +161,15 @@ class Camera(object):
 
     def __init__(self):
         """Start the background camera thread if it isn't running yet."""
+
+        # self.camera = cv2.VideoCapture(Camera.video_source)
+        # # save img to vieo file
+        # frame_width = int(self.camera.get(3))
+        # frame_height = int(self.camera.get(4))
+
+        # self.out = cv2.VideoWriter('CameraOutput.avi', cv2.VideoWriter_fourcc(
+        #     'M', 'J', 'P', 'G'), 30, (frame_width, frame_height))
+
         if Camera.thread is None:
             Camera.last_access = time.time()
 
@@ -174,12 +183,26 @@ class Camera(object):
 
     @staticmethod
     def frames():
+        import cv2
+
         # It is crucial that the import statement for the cv2 module is
         # located inside this function. Otherwise the Apache server will not
         # be able to start and serve the webpage
-        import cv2
 
         camera = cv2.VideoCapture(Camera.video_source)
+        # save img to vieo file
+        frame_width = int(camera.get(3))
+        frame_height = int(camera.get(4))
+
+        # C:\Users\Oliver\Desktop\Masterarbeit\03_Software\Website\project\static\camera-recording
+        out = cv2.VideoWriter(cfg.folder_camera_recording,
+                              cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
+                              30, (frame_width, frame_height))
+
+        # out = cv2.VideoWriter('project/static/camera-recording/CameraOutput.avi',
+        #                       cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
+        #                       30, (frame_width, frame_height))
+
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
 
@@ -187,6 +210,7 @@ class Camera(object):
             # read current frame
             _, img = camera.read()
 
+            out.write(img)  # dave img to file for video capturing
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
 
@@ -209,6 +233,8 @@ class Camera(object):
         print('Starting camera thread.')
 
         # get frame from camera via cv2
+        # frames_iterator_cls = cls()
+        # frames_iterator = frames_iterator_cls.frames()
         frames_iterator = cls.frames()
 
         for frame in frames_iterator:
