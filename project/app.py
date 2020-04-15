@@ -11,7 +11,7 @@ import os
 import sys
 
 # third party
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, Response
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, Response, jsonify
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
@@ -112,6 +112,24 @@ def is_logged_in(f):
             flash('Unauthorized, Please login', 'danger')
             return redirect(url_for('login'))
     return wrap
+
+
+@app.route('/get_queue_entries', methods=['GET'])
+def get_queue_entries():
+    """Get entries from queue table in website database"""
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM queue")
+    entries = cur.fetchall()  # fetch in tuple form
+
+    id = []
+    filename = []
+    for i in range(len(entries)):
+        entry = entries[i]
+        id.append(entry['id'])
+        filename.append(entry['filename'])
+
+    return jsonify(id=id, filename=filename)
 
 
 @app.route('/testseite')
@@ -266,9 +284,10 @@ def dashboard():
         # user voltage specifications
         path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
         # TODO hier wieder anpassen, wenn Datien normal schon in csv sind
-        path = path[72:-3]
-        path = path + 'csv'
-        # print(path)
+        # path = path[72:-3]
+        # path = path + 'csv'
+        # files[i]['path'] = path
+        path = path[72:]
         files[i]['path'] = path
 
         # result files with data from measurement
@@ -396,7 +415,7 @@ def delete_entry(id):
     return redirect(url_for('dashboard'))
 
 
-ALLOWED_EXTENSIONS = {'txt'}
+ALLOWED_EXTENSIONS = {'csv'}
 app.config['UPLOAD_FOLDER'] = apph.UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024    # 16 MB
 # TODO Textausgabe (Warnung) für größere Dateien als hier spezifiziert hinzufügen
