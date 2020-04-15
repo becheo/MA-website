@@ -153,6 +153,8 @@ class CameraEvent(object):
 
 class Camera(object):
     video_source = cfg.camera_selection  # set in config file
+    video_number = 1
+    video_time = 0
 
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
@@ -172,6 +174,7 @@ class Camera(object):
 
         if Camera.thread is None:
             Camera.last_access = time.time()
+            Camera.video_time = time.time()
 
             # start background frame thread
             Camera.thread = threading.Thread(target=self._thread)
@@ -190,18 +193,26 @@ class Camera(object):
         # be able to start and serve the webpage
 
         camera = cv2.VideoCapture(Camera.video_source)
-        # save img to vieo file
-        frame_width = int(camera.get(3))
-        frame_height = int(camera.get(4))
 
-        # C:\Users\Oliver\Desktop\Masterarbeit\03_Software\Website\project\static\camera-recording
-        out = cv2.VideoWriter(cfg.folder_camera_recording,
-                              cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
-                              30, (frame_width, frame_height))
+        if cfg.save_camera_to_file == True:
 
-        # out = cv2.VideoWriter('project/static/camera-recording/CameraOutput.avi',
-        #                       cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
-        #                       30, (frame_width, frame_height))
+            # save img to vieo file
+            frame_width = int(camera.get(3))
+            frame_height = int(camera.get(4))
+
+            # configure saving images as video to file
+            video_name = cfg.folder_camera_recording + \
+                'CameraOutput_' + str(Camera.video_number) + '.mp4'
+
+            # out = cv2.VideoWriter(video_name,
+            #                       cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
+            #                       30, (frame_width, frame_height))
+            # out = cv2.VideoWriter(video_name,
+            #                       cv2.VideoWriter_fourcc(*'mp4v'),
+            #                       30, (frame_width, frame_height))
+            out = cv2.VideoWriter(video_name,
+                                  cv2.VideoWriter_fourcc(*'avc1'),
+                                  30, (frame_width, frame_height))
 
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
@@ -210,7 +221,23 @@ class Camera(object):
             # read current frame
             _, img = camera.read()
 
-            out.write(img)  # dave img to file for video capturing
+            if cfg.save_camera_to_file == True:
+                out.write(img)  # save img to file for video capturing
+
+                # after 10 seconds, save new video snippet
+                if time.time() - Camera.video_time > cfg.camera_file_recording_time:
+                    Camera.video_number += 1
+                    print("Camera video_number {}" .format(Camera.video_number))
+                    Camera.video_time = time.time()
+
+                    # set new video name to save new file
+                    video_name = cfg.folder_camera_recording + \
+                        'CameraOutput_' + str(Camera.video_number) + '.mp4'
+                    out = cv2.VideoWriter(video_name,
+                                          cv2.VideoWriter_fourcc(
+                                              *'avc1'),
+                                          30, (frame_width, frame_height))
+
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
 
