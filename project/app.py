@@ -122,12 +122,12 @@ def get_queue_entries():
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in tuple form
 
-    id = []
-    filename = []
+    id = ['-', '-', '-', '-', '-']
+    filename = ['-', '-', '-', '-', '-']
     for i in range(len(entries)):
         entry = entries[i]
-        id.append(entry['id'])
-        filename.append(entry['filename'])
+        id[i] = entry['id']
+        filename[i] = entry['filename']
 
     return jsonify(id=id, filename=filename)
 
@@ -283,20 +283,14 @@ def dashboard():
     for i in range(len(files)):
         # user voltage specifications
         path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
-        # TODO hier wieder anpassen, wenn Datien normal schon in csv sind
-        # path = path[72:-3]
-        # path = path + 'csv'
-        # files[i]['path'] = path
         path = path[72:]
         files[i]['path'] = path
 
         # result files with data from measurement
         if files[i]['status'] == 'executed':
-            # path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
             path = files[i]['name']
-            path = path[0:-3]
-            path = 'results/' + 'results-' + path + 'csv'
-            # print(path)
+            path = path[0:]
+            path = 'results/' + 'results-' + path
             files[i]['result_path'] = path
 
         # remove id from filename for presentation on dashboard

@@ -80,9 +80,7 @@ Nächste 5 Tests in der Warteschlange
 
 <script>
 
-    // setInterval(update_values, 5000)
-    // setTimeout(update_values, 5000)
-    console.log('start script')
+    setTimeout(update_values, 1000)
     
     var id_name = "#database_"
     var database_id = id_name + "id_"
@@ -90,21 +88,22 @@ Nächste 5 Tests in der Warteschlange
 
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
 
+    // function to update the queue table shown on website
     function update_values() {
         $.getJSON($SCRIPT_ROOT+"/get_queue_entries",
             function(data) {
                 for (i = 0; i<data.id.length; i++){
                     database_id_loop = database_id + String(i)
                     database_filename_loop = database_filename + String(i)
-
-                    console.log(database_id_loop)
+                    
                     // get data from jsonify and  
                     $(database_id_loop).text(data.id[i])
                     $(database_filename_loop).text(data.filename[i])
                 }
             })
 
-        // setTimeout(update_values, 10000)
+        // check database every 10 seconds
+        setTimeout(update_values, 10000)
     }
 
 </script>
