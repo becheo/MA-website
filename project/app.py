@@ -11,7 +11,7 @@ import os
 import sys
 
 # third party
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, Response
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, Response, jsonify
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
@@ -20,9 +20,13 @@ from werkzeug.utils import secure_filename
 
 # local modules
 if 'pytest' in sys.modules:
-    from Website.project import app_helpers as apph  # for pytest
+    # for pytest
+    from Website.project import app_helpers as apph
+    from Website.project import config as cfg
 else:
-    import app_helpers as apph  # for Apache Server
+    # for Apache Server
+    import app_helpers as apph
+    import config as cfg
 
 # import matplotlib.pyplot as plt  # does not work with Apache Server currently
 
@@ -112,6 +116,29 @@ def is_logged_in(f):
             flash('Unauthorized, Please login', 'danger')
             return redirect(url_for('login'))
     return wrap
+
+
+@app.route('/get_queue_entries', methods=['GET'])
+def get_queue_entries():
+    """Get entries from queue table in website database"""
+
+    entries_to_display = 5
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM queue")
+    entries = cur.fetchall()  # fetch in tuple form
+    num_of_entries = len(entries)
+
+    id = ['-'] * cfg.queue_table_length
+    filename = ['-'] * cfg.queue_table_length
+    for i in range(num_of_entries):
+        if i == entries_to_display:
+            break
+        entry = entries[i]
+        id[i] = entry['id']
+        filename[i] = entry['filename']
+
+    return jsonify(id=id, filename=filename, entries_to_display=entries_to_display, num_of_entries=num_of_entries)
 
 
 @app.route('/testseite')
@@ -265,19 +292,14 @@ def dashboard():
     for i in range(len(files)):
         # user voltage specifications
         path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
-        # TODO hier wieder anpassen, wenn Datien normal schon in csv sind
-        path = path[72:-3]
-        path = path + 'csv'
-        # print(path)
+        path = path[72:]
         files[i]['path'] = path
 
         # result files with data from measurement
         if files[i]['status'] == 'executed':
-            # path = apph.RESULTS_FOLDER + '/' + 'results-' + files[i]['name']
             path = files[i]['name']
-            path = path[0:-3]
-            path = 'results/' + 'results-' + path + 'csv'
-            # print(path)
+            path = path[0:]
+            path = 'results/' + 'results-' + path
             files[i]['result_path'] = path
 
         # remove id from filename for presentation on dashboard
@@ -396,7 +418,7 @@ def delete_entry(id):
     return redirect(url_for('dashboard'))
 
 
-ALLOWED_EXTENSIONS = {'txt'}
+ALLOWED_EXTENSIONS = {'csv'}
 app.config['UPLOAD_FOLDER'] = apph.UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024    # 16 MB
 # TODO Textausgabe (Warnung) für größere Dateien als hier spezifiziert hinzufügen
@@ -505,7 +527,7 @@ def webcam():
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in dictionary form
 
-    return render_template('webcam.html', entries=entries)
+    return render_template('webcam.html', entries=entries, table_len=cfg.queue_table_length)
 
 
 @app.route('/video_feed')

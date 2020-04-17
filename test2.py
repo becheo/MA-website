@@ -39,13 +39,16 @@ import time
 # print("name: {};    legs: {}" .format(sam.name, sam.legs))
 
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
-x = range(10)
-y = range(10)
+# x = range(10)
+# y = range(10)
 
-dates = ['01.02.2020', '01.02.2016', '01.04.2015', '01.02.2016', '01.02.2017']
+# dates = ['01.02.2020', '01.02.2016', '01.04.2015', '01.02.2016', '01.02.2017']
 
-plt.plot(x, y)
-plt.xticks(range(1, 11, 2), dates)
-plt.show()
+# plt.plot(x, y)
+# plt.xticks(range(1, 11, 2), dates)
+# plt.show()
+
+testlist = ['-'] * 10
+print(testlist)
