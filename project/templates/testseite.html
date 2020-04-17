@@ -48,7 +48,7 @@ Nächste 5 Tests in der Warteschlange
         <th>id</th>
         <th>filename</th>
     </tr>
-    <tr>
+    <tr style="background-color: rgb(213, 247, 194);">
         <td>1</td>
         <td id="database_id_0"></td>
         <td id="database_filename_0"></td>
@@ -92,7 +92,7 @@ Nächste 5 Tests in der Warteschlange
     function update_values() {
         $.getJSON($SCRIPT_ROOT+"/get_queue_entries",
             function(data) {
-                for (i = 0; i<data.id.length; i++){
+                for (i = 0; i<data.entries_to_display; i++){
                     database_id_loop = database_id + String(i)
                     database_filename_loop = database_filename + String(i)
                     
