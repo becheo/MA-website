@@ -9,6 +9,8 @@ Part of master thesis: Entwicklung eines vernetzten Prüftands zur web-basierten
 # built-in modules
 import os
 import sys
+import time
+import math
 
 # third party
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, Response, jsonify
@@ -122,8 +124,6 @@ def is_logged_in(f):
 def get_queue_entries():
     """Get entries from queue table in website database"""
 
-    entries_to_display = 5
-
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in tuple form
@@ -131,14 +131,20 @@ def get_queue_entries():
 
     id = ['-'] * cfg.queue_table_length
     filename = ['-'] * cfg.queue_table_length
+    test_duration = ['-'] * cfg.queue_table_length
+
     for i in range(num_of_entries):
-        if i == entries_to_display:
+        if i == cfg.queue_table_length:
             break
         entry = entries[i]
         id[i] = entry['id']
         filename[i] = entry['filename']
+        test_duration[i] = entry['test_duration']
 
-    return jsonify(id=id, filename=filename, entries_to_display=entries_to_display, num_of_entries=num_of_entries)
+    return jsonify(id=id,
+                   filename=filename,
+                   num_of_entries=num_of_entries,
+                   test_duration=test_duration)
 
 
 @app.route('/testseite')
@@ -437,7 +443,7 @@ def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part')
+            flash('No file part')  # TODO auf deutsch aendern
             return redirect(url_for('dashboard'))
 
         file = request.files['file']
@@ -463,12 +469,20 @@ def upload_file():
             # TODO User-ID auch mit in Tabelle scheiben für eindeutige Zuordnung
             # TODO überprüfen ob die Lösung optimal ist. Wenn Dateien aus Ordner gelöscht werden, sind
             # die Daten in der Datenbank nicht mehr aktuell!
-
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file_directory = os.path.join(
+                app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_directory)
             flash('Datei erfolgreich hochgeladen', 'success')
 
-            cur.execute("INSERT INTO files(name, username, status) VALUES(%s, %s, %s)",
-                        (filename, session['username'], 'uploaded'))
+            # get duration of uploaded test
+            import pandas
+            data = pandas.read_csv(file_directory)
+            data_time = data['time']
+            test_duration = data_time.iloc[-1]
+
+            # save to database
+            cur.execute("INSERT INTO files(name, username, status, test_duration) VALUES(%s, %s, %s, %s)",
+                        (filename, session['username'], 'uploaded', test_duration))
 
             # Commit to db
             mysql.connection.commit()
@@ -500,20 +514,39 @@ def start_measurement(id):
     cur.execute("SELECT * FROM files WHERE id = %s", [id])
     file = cur.fetchone()
     filename = file['name']
+    test_duration = file['test_duration']
 
     # save file to queue table
-    cur = mysql.connection.cursor()
-    # %s is a placeholder, not a formatter in this case
-    cur.execute("INSERT INTO queue(id, filename) VALUES(%s, %s)",
-                (id, filename))
+    # %s is a placeholder in this case, not a formatter
+    cur.execute("INSERT INTO queue(id, filename, test_duration) VALUES(%s, %s, %s)",
+                (id, filename, test_duration))
     mysql.connection.commit()
-    cur.close()
 
     # update status
-    cur = mysql.connection.cursor()
     cur.execute("UPDATE files SET status = 'in_queue' WHERE id = %s", [id])
     mysql.connection.commit()
+
+    # get queue files to calculate waiting time
+    cur.execute('SELECT * FROM queue')
+    waiting_time = 0
+    queue_files = cur.fetchall()
+    for queue_file in queue_files:
+        waiting_time = waiting_time + float(queue_file['test_duration'])
+
+    # close database connection
     cur.close()
+
+    # convert time into minutes:seconds format
+    waiting_minutes = math.floor(waiting_time/60)
+    waiting_seconds = math.floor(waiting_time - waiting_minutes * 60)
+    if waiting_seconds == 0:
+        waiting_seconds = '00'
+
+    waiting_time = str(waiting_minutes) + ':' + str(waiting_seconds)
+
+    # show success message with accumulated waiting time
+    flash('Test erfolgreich gestartet. Geschätzte Dauer bis zur Ausführung: ' +
+          waiting_time + ' min', 'success')
 
     return redirect('/dashboard')
 

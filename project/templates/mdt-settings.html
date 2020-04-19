@@ -11,6 +11,7 @@
             <th>id</th>
             <th>filename</th>
             <th>add_date</th>
+            <th>test_duration [s]</th>
         </tr>
         <tr>
             {% for entry in entries %}
@@ -19,6 +20,7 @@
         <td>{{entry.id}}</td>
         <td>{{entry.filename}}</td>
         <td>{{entry.add_date}}</td>
+        <td>{{entry.test_duration}}</td>
         {% endfor %}
     </table>
 </div>

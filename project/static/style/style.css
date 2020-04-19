@@ -5135,7 +5135,8 @@ pre code {
 }
 
 .container-fluid,.container-lg,.container-md,.container-sm,.container-xl {
-  width: 100%;
+  /* width: 100%; */
+  width: 90%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;

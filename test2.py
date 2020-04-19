@@ -1,5 +1,4 @@
-import time
-
+# import time
 
 # def funktion():
 #     for i in range(10):
@@ -50,5 +49,14 @@ import time
 # plt.xticks(range(1, 11, 2), dates)
 # plt.show()
 
-testlist = ['-'] * 10
-print(testlist)
+# testlist = ['-'] * 10
+# print(testlist)
+
+import pandas
+
+data = pandas.read_csv('project/static/uploads/34-Spannungsverlauf.csv')
+
+data_time = data['time']
+data_voltage = data['voltage']
+
+print(data_time.iloc[-1])
