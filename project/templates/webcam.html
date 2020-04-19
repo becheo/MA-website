@@ -105,6 +105,10 @@
                     test_waiting_time = '-';
                   } else{
                     test_duration_accumulated = test_duration_accumulated + parseFloat(data.test_duration[i]);
+                    
+                    // add some time to cover time in between two tests
+                    test_duration_accumulated = test_duration_accumulated + 10
+                    
                     test_minutes = Math.floor(test_duration_accumulated/60);
                     test_seconds = Math.floor(test_duration_accumulated - test_minutes * 60);
                     if (test_seconds === 0) {
