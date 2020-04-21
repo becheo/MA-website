@@ -410,10 +410,29 @@ def delete_entry(id):
     # Create Cursor
     cur = mysql.connection.cursor()
 
-    # Execute
+    # get file name
+    cur.execute("SELECT * FROM files WHERE id = %s", [id])
+    file = cur.fetchone()
+    filename = file['name']
+    filename_result = 'results-' + filename
+
+    file_path_upload = os.path.join(cfg.folder_upload, filename)
+    file_path_result = os.path.join(cfg.folder_results, filename_result)
+
+    # delete files in folders
+    os.remove(file_path_upload)
+
+    if file['status'] == 'executed':
+        os.remove(file_path_result)
+
+    # delete from files table
     cur.execute("DELETE FROM files WHERE id = %s", [id])
 
     # Commit to db
+    mysql.connection.commit()
+
+    # delete from queue table
+    cur.execute("DELETE FROM queue WHERE id = %s", [id])
     mysql.connection.commit()
 
     # Close connection
