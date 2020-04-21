@@ -5,7 +5,7 @@
 <br>
 <br>
 <br>
-<div class="row">
+<div class="row" style="width: 80%;margin-left: 2%;">
     <div class="col" style="text-align: center;">
         <i class="fas fa-file-csv fa-3x"></i>
         <br>
@@ -44,67 +44,76 @@
 <br>
 <br>
 <br>
-<div class="row">
-    <div class="col-9">
-        <p>Um einen Versuch an dem Prüfstand durchführen zu können, muss dem Prüfstand eine 
-            Spannung übermittelt werden. Der vorzugebende Spannungsverlauf muss dabei in 
-            einer csv-Datei gespeichert werden. Jede Zeile in der Datei entspricht einem 
-            Spannungswert zu einem bestimmten Zeitpunkt. Die Samplerate am Prüfstand
-            beträgt 250 Hz. Somit entsprechen 250 Werte in der csv-Datei dem Spannungsverlauf
-            für eine Sekunde. Zudem muss die erste Zeile der Datei wie folgt aussehen: "time,voltage".
-            Diese Überschift ordnet die Werte in der csv-Datei der entsprechenden Spalte hinzu.
-            Auf der rechten Seite ist ein Beispiel dargestellt, welches die Struktur der Datei verdeutlichen 
-            soll.
-        </p>
-    </div>
-    <div class="col">
-        <div class="card" style="width: 200px;background-color: rgb(216, 216, 216);margin-left: 5px;">
-            <div class="row">
-                <div class="col-8" style="margin-left: 5px;">
-                    time,voltage <br>
-                    0.0,0.0 <br>
-                    0.004,0.0012<br>
-                    0.008,0.0024<br>
-                    0.012,0.0036<br>
-                    0.016,0.0048<br>
-                    0.02,0.0059<br>
-                    0.024,0.0071<br>
-                    0.028,0.0084<br>
-                    [...]
-                </div>
-                <div class="col">
-                    <i class="fas fa-file-csv fa-2x" style="float: right;text-align: right;"></i>
+<div style="width: 90%;">
+    <div class="row">
+        <div class="col-9">
+            <p>Um einen Versuch an dem Prüfstand durchführen zu können, muss dem Prüfstand eine 
+                Spannung übermittelt werden. Der vorzugebende Spannungsverlauf muss dabei in 
+                einer csv-Datei gespeichert werden. Jede Zeile in der Datei entspricht einem 
+                Spannungswert zu einem bestimmten Zeitpunkt. Die Samplerate am Prüfstand
+                beträgt 250 Hz. Somit entsprechen 250 Werte in der csv-Datei dem Spannungsverlauf
+                für eine Sekunde. Zudem muss die erste Zeile der Datei wie folgt aussehen: "time,voltage".
+                Diese Überschift ordnet die Werte in der csv-Datei der entsprechenden Spalte hinzu.
+                Auf der rechten Seite ist ein Beispiel dargestellt, welches die Struktur der Datei verdeutlichen 
+                soll.
+            </p>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 200px;background-color: rgb(216, 216, 216);margin-left: 10px;">
+                <div class="row">
+                    <div class="col-8" style="margin-left: 5px;">
+                        time,voltage <br>
+                        0.0,0.0 <br>
+                        0.004,0.0012<br>
+                        0.008,0.0024<br>
+                        0.012,0.0036<br>
+                        0.016,0.0048<br>
+                        0.02,0.0059<br>
+                        0.024,0.0071<br>
+                        0.028,0.0084<br>
+                        [...]
+                    </div>
+                    <div class="col">
+                        <i class="fas fa-file-csv fa-2x" style="float: right;text-align: right;"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <p>Für die Erstellung des Spannungsverlauf kann das hier verfügbare Python Skript 
+        verwendet werden. In der Datei 'create_voltage_curve.py' ist dazu ein Beispiel
+        gegeben. Beachten Sie, dass für die Verwendung des Skripts die Pakete "numpy" 
+        sowie "pandas" installiert sein müssen.</p>
+    <a href="{{url_for('static', filename='voltage-curve.zip')}}" download class="btn btn-primary" style="vertical-align: top;">
+    Python Skript herunterladen
+    </a>
+    <br>
+    <br>
+    <br>
+    <p>Nachdem Sie einen Spannungsverlauf erstellt haben, müssen Sie diesen noch an den
+        Prüfstand übergeben. Dafür dient diese Webseite. Erstellen Sie einen Account und
+        loggen Sie sich anschließend ein. Nach dem Login sehen Sie ihr persönliches Dashboard.
+        Hier können Sie ihre Messungen verwalten. Fügen Sie den erstellten Spannungsverlauf über
+        den Button 'Neue Messung hinzufügen' ihrem Dashboard hinzu. 
+    </p>
+    <p>Sobald Sie ihren Spannugsverlauf hinzugefügt haben, können Sie diesen über den 
+        Button 'Messung starten' am Prüfstand ausführen. Über den Reiter 'Webcam' 
+        können Sie Ihre Messung live am Prüfstand verfolgen. Die Messungen werden
+        nach dem 'first come first serve' Prinzip durchgeführt. Um eine faire
+        Einteilung des Prüfstands zu gewährleisten, ist die maximale Anzahl an
+        Tests, die gleichzeitig durch einen User der Warteschlange hinzugefügt werden
+        können, begrenzt.
+    </p>
+    <p>Nachdem die Messung durchgeführt wurde, werden die Messdaten an der entsprechenden 
+        Stelle auf dem Dashboard angezeigt. Sie können die Messdaten inspizieren und 
+        diese als csv-Datei herunterladen. Mit den erhaltenen Daten können Sie dann die
+        Identifikation der Parameter Ihres Simulationsmodells vornehmen.
+    </p>
+    <p>Viel Spaß bei der Verwendung des Prüfstands.</p>
 </div>
 <br>
-<p>Für die Erstellung des Spannungsverlauf kann das hier verfügbare Python Skript 
-    verwendet werden. In der Datei 'create_voltage_curve.py' ist dazu ein Beispiel
-    gegeben. Beachten Sie, dass für die Verwendung des Skripts die Pakete "numpy" 
-    sowie "pandas" installiert sein müssen.</p>
-<a href="{{url_for('static', filename='voltage-curve.zip')}}" download class="btn btn-primary" style="vertical-align: top;">
-Python Skript herunterladen
-</a>
 <br>
 <br>
 <br>
-<p>Nachdem Sie einen Spannungsverlauf erstellt haben, müssen Sie diesen noch an den
-    Prüfstand übergeben. Dafür dient diese Webseite. Erstellen Sie einen Account und
-    loggen Sie sich anschließend ein. Nach dem Login sehen Sie ihr persönliches Dashboard.
-    Hier können Sie ihre Messungen verwalten. Fügen Sie den erstellten Spannungsverlauf über
-    den Button 'Neue Messung hinzufügen' ihrem Dashboard hinzu. 
-</p>
-<p>Sobald Sie ihren Spannugsverlauf hinzugefügt haben, können Sie diesen über den 
-    Button 'Messung starten' am Prüfstand ausführen. Über den Reiter 'Webcam' 
-    können Sie Ihre Messung live am Prüfstand verfolgen.
-</p>
-<p>Sobald die Messung durchgeführt wurde, werden die Messdaten an der entsprechenden 
-    Stelle auf dem Dashboard angezeigt. Sie können die Messdaten inspizieren und 
-    diese als csv-Datei herunterladen. Mit den erhaltenen Daten können Sie dann die
-    Identifikation der Parameter Ihres Simulationsmodells vornehmen.
-</p>
-<p>Viel Spaß bei der Verwendung des Prüfstands.</p>
-
 {% endblock %}

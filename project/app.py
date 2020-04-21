@@ -280,8 +280,6 @@ def logout():
     return redirect(url_for('login'))
 
 
-# TODO Funktion für laden eines Plots schreiben
-
 # Dashboard
 @app.route('/dashboard')
 @is_logged_in
@@ -647,7 +645,6 @@ def mdt_settings():
 
 if __name__ == '__main__':
     app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
-    # TODO ipv4 adresse automatisch herausfinden und hier einfügen
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
     # app.run(threaded=True)
