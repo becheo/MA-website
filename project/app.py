@@ -115,7 +115,7 @@ def is_logged_in(f):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash('Unauthorized, Please login', 'danger')
+            flash('Nicht autorisiert, Bitte einloggen', 'danger')
             return redirect(url_for('login'))
     return wrap
 
@@ -492,7 +492,7 @@ def upload_file():
 
             return redirect(url_for('dashboard'))
         else:
-            flash('Bitte korrektes Dateiformat hochalden (.txt-Datei)', 'danger')
+            flash('Bitte korrektes Dateiformat hochalden (.csv-Datei)', 'danger')
             return redirect(url_for('dashboard'))
 
 
@@ -501,54 +501,71 @@ def upload_file():
 def start_measurement(id):
     """Writes data about measurement in queue table"""
 
-    print("Test mit folgender ID wird der Warteschlange hinzufgefügt, ID: {}" .format(id))
-
     # /C - Carries out the command specified by string and then terminates
     # /K - Carries out the command specified by string but remains
     # os.system("start cmd /K python project/start_measurement.py")
 
-    # TODO evtl. weitere Informationen uebergeben wie z.B. Testdauer (aus Vorgabe bestimmt)
-
     # get filename from files table
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM files WHERE id = %s", [id])
-    file = cur.fetchone()
-    filename = file['name']
-    test_duration = file['test_duration']
 
-    # save file to queue table
-    # %s is a placeholder in this case, not a formatter
-    cur.execute("INSERT INTO queue(id, filename, test_duration) VALUES(%s, %s, %s)",
-                (id, filename, test_duration))
-    mysql.connection.commit()
+    # get files in queue table from user
+    cur.execute("SELECT * FROM queue WHERE user = %s", [session['username']])
+    files_user = cur.fetchall()
+    print(len(files_user))
 
-    # update status
-    cur.execute("UPDATE files SET status = 'in_queue' WHERE id = %s", [id])
-    mysql.connection.commit()
+    # check for number of files in queue
+    if len(files_user) < (cfg.max_tests_in_queue):
 
-    # get queue files to calculate waiting time
-    cur.execute('SELECT * FROM queue')
-    waiting_time = 0
-    queue_files = cur.fetchall()
-    for queue_file in queue_files:
-        waiting_time = waiting_time + float(queue_file['test_duration'])
+        # get file to start from files table
+        cur.execute("SELECT * FROM files WHERE id = %s", [id])
+        file = cur.fetchone()
+        filename = file['name']
+        test_duration = file['test_duration']
 
-    # close database connection
-    cur.close()
+        # save file to queue table
+        # %s is a placeholder in this case, not a formatter
+        cur.execute("INSERT INTO queue(id, filename, test_duration, user) VALUES(%s, %s, %s, %s)",
+                    (id, filename, test_duration, session['username']))
 
-    # convert time into minutes:seconds format
-    waiting_minutes = math.floor(waiting_time/60)
-    waiting_seconds = math.floor(waiting_time - waiting_minutes * 60)
-    if waiting_seconds == 0:
-        waiting_seconds = '00'
+        mysql.connection.commit()
 
-    waiting_time = str(waiting_minutes) + ':' + str(waiting_seconds)
+        # update status
+        cur.execute("UPDATE files SET status = 'in_queue' WHERE id = %s", [id])
+        mysql.connection.commit()
 
-    # show success message with accumulated waiting time
-    flash('Test erfolgreich gestartet. Geschätzte Dauer bis zur Ausführung: ' +
-          waiting_time + ' min', 'success')
+        # get queue files to calculate waiting time
+        cur.execute('SELECT * FROM queue')
+        queue_files = cur.fetchall()
+        waiting_time = 0
+        for queue_file in queue_files:
+            waiting_time = waiting_time + float(queue_file['test_duration'])
 
-    return redirect('/dashboard')
+        # add some time per test to cover time in between tests
+        waiting_time = waiting_time + (len(queue_files) * 10)
+
+        # close database connection
+        cur.close()
+
+        # convert waiting time into 'minutes:seconds' format
+        waiting_minutes = math.floor(waiting_time/60)
+        waiting_seconds = math.floor(waiting_time - waiting_minutes * 60)
+        if waiting_seconds == 0:
+            waiting_seconds = '00'
+
+        waiting_time = str(waiting_minutes) + ':' + str(waiting_seconds)
+
+        # show success message with accumulated waiting time
+        flash('Test erfolgreich gestartet. Geschätzte Dauer bis zur Ausführung: ' +
+              waiting_time + ' min', 'success')
+
+        return redirect('/dashboard')
+
+    else:
+        # max number of allowed tests in queue reached
+        max_tests = str(cfg.max_tests_in_queue)
+        flash('Nur maximal ' + max_tests +
+              ' Tests zur gleichen Zeit in der Warteschlange erlaubt. Bitte warten Sie die Ausführung Ihrer Tests ab.', 'danger')
+        return redirect('/dashboard')
 
 
 @app.route('/webcam')
