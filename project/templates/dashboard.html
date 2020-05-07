@@ -141,8 +141,10 @@
         <td colspan="1">
           <div id="collapse{{file.index}}" class="collapse in p-3">
             {% if file.status == 'executed' %}
-            <a href="{{file.result_path}}" download class="btn btn-primary btn-block" style="vertical-align: top;">Daten
-              herunterladen</a>
+            <a href="{{url_for('static', filename=file.result_path)}}" 
+               download="{{file.download_path}}" 
+               class="btn btn-primary btn-block" 
+               style="vertical-align: top;">Daten herunterladen</a>
             {% endif %}
             <br>
             <br>

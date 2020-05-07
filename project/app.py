@@ -37,7 +37,8 @@ else:
 
 app = Flask(__name__)
 
-app.secret_key = b'secret123'
+# app.secret_key = b'secret123'
+app.secret_key = cfg.SECRET_KEY
 
 apph.init_db(app)
 mysql = MySQL(app)  # init MySQL
@@ -84,7 +85,7 @@ def index():
     return render_template('home.html')
 
 # About
-@app.route('/about', methods=['GET', 'POST'])
+@app.route('/ueber', methods=['GET', 'POST'])
 def about():
     return render_template('about.html')
 
@@ -301,10 +302,15 @@ def dashboard():
 
         # result files with data from measurement
         if files[i]['status'] == 'executed':
+            # download path in html needs to be specified in order to download
+            # a .csv file. Without specification, the file is downloaded as
+            # .xls file
             path = files[i]['name']
-            path = path[0:]
+            download_path = 'results-' + path
             path = 'results/' + 'results-' + path
-            files[i]['result_path'] = path
+
+            files[i]['result_path'] = path  # path for JavaScript
+            files[i]['download_path'] = download_path  # path for HTML
 
         # remove id from filename for presentation on dashboard
         name = files[i]['name']

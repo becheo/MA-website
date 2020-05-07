@@ -52,11 +52,15 @@
 # testlist = ['-'] * 10
 # print(testlist)
 
-import pandas
+# import pandas
 
-data = pandas.read_csv('project/static/uploads/34-Spannungsverlauf.csv')
+# data = pandas.read_csv('project/static/uploads/34-Spannungsverlauf.csv')
 
-data_time = data['time']
-data_voltage = data['voltage']
+# data_time = data['time']
+# data_voltage = data['voltage']
 
-print(data_time.iloc[-1])
+# print(data_time.iloc[-1])
+
+import os
+
+print(os.urandom(16))
