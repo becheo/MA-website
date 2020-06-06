@@ -65,9 +65,11 @@
 <br>
 <br>
 <br>
+
+
 <script>
 
-
+  // timeout to update the table
   setTimeout(update_values, 1000)
   
   var id_name = "#database_";
@@ -97,7 +99,8 @@
                   filename_id = data.filename[i];
                   
                   // show filename without id
-                  filename = filename_id.slice(3)
+                  filename = filename_id.substring(filename_id.indexOf('-')+1);
+
                   $(database_filename_loop).text(filename);
                   
                   // get test duration and convert to min:seconds format
