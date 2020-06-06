@@ -1,0 +1,16 @@
+# files for testing purposes
+test2.py
+testDecorator.py
+
+# config file
+config.py
+
+# error and access log files
+logs/
+
+# folder with files uploaded by users
+uploads/
+
+# folder with results of taken measurements
+results/
+camera-recording/

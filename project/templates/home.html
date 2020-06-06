@@ -1,0 +1,85 @@
+{% extends 'layout.html' %} {% block body %}
+
+
+<div class="jumbotron">
+  <h2>Web-basierter Prüfstand</h2>
+  <br>
+  <p class="lead">
+    Willkommen auf der Website zum Web-basierten Prüfstand des Fachgebiets MDT der
+    TU-Berlin. Dieser Versuch wird gegenwärtig in der Lehrveranstaltung
+    "Modellierung und Simulation mechatronischer Systeme" verwendet.
+  </p>
+  <hr class="my-4">
+  <br>
+  
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="card" style="width: 400px;">
+        <div class="card-body">
+          <form action="" method="POST">
+            <br>
+            <div class="form-group">
+                <label for="username" style="text-align: left;float: left;">Username</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Username" value={{request.form.username}}>
+            </div>
+            <div class="form-group">
+                <label for="password" style="text-align: left;float: left;">Passwort</label>
+                <input type="password" name="password" id="password" class="form-control" value={{request.form.password}}>          
+            </div>
+            <div class="form-group">
+              {% if session.logged_in == NULL %}
+              <button type="submit" class="btn btn-success" style="float: left;width: 120px;">Login</button>
+              <a href="/register" class="btn btn-primary" style="width: 120px; float: right;">Registrieren</a>
+              {% else %}
+              <a class="btn btn-danger" href="/logout" style="float: left;width: 120px;">Logout</a>
+              {% endif %}
+            </div>    
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <img
+        src="{{url_for('static', filename='media/MDT-logo.jpg')}}"
+        alt="TU_logo"
+        style="width: 280px; "
+      />
+
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="row">
+      <div class="col" style="text-align: center;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+          <i class="fas fa-laptop-code fa-3x"></i>
+          <br>
+          <br>
+          Remote-Steuerung des <br>
+          Prüfstands
+      </div>
+      <div class="col" style="text-align: center;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+          <i class="fas fa-chart-area fa-3x"></i>
+          <br>
+          <br>
+          Individuelle Messdaten
+      </div>
+      <div class="col" style="text-align: center;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <i class="fas fa-wifi fa-3x"></i>
+          <br>
+          <br>
+          Zugriff über eduroam <br>
+          oder VPN
+      </div>
+  </div>
+</div>
+
+
+
+<div style="bottom: 5px;  width: 100%; align-content: center; text-align: center;">
+  Version 0.1
+</div>
+{% endblock %}

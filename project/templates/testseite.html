@@ -1,0 +1,111 @@
+<title>TUB-Prüfstand - Testseite</title>
+{% extends 'layout.html' %} {% block body %}
+
+
+<br>
+<br>
+Testseite
+<br>
+<br>
+<br>
+<!-- <video 
+    controls src="{{url_for('static', filename='camera-recording/CameraOutput_1_long.mp4')}}" type="video/mp4">
+    Video not working
+</video> -->
+<br>
+<br>
+<br>
+<!-- <video 
+    controls src="{{url_for('static', filename='camera-recording/CameraOutput_7.mp4')}}" type="video/mp4">
+    Video not working
+</video> -->
+
+<div>
+    <!-- <p id="database_entries" onmouseover="update_values()">
+    Text</p> -->
+    <br>
+    <br>
+    <br>
+</div>
+<div>
+    <button onclick="update_values()">
+        Update entry
+    </button>
+    <br>
+    <!-- <p id="database_entries0"></p>
+    <br>
+    <br>
+    <br>
+    <p id="database_entries1"></p>
+    <br>
+    <br>
+    <p id="database_entries2"></p> -->
+</div>
+Nächste 5 Tests in der Warteschlange
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>id</th>
+        <th>filename</th>
+    </tr>
+    <tr style="background-color: rgb(213, 247, 194);">
+        <td>1</td>
+        <td id="database_id_0"></td>
+        <td id="database_filename_0"></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td id="database_id_1"></td>
+        <td id="database_filename_1"></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td id="database_id_2"></td>
+        <td id="database_filename_2"></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td id="database_id_3"></td>
+        <td id="database_filename_3"></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td id="database_id_4"></td>
+        <td id="database_filename_4"></td>
+    </tr>
+</table>
+<br>
+<br>
+<br>
+
+<script>
+
+    setTimeout(update_values, 1000)
+    
+    var id_name = "#database_"
+    var database_id = id_name + "id_"
+    var database_filename = id_name + "filename_"
+
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
+
+    // function to update the queue table shown on website
+    function update_values() {
+        $.getJSON($SCRIPT_ROOT+"/get_queue_entries",
+            function(data) {
+                for (i = 0; i<data.entries_to_display; i++){
+                    database_id_loop = database_id + String(i)
+                    database_filename_loop = database_filename + String(i)
+                    
+                    // get data from jsonify and  
+                    $(database_id_loop).text(data.id[i])
+                    $(database_filename_loop).text(data.filename[i])
+                }
+            })
+
+        // check database every 10 seconds
+        setTimeout(update_values, 10000)
+    }
+
+</script>
+
+{% endblock %}

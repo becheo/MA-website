@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand">
+    <img src="{{url_for('static', filename='media/MDT-dunkel.png')}}" alt="mdt-logo" height="40" />
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="collapsingNavbar">
+    <ul class="navbar-nav mr-auto">
+      {% if request.path == '/' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      {% if request.path == '/ueber' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/ueber">Über</a>
+      </li>
+      {% if request.path == '/nutzung-pruefstand' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/nutzung-pruefstand">How To</a>
+      </li>
+
+      <!-- 
+      {% if request.path == '/testseite' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/testseite">Testseite</a>
+      </li>
+       -->
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% if session.logged_in %}
+      {% if session.username == 'mdt' %}
+      {% if request.path == '/mdt-settings' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item"></li>
+      {% endif %}
+      <a class="nav-link" href="/mdt-settings">Einstellungen</a>
+      {% endif %}
+      </li>
+      {% if request.path == '/dashboard' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item"></li>
+      {% endif %}
+      <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
+      {% if request.path == '/webcam' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/webcam">Webcam</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      {% else %}
+      {% if request.path == '/register' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/register">Registrieren</a>
+      </li>
+      {% if request.path == '/login' %}
+      <li class="nav-item active">
+        {% else %}
+      <li class="nav-item">
+        {% endif %}
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

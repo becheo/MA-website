@@ -1,0 +1,57 @@
+<title>TUB-Prüfstand - Einstellungen</title>
+{% extends 'layout.html' %} {% block body %}
+
+<div>
+    <br>
+    <h5>Dateien in der Warteschlange</h5>
+    <br>
+    <table class="table table-striped">
+        <tr>
+            <th>queueID</th>
+            <th>id</th>
+            <th>filename</th>
+            <th>add_date</th>
+            <th>test_duration [s]</th>
+        </tr>
+        <tr>
+            {% for entry in entries %}
+        </tr>
+        <td>{{entry.queueID}}</td>
+        <td>{{entry.id}}</td>
+        <td>{{entry.filename}}</td>
+        <td>{{entry.add_date}}</td>
+        <td>{{entry.test_duration}}</td>
+        {% endfor %}
+    </table>
+</div>
+
+<div>
+    <br>
+    <h5>Access log (letzte {{ accesslog|length }} Einträge)</h5>
+    <table>
+        {% for row in accesslog %}
+        <tr>
+            <td>
+                {{row}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <br>
+    <h5>Error log (letzte {{ errorlog|length }} Einträge)</h5>
+    <table>
+        {% for row in errorlog %}
+        <tr>
+            <td>
+                {{row}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+<br>
+<br>
+{% endblock %}

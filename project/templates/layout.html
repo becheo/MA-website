@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}" />
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style/all.css') }}" /> -->
+
+  <title>TU Berlin - MDT Teststand</title>
+
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="{{ url_for('static', filename='favicon-io-mdt/apple-touch-icon.png') }}" />
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="{{ url_for('static', filename='favicon-io-mdt/favicon-32x32.png') }}" />
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="{{ url_for('static', filename='favicon-io-mdt/favicon-16x16.png') }}" />
+  <link rel="manifest" href="{{ url_for('static', filename='favicon-io-mdt/site.webmanifest') }}" />
+
+  <script type="text/javascript" src="{{ url_for('static', filename='script/plotly-latest.min.js') }}"></script>
+
+</head>
+
+<body>
+  {% include 'includes/_navbar.html' %}
+  <div class="container-fluid">
+    <br>
+    {% include 'includes/_messages.html' %} {% block body %}{% endblock %}
+  </div>
+
+  <!-- <script src="{{ url_for('static', filename='script/jquery-3.4.1.slim.min.js') }}"></script> -->
+  <script src="{{ url_for('static', filename='script/jquery-3.4.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
+</body>
+
+</html>
