@@ -16,3 +16,5 @@ results/
 camera-recording/
 
 project/web.wsgi
+
+project/__pycache__/
