@@ -484,7 +484,7 @@ def upload_file():
             # get last entry in db
             cur.execute("SELECT * FROM files ORDER BY id DESC LIMIT 1")
             last_row_db = cur.fetchone()
-            print("result.id = {}" .format(last_row_db['id']))
+            # print("result.id = {}" .format(last_row_db['id']))
 
             # Add id and hyphen to beginning of filename for clear allocation
             filename = str(last_row_db['id']+1) + '-' + filename
@@ -534,7 +534,6 @@ def start_measurement(id):
     # get files in queue table from user
     cur.execute("SELECT * FROM queue WHERE user = %s", [session['username']])
     files_user = cur.fetchall()
-    print(len(files_user))
 
     # check for number of files in queue
     if len(files_user) < (cfg.max_tests_in_queue):
