@@ -302,9 +302,9 @@ def dashboard():
 
         # result files with data from measurement
         if files[i]['status'] == 'executed':
-            # download path in html needs to be specified in order to download
-            # a .csv file. Without specification, the file is downloaded as
-            # .xls file
+            # download file name in html needs to be specified in order to
+            #  download a .csv file. Without specification, the file is
+            # downloaded as .xls file
             path = files[i]['name']
             download_path = 'results-' + path
             path = 'results/' + 'results-' + path
