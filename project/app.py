@@ -297,7 +297,7 @@ def dashboard():
     for i in range(len(files)):
         # user voltage specifications
         path = apph.UPLOAD_FOLDER + '/' + files[i]['name']
-        path = path[72:]
+        path = path[cfg.file_pathlength:]
         files[i]['path'] = path
 
         # result files with data from measurement
