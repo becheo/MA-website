@@ -19,7 +19,6 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
-import numpy as np
 
 # local modules
 if 'pytest' in sys.modules:
@@ -499,6 +498,7 @@ def start_measurement(id):
 def webcam():
 
     import cv2
+    import numpy as np
 
     # get files in queue to show which test is currently running
     cur = mysql.connection.cursor()
