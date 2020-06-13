@@ -629,7 +629,7 @@ class Camera(object):
                 with app.app_context():
                     cur = mysql.connection.cursor()
 
-                    if brightness < 25:
+                    if brightness < 30:
                         cur.execute(
                             "UPDATE status SET status = 'on' WHERE name = 'illumination'")
                         mysql.connection.commit()
