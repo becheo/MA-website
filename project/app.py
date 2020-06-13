@@ -94,19 +94,6 @@ def about():
 @app.route('/nutzung-pruefstand')
 def nutzung():
 
-    # Create Cursor
-    # cur = mysql.connection.cursor()
-    # Get articles
-    # result = cur.execute("SELECT * FROM articles")
-    # articles = cur.fetchall()  # fetch in dictionary form
-    # if result > 0:  # if there are rows
-    #     return render_template('articles.html', articles=articles)
-    # else:
-    #     msg = 'No Articles Found'
-    #     return render_template('articles.html', msg=msg)
-    # Close connection
-    # cur.close()
-
     return render_template('nutzung.html')
 
 
@@ -153,20 +140,6 @@ def get_queue_entries():
 def testseite():
 
     return render_template('testseite.html')
-
-
-# Single Article
-@app.route('/article/<string:id>/')  # id: dynamic value
-def article(id):
-    # Create Cursor
-    cur = mysql.connection.cursor()
-
-    # Get article
-    result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
-
-    article = cur.fetchone()  # fetch in dictionary form
-
-    return render_template('article.html', article=article)
 
 
 # Register Form Class
@@ -337,76 +310,6 @@ class ArticleForm(Form):
     title = StringField('Title', [validators.Length(min=1, max=200)])
     body = TextAreaField('Body', [validators.Length(min=30)])
 
-# Add Article
-@app.route('/add_article', methods=['GET', 'POST'])
-@is_logged_in
-def add_article():
-    form = ArticleForm(request.form)
-    if request.method == 'POST' and form.validate():
-        title = form.title.data
-        body = form.body.data
-
-        # Create Cursor
-        cur = mysql.connection.cursor()
-
-        # Execute
-        cur.execute("INSERT INTO articles(title, body, author) VALUES(%s, %s, %s)",
-                    (title, body, session['username']))
-
-        # Commit
-        mysql.connection.commit()
-
-        # Close conneciton
-        cur.close()
-
-        flash('Article Created', 'success')
-
-        return redirect(url_for('dashboard'))
-
-    return render_template('add_article.html', form=form)
-
-# Edit Article
-# TODO _ durch - ersetzen und gucken ob Zugriff funktionniert und wie es im Browser angezeigt wird
-@app.route('/edit_article/<string:id>', methods=['GET', 'POST'])
-@is_logged_in
-def edit_article(id):
-    # Create Cursor
-    cur = mysql.connection.cursor()
-
-    # Get article by id
-    result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
-
-    article = cur.fetchone()
-
-    # Get form
-    form = ArticleForm(request.form)
-
-    # Populate article from fields
-    form.title.data = article['title']  # article was fetched from database
-    form.body.data = article['body']
-
-    if request.method == 'POST' and form.validate():
-        title = request.form['title']
-        body = request.form['body']
-
-        # Create Cursor
-        cur = mysql.connection.cursor()
-
-        # Execute
-        cur.execute(
-            "UPDATE articles SET title=%s, body=%s WHERE id = %s", (title, body, id))
-
-        # Commit
-        mysql.connection.commit()
-
-        # Close conneciton
-        cur.close()
-
-        flash('Article Updated', 'success')
-
-        return redirect(url_for('dashboard'))
-
-    return render_template('edit_article.html', form=form)
 
 # Delete entry - only entry in database is deleted, not the file in 'uploads' folder
 @app.route('/delete_entry/<string:id>', methods=['POST'])
