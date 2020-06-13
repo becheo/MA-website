@@ -506,19 +506,20 @@ def webcam():
     entries = cur.fetchall()  # fetch in dictionary form
     mysql.connection.commit()
 
-    cap = cv2.VideoCapture(0)
-    ret, frame = cap.read()
-    histogram = cv2.calcHist([frame], [0], None, [256], [0, 256])
-    brightness = np.ndarray.mean(frame.ravel())
+    # change light status depending on histogram from camera
+    # cap = cv2.VideoCapture(0)
+    # ret, frame = cap.read()
+    # histogram = cv2.calcHist([frame], [0], None, [256], [0, 256])
+    # brightness = np.ndarray.mean(frame.ravel())
 
-    if brightness < 30:
-        cur.execute(
-            "UPDATE status SET status = 'on' WHERE name = 'illumination'")
-        mysql.connection.commit()
-    else:
-        cur.execute(
-            "UPDATE status SET status = 'off' WHERE name = 'illumination'")
-        mysql.connection.commit()
+    # if brightness < 30:
+    #     cur.execute(
+    #         "UPDATE status SET status = 'on' WHERE name = 'illumination'")
+    #     mysql.connection.commit()
+    # else:
+    #     cur.execute(
+    #         "UPDATE status SET status = 'off' WHERE name = 'illumination'")
+    #     mysql.connection.commit()
 
     return render_template('webcam.html', entries=entries, table_len=cfg.queue_table_length)
 

@@ -160,6 +160,7 @@ class Camera(object):
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
     event = CameraEvent()
+    image_brightness = 0
 
     def __init__(self):
         """Start the background camera thread if it isn't running yet."""
@@ -220,6 +221,24 @@ class Camera(object):
         while True:
             # read current frame
             _, img = camera.read()
+
+            import numpy as np
+
+            if time.time() - Camera.image_brightness > 10:
+                Camera.image_brightness = time.time()
+                histogram = cv2.calcHist([img], [0], None, [256], [0, 256])
+                brightness = np.ndarray.mean(img.ravel())
+                # cur = app.mysql.connection.cursor()
+                if brightness < 30:
+                    print("brightness < 30")
+                    # cur.execute(
+                    #     "UPDATE status SET status = 'on' WHERE name = 'illumination'")
+                    # app.mysql.connection.commit()
+                else:
+                    print("brightness > 30")
+                    # cur.execute(
+                    #     "UPDATE status SET status = 'off' WHERE name = 'illumination'")
+                    # app.mysql.connection.commit()
 
             if cfg.save_camera_to_file == True:
                 out.write(img)  # save img to file for video capturing
