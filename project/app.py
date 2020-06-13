@@ -19,6 +19,7 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from werkzeug.utils import secure_filename
+import numpy as np
 
 # local modules
 if 'pytest' in sys.modules:
@@ -594,10 +595,27 @@ def start_measurement(id):
 @is_logged_in
 def webcam():
 
+    import cv2
+
     # get files in queue to show which test is currently running
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in dictionary form
+    mysql.connection.commit()
+
+    cap = cv2.VideoCapture(0)
+    ret, frame = cap.read()
+    histogram = cv2.calcHist([frame], [0], None, [256], [0, 256])
+    brightness = np.ndarray.mean(frame.ravel())
+
+    if brightness < 30:
+        cur.execute(
+            "UPDATE status SET status = 'on' WHERE name = 'illumination'")
+        mysql.connection.commit()
+    else:
+        cur.execute(
+            "UPDATE status SET status = 'off' WHERE name = 'illumination'")
+        mysql.connection.commit()
 
     return render_template('webcam.html', entries=entries, table_len=cfg.queue_table_length)
 
