@@ -620,7 +620,7 @@ class Camera(object):
             # read current frame
             _, img = camera.read()
 
-            if time.time() - Camera.image_brightness > 10:
+            if time.time() - Camera.image_brightness > 5:
                 Camera.image_brightness = time.time()
                 histogram = cv2.calcHist([img], [0], None, [256], [0, 256])
                 brightness = np.ndarray.mean(img.ravel())
@@ -633,7 +633,8 @@ class Camera(object):
                         cur.execute(
                             "UPDATE status SET status = 'on' WHERE name = 'illumination'")
                         mysql.connection.commit()
-                    else:
+
+                    if brightness > 50:
                         cur.execute(
                             "UPDATE status SET status = 'off' WHERE name = 'illumination'")
                         mysql.connection.commit()
