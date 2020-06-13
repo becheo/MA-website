@@ -212,7 +212,7 @@
 
 <!-- Script -->
 <script>
-  var slice_rows = 6;  // number of rows to slice from csv file (header of file)
+  var slice_rows = 0;  // number of rows to slice from csv file (header of file)
 
   // iteration step for data to take from the csv file, the higher the faster the
   // data is plotted, less data available to inspect though. As the data to work
@@ -220,11 +220,11 @@
   // visualizaion process for the dashboard
   var intertion_step_plot = 10;  
   var csv_time = 'Zeit[s]';
-  var csv_motor_voltage = 'Spg. Motor[V]';
-  var csv_generator_voltage = 'Spg. Generator[V]';
-  var csv_current = 'Spg. Strommessung[V]';
-  var csv_rpm = 'Spg. Tachometer[V]';
-  var csv_temperature = 'Spg. AI6[V]';
+  var csv_motor_voltage = 'Motorspannung[V]';
+  var csv_generator_voltage = 'Generatorspannung[V]';
+  var csv_current = 'Strommessung[A]';
+  var csv_rpm = 'Drehzahl[1/min]';
+  var csv_temperature = 'Temperatur[°C]';
 
 
   {% for file in files %}
