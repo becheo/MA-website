@@ -585,6 +585,7 @@ class Camera(object):
     @staticmethod
     def frames():
         import cv2
+        import numpy as np
 
         # It is crucial that the import statement for the cv2 module is
         # located inside this function. Otherwise the Apache server will not
@@ -618,8 +619,6 @@ class Camera(object):
         while True:
             # read current frame
             _, img = camera.read()
-
-            import numpy as np
 
             if time.time() - Camera.image_brightness > 10:
                 Camera.image_brightness = time.time()
