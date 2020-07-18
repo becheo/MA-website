@@ -45,7 +45,8 @@
             <td>1</td>
             <td id="database_id_0"></td>
             <td id="database_filename_0"></td>
-            <td id="database_test_duration_0"></td>
+            <!-- <td id="database_test_duration_0"></td> -->
+            <td>0:00</td>
         </tr>
         {% for i in range(1,table_len) %}
         <tr>
@@ -106,10 +107,15 @@
                   if (data.test_duration[i] === '-') {
                     test_waiting_time = '-';
                   } else{
-                    test_duration_accumulated = test_duration_accumulated + parseFloat(data.test_duration[i]);
+                    if (i === 0){
+                      test_duration_accumulated = 0
+                    } else{
+                      test_duration_accumulated = test_duration_accumulated + parseFloat(data.test_duration[i]);
                     
-                    // add some time to cover time in between two tests
-                    test_duration_accumulated = test_duration_accumulated + 10
+                      // add some time to cover time in between two tests
+                      test_duration_accumulated = test_duration_accumulated + 10
+                    }
+                    
                     
                     test_minutes = Math.floor(test_duration_accumulated/60);
                     test_seconds = Math.floor(test_duration_accumulated - test_minutes * 60);
@@ -123,7 +129,7 @@
               $(num_of_tests).text(data.num_of_entries)
           })
 
-      // check database every 10 seconds
+      // check database every 5 seconds
       setTimeout(update_values, 5000)
   }
 

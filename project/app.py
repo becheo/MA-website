@@ -368,10 +368,11 @@ def allowed_filename(filename):
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# Datei hochladen und in Ordner speichern
 @app.route('/dashboard', methods=['GET', 'POST'])
 @is_logged_in
 def upload_file():
+    """Upload file and save to folder."""
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -447,6 +448,24 @@ def start_measurement(id):
     # check for number of files in queue
     if len(files_user) < (cfg.max_tests_in_queue):
 
+        # get queue files to calculate waiting time
+        cur.execute('SELECT * FROM queue')
+        queue_files = cur.fetchall()
+        waiting_time = 0
+        for queue_file in queue_files:
+            waiting_time = waiting_time + float(queue_file['test_duration'])
+
+        # add some time per test to cover time in between tests
+        waiting_time = waiting_time + (len(queue_files) * 10)
+
+        # convert waiting time into 'minutes:seconds' format
+        waiting_minutes = math.floor(waiting_time/60)
+        waiting_seconds = math.floor(waiting_time - waiting_minutes * 60)
+        if waiting_seconds == 0:
+            waiting_seconds = '00'
+
+        waiting_time = str(waiting_minutes) + ':' + str(waiting_seconds)
+
         # get file to start from files table
         cur.execute("SELECT * FROM files WHERE id = %s", [id])
         file = cur.fetchone()
@@ -464,26 +483,8 @@ def start_measurement(id):
         cur.execute("UPDATE files SET status = 'in_queue' WHERE id = %s", [id])
         mysql.connection.commit()
 
-        # get queue files to calculate waiting time
-        cur.execute('SELECT * FROM queue')
-        queue_files = cur.fetchall()
-        waiting_time = 0
-        for queue_file in queue_files:
-            waiting_time = waiting_time + float(queue_file['test_duration'])
-
-        # add some time per test to cover time in between tests
-        waiting_time = waiting_time + (len(queue_files) * 10)
-
         # close database connection
         cur.close()
-
-        # convert waiting time into 'minutes:seconds' format
-        waiting_minutes = math.floor(waiting_time/60)
-        waiting_seconds = math.floor(waiting_time - waiting_minutes * 60)
-        if waiting_seconds == 0:
-            waiting_seconds = '00'
-
-        waiting_time = str(waiting_minutes) + ':' + str(waiting_seconds)
 
         # show success message with accumulated waiting time
         flash('Test erfolgreich gestartet. Geschätzte Dauer bis zur Ausführung: ' +
