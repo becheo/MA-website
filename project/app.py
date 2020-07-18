@@ -634,11 +634,13 @@ class Camera(object):
                         cur.execute(
                             "UPDATE status SET status = 'on' WHERE name = 'illumination'")
                         mysql.connection.commit()
+                        cur.close()
 
                     if brightness > 60:
                         cur.execute(
                             "UPDATE status SET status = 'off' WHERE name = 'illumination'")
                         mysql.connection.commit()
+                        cur.close()
 
             if cfg.save_camera_to_file == True:
                 out.write(img)  # save img to file for video capturing
@@ -672,6 +674,15 @@ class Camera(object):
 
         return Camera.frame
 
+    @staticmethod
+    def illumination_timeout():
+        with app.app_context():
+            cur = mysql.connection.cursor()
+            cur.execute(
+                "UPDATE status SET status = 'off' WHERE name = 'illumination'")
+            mysql.connection.commit()
+            cur.close()
+
     @classmethod
     def _thread(cls):
         """Camera background thread."""
@@ -693,6 +704,9 @@ class Camera(object):
             if time.time() - Camera.last_access > cfg.camera_timeout:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
+
+                # turn light off when camera is not in use
+                cls.illumination_timeout()
                 break
         Camera.thread = None
 
