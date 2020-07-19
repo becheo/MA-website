@@ -178,7 +178,6 @@ def register():
         if request.method == 'POST' and form.validate():
 
             # handle submission:
-            # name = form.name.data
             email = form.email.data
             username = form.username.data
             password = sha256_crypt.encrypt(str(form.password.data))
@@ -240,8 +239,7 @@ def login():
 
                 cur.close()
                 return render_template('login.html', error=error)
-            # Close connection
-            # cur.close()
+
         else:
             error = 'Benutzername nicht gefunden'
 
@@ -255,6 +253,8 @@ def login():
 @app.route('/logout')
 @is_logged_in
 def logout():
+    """User logout and ending of session."""
+
     session.clear()
     flash('Logout erfolgreich', 'success')
     return redirect(url_for('login'))
@@ -320,6 +320,9 @@ class ArticleForm(Form):
 @app.route('/delete_entry/<string:id>', methods=['POST'])
 @is_logged_in
 def delete_entry(id):
+    """Delete entry in dashboard table including the files in upload and result
+    folder."""
+
     # Create Cursor
     cur = mysql.connection.cursor()
 
@@ -358,9 +361,6 @@ def delete_entry(id):
 
 ALLOWED_EXTENSIONS = {'csv'}
 app.config['UPLOAD_FOLDER'] = apph.UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024    # 16 MB
-# TODO Textausgabe (Warnung) für größere Dateien als hier spezifiziert hinzufügen
-# -> aktuell "bricht" Seite zusammen
 
 
 def allowed_filename(filename):
@@ -383,6 +383,11 @@ def upload_file():
 
         if file.filename == '':
             flash('Keine Datei ausgewählt', 'danger')
+            return redirect(url_for('dashboard'))
+
+        if request.content_length > cfg.max_content_length:
+            flash(
+                'Datei zu groß, bitte verwenden Sie einen Spannungsverlauf mit angemesser Dateigröße.', 'danger')
             return redirect(url_for('dashboard'))
 
         if file and allowed_filename(file.filename):
