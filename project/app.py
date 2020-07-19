@@ -36,10 +36,6 @@ else:
     import app_helpers as apph
     import config as cfg
 
-# import matplotlib.pyplot as plt  # does not work with Apache Server currently
-
-# TODO funktionen in externe datei schreiben und importieren (code uebersichtlicher machen)
-
 
 app = Flask(__name__)
 
@@ -376,7 +372,7 @@ def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part')  # TODO auf deutsch aendern
+            flash('Keine Datei ausgewählt', 'danger')
             return redirect(url_for('dashboard'))
 
         file = request.files['file']
@@ -399,14 +395,11 @@ def upload_file():
             # get last entry in db
             cur.execute("SELECT * FROM files ORDER BY id DESC LIMIT 1")
             last_row_db = cur.fetchone()
-            # print("result.id = {}" .format(last_row_db['id']))
 
             # Add id and hyphen to beginning of filename for clear allocation
             filename = str(last_row_db['id']+1) + '-' + filename
 
-            # TODO User-ID auch mit in Tabelle scheiben für eindeutige Zuordnung
-            # TODO überprüfen ob die Lösung optimal ist. Wenn Dateien aus Ordner gelöscht werden, sind
-            # die Daten in der Datenbank nicht mehr aktuell!
+            # save file to folder
             file_directory = os.path.join(
                 app.config['UPLOAD_FOLDER'], filename)
             file.save(file_directory)
@@ -438,10 +431,6 @@ def upload_file():
 @is_logged_in
 def start_measurement(id):
     """Writes data about measurement in queue table"""
-
-    # /C - Carries out the command specified by string and then terminates
-    # /K - Carries out the command specified by string but remains
-    # os.system("start cmd /K python project/start_measurement.py")
 
     # get filename from files table
     cur = mysql.connection.cursor()
