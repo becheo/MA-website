@@ -780,8 +780,12 @@ def mdt_settings():
 
     # get queue entries
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM queue")
-    entries = cur.fetchall()  # fetch in dictionary form
+    cur.execute("SELECT * FROM users")
+    entries_users = cur.fetchall()  # fetch in dictionary form
+
+    cur.execute("SELECT * FROM files")
+    entries_files = cur.fetchall()
+    cur.close()
 
     # get access-log entries
     buffer_accesslog = apph.read_txt_by_lines(apph.accesslog)
@@ -792,7 +796,8 @@ def mdt_settings():
     buffer_errorlog.reverse()
 
     return render_template('mdt-settings.html',
-                           entries=entries,
+                           entries_user=entries_users,
+                           entries_files=entries_files,
                            accesslog=buffer_accesslog[:20],
                            errorlog=buffer_errorlog[:20])
 

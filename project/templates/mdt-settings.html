@@ -3,29 +3,57 @@
 
 <div>
     <br>
-    <h5>Dateien in der Warteschlange</h5>
+    <h5>Angemeldete User</h5>
     <br>
     <table class="table table-striped">
         <tr>
-            <th>queueID</th>
-            <th>id</th>
-            <th>filename</th>
-            <th>add_date</th>
-            <th>test_duration [s]</th>
+            <th>ID</th>
+            <th>Username</th>
+            <th>E-Mail</th>
+            <th>Datum der Registrierung</th>
         </tr>
         <tr>
-            {% for entry in entries %}
+            {% for entry in entries_user %}
         </tr>
-        <td>{{entry.queueID}}</td>
         <td>{{entry.id}}</td>
-        <td>{{entry.filename}}</td>
-        <td>{{entry.add_date}}</td>
+        <td>{{entry.username}}</td>
+        <td>{{entry.email}}</td>
+        <td>{{entry.register_date}}</td>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <br>
+    <br>
+    <h5>Hochgeladene Dateien</h5>
+    <br>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Dateiname</th>
+            <th>Username</th>
+            <th>Datum upload</th>
+            <th>Status</th>
+            <th>Datum Ausführung</th>
+            <th>Testdauer</th>
+        </tr>
+        <tr>
+            {% for entry in entries_files %}
+        </tr>
+        <td>{{entry.id}}</td>
+        <td>{{entry.name}}</td>
+        <td>{{entry.username}}</td>
+        <td>{{entry.upload_date}}</td>
+        <td>{{entry.status}}</td>
+        <td>{{entry.execution_date}}</td>
         <td>{{entry.test_duration}}</td>
         {% endfor %}
     </table>
 </div>
 
 <div>
+    <br>
+    <br>
     <br>
     <h5>Access log (letzte {{ accesslog|length }} Einträge)</h5>
     <table>
