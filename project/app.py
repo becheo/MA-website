@@ -565,14 +565,6 @@ class Camera(object):
     def __init__(self):
         """Start the background camera thread if it isn't running yet."""
 
-        # self.camera = cv2.VideoCapture(Camera.video_source)
-        # # save img to vieo file
-        # frame_width = int(self.camera.get(3))
-        # frame_height = int(self.camera.get(4))
-
-        # self.out = cv2.VideoWriter('CameraOutput.avi', cv2.VideoWriter_fourcc(
-        #     'M', 'J', 'P', 'G'), 30, (frame_width, frame_height))
-
         if Camera.thread is None:
             Camera.last_access = time.time()
             Camera.video_time = time.time()
@@ -692,8 +684,6 @@ class Camera(object):
         print('Starting camera thread.')
 
         # get frame from camera via cv2
-        # frames_iterator_cls = cls()
-        # frames_iterator = frames_iterator_cls.frames()
         frames_iterator = cls.frames()
 
         for frame in frames_iterator:
@@ -709,7 +699,9 @@ class Camera(object):
 
                 # turn light off when camera is not in use
                 cls.illumination_timeout()
+
                 break
+
         Camera.thread = None
 
 
@@ -740,21 +732,6 @@ def webcam():
     cur.execute("SELECT * FROM queue")
     entries = cur.fetchall()  # fetch in dictionary form
     mysql.connection.commit()
-
-    # change light status depending on histogram from camera
-    # cap = cv2.VideoCapture(0)
-    # ret, frame = cap.read()
-    # histogram = cv2.calcHist([frame], [0], None, [256], [0, 256])
-    # brightness = np.ndarray.mean(frame.ravel())
-
-    # if brightness < 30:
-    #     cur.execute(
-    #         "UPDATE status SET status = 'on' WHERE name = 'illumination'")
-    #     mysql.connection.commit()
-    # else:
-    #     cur.execute(
-    #         "UPDATE status SET status = 'off' WHERE name = 'illumination'")
-    #     mysql.connection.commit()
 
     return render_template('webcam.html', entries=entries, table_len=cfg.queue_table_length)
 
@@ -818,8 +795,8 @@ def mdt_settings():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
+    # app.run(debug=True, port=80)  # damit man app nicht immer neu starten muss
     # app.run(host='192.168.1.12')  # Wohnung
     # app.run(host='141.23.138.2')  # TU-Berlin
-    # app.run(threaded=True)
+    app.run(threaded=True)
     # app.run()
