@@ -724,8 +724,8 @@ def generate(camera):
 @is_logged_in
 def webcam():
 
-    import cv2
-    import numpy as np
+    # import cv2
+    # import numpy as np
 
     # get files in queue to show which test is currently running
     cur = mysql.connection.cursor()
