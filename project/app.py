@@ -398,18 +398,24 @@ def upload_file():
 
             # Add id and hyphen to beginning of filename for clear allocation
             filename = str(last_row_db['id']+1) + '-' + filename
-
-            # save file to folder
             file_directory = os.path.join(
                 app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_directory)
-            flash('Datei erfolgreich hochgeladen', 'success')
 
-            # get duration of uploaded test
+            # save file to folder
+            file.save(file_directory)
+
             import pandas
-            data = pandas.read_csv(file_directory)
-            data_time = data['time']
-            test_duration = data_time.iloc[-1]
+            try:
+                data = pandas.read_csv(file_directory)
+                data_time = data['time']
+
+                # get duration of uploaded test
+                test_duration = data_time.iloc[-1]
+            except:
+                flash('Fehler. Bitte überprüfen Sie die Dateistruktur', 'danger')
+                os.remove(file_directory)
+
+                return redirect(url_for('dashboard'))
 
             # save to database
             cur.execute("INSERT INTO files(name, username, status, test_duration) VALUES(%s, %s, %s, %s)",
@@ -420,6 +426,8 @@ def upload_file():
 
             # Close conneciton
             cur.close()
+
+            flash('Datei erfolgreich hochgeladen', 'success')
 
             return redirect(url_for('dashboard'))
         else:

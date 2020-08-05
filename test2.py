@@ -66,16 +66,16 @@
 # print(os.urandom(16))
 
 
-import cv2  # Import openCV
-import sys  # import Sys. Sys will be used for reading from the command line. We give Image name parameter with extension when we will run python script
+# import cv2  # Import openCV
+# import sys  # import Sys. Sys will be used for reading from the command line. We give Image name parameter with extension when we will run python script
 
-import numpy as np
-from matplotlib import pyplot as plt
+# import numpy as np
+# from matplotlib import pyplot as plt
 
 
 # Read the image. The first Command line argument is the image
 # The function to read from an image into OpenCv is imread()
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 # while(True):
 #     ret, frame = cap.read()
 #     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -84,19 +84,32 @@ cap = cv2.VideoCapture(0)
 #         break
 # cap.release()
 
-ret, frame = cap.read()
-# gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-histogram = cv2.calcHist([frame], [0], None, [256], [0, 256])
+# ret, frame = cap.read()
+# # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+# histogram = cv2.calcHist([frame], [0], None, [256], [0, 256])
 
-plt.hist(frame.ravel(), 256, [0, 256])
-plt.show()
+# plt.hist(frame.ravel(), 256, [0, 256])
+# plt.show()
 
-brightness = np.ndarray.mean(frame.ravel())
+# brightness = np.ndarray.mean(frame.ravel())
 
-print(brightness)
+# print(brightness)
 
 # while(True):
 #     cv2.imshow('frame', gray)
 #     if cv2.waitKey(1) & 0xFF == ord('q'):
 #         break
 # cap.release()
+
+import pandas
+import numpy as np
+
+data = pandas.read_csv(
+    'C:/Users/Oliver/Desktop/Masterarbeit/03_Software/Website/project/static/uploads/49-Spannungsverlauf_3V_test.csv')
+
+data_time = data['time']
+
+print(data_time[4])
+
+# print(np.where(data.applymap(lambda x: x == '')))
+print(np.where(pandas.isnull(data_time)))
