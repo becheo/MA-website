@@ -782,9 +782,14 @@ def mdt_settings():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM users")
     entries_users = cur.fetchall()  # fetch in dictionary form
+    num_users = len(entries_users)
 
     cur.execute("SELECT * FROM files")
     entries_files = cur.fetchall()
+
+    cur.execute("SELECT * FROM files WHERE status='executed'")
+    entries_files_executed = cur.fetchall()
+    files_executed = len(entries_files_executed)
     cur.close()
 
     # get access-log entries
@@ -798,6 +803,8 @@ def mdt_settings():
     return render_template('mdt-settings.html',
                            entries_user=entries_users,
                            entries_files=entries_files,
+                           files_executed=files_executed,
+                           num_users=num_users,
                            accesslog=buffer_accesslog[:20],
                            errorlog=buffer_errorlog[:20])
 
